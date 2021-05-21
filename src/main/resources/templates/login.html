@@ -13,13 +13,16 @@
             background-attachment: fixed;
             background-size: cover;
         }
+        button{
+            width: 95px;
+        }
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
     <div class="container-fluid">
         <a class="navbar-brand" href="homepage.html">Fitnes centar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <button class="navbar-toggler"  type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarText">
@@ -39,7 +42,8 @@
       </div>
   </nav>
   <div class="d-flex justify-content-center">
-      <div style="background-color: aliceblue; padding: 15px; margin-top: 155px">
+      <div style="background-image: url('https://images.unsplash.com/photo-1515549832467-8783363e19b6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8d2hpdGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'); opacity: 0.8;
+; padding: 15px; margin-top: 155px;">
           <div id="legend">
               <legend class="">Logovanje</legend>
           </div>
@@ -53,7 +57,7 @@
 
         <div class="control-group">
             <!-- Password -->
-            <label class="control-label"  for="password">Lozinka</label>
+            <label class="control-label">Lozinka</label>
             <div class="controls">
                 <input type="password" id="name" name="password" placeholder="" class="input-xlarge">
             </div>
@@ -61,8 +65,9 @@
 
         <div class="control-group">
             <!-- Button -->
-            <div class="controls">
-                <button class="btn btn-success">Uloguj se</button>
+            <div style="margin-top: 5px" class="controls">
+                <button class="btn btn-light" style="border-color: black; margin-right: 10px">Poništi</button>
+                <button class="btn btn-primary">Uloguj se</button>
             </div>
         </div>
     </div>

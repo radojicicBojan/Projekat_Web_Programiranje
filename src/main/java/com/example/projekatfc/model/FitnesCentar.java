@@ -28,4 +28,6 @@ public class FitnesCentar {
 
     @OneToMany(mappedBy = "fitnesCentar", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Trener> listaTrenera = new HashSet<>();
+
+
 }
