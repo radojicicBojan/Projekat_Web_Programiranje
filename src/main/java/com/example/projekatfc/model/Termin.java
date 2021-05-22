@@ -26,5 +26,10 @@ public class Termin {
     @OneToMany(mappedBy = "termin", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<Prijava> listaPrijava = new HashSet<>();
 
+    @OneToMany(mappedBy = "termin", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<RezervisanTrening> listaRezervacija = new HashSet<>();
+
+    @Column
+    private Integer brojPrijavljenihClanova;
 
 }
