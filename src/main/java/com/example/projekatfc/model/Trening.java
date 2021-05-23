@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,13 +21,13 @@ public class Trening implements Serializable {
     private String naziv;
 
     @Column
-    private String Opis;
+    private String opis;
 
     @Column
     private String tipTreninga;
 
     @Column
-    private int Trajanje;
+    private Integer trajanje;
 
     @ManyToOne(fetch = FetchType.EAGER)
     private Trener trener;
