@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css?family=Muli&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Open+Sans:400,500&display=swap');
+
+body {
+  font-family: 'Open Sans', sans-serif;
+}
+
+.control-group input{
+  display: block;
+
+}
+.control-group i{
+  position: absolute;
+  right: 245px;
+  visibility: hidden;
+}
+
+.control-group small{
+  position: absolute;
+  right: 275px;
+  visibility: hidden;
+}
+
+.control-group-error input{
+  border-color: red;
+}
