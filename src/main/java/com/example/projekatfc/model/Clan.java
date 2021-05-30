@@ -14,7 +14,7 @@ import java.util.Set;
 @DiscriminatorValue("CLAN")
 public class Clan extends Korisnik{
     @OneToMany(mappedBy = "clan", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
-    private Set<Prijava> listaOdradjenihTreninga = new HashSet<>();
+    private Set<OdradjenTrening> listaOdradjenihTreninga = new HashSet<>();
 
     @OneToMany(mappedBy = "clan", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
     private Set<RezervisanTrening> listaRezervisanihTermina = new HashSet<>();

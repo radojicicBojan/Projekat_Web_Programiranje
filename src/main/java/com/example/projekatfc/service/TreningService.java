@@ -5,6 +5,7 @@ import com.example.projekatfc.repository.TreningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.persistence.Column;
 import java.util.List;
 
 @Service

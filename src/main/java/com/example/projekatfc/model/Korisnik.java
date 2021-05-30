@@ -36,13 +36,13 @@ public abstract class Korisnik implements Serializable {
     private String prezime;
 
     @Column
-    private Long telefon;
+    private String telefon;
 
     @Column(unique = true)
     private String email;
 
     @Column
-    private DateFormat datumRodjenja;
+    private String datumRodjenja;
 
     @Column
     private Boolean aktivan;
