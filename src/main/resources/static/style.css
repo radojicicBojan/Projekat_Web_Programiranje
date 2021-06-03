@@ -9,18 +9,28 @@ body {
   display: block;
 
 }
-.control-group i{
+
+.controls{
+  padding: 8px;
+  position: relative;
+}
+.controls .fa{
   position: absolute;
-  right: 245px;
-  visibility: hidden;
+  top: 30%;
+  right: 8%;
+  display: none;
+}
+.fa-times{
+  color: red;
+}
+.fa-check{
+  color: green;
 }
 
-.control-group small{
-  position: absolute;
-  right: 275px;
-  visibility: hidden;
+.error{
+  color: red;
 }
 
-.control-group-error input{
-  border-color: red;
+#error{
+  color: red;
 }

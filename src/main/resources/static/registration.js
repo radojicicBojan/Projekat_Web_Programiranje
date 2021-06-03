@@ -1,43 +1,186 @@
-function provera(){
-    let usernameID = document.getElementById('username');
-    if(usernameID.value==''){
-        username.value="Unesite korisničko ime";
+$(function(){
+    var $registerForm =$('#registration');
+    if($registerForm.length){
+        $registerForm.validate({
+            rules: {
+                username: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                    customEmail: true
+                },
+                password: {
+                    required: true
+                },
+                password2: {
+                    required: true,
+                    equalTo: '#password'
+                },
+                name: {
+                    required: true,
+                    noSpace: true
+                },
+                lastname: {
+                    required: true,
+                    noSpace: true
+                },
+                phone: {
+                    required: true
+                },
+                date: {
+                    required: true
+                },
+                role: {
+                    required: true
+                }
+            },
+            messages:{
+                username:{
+                    required: 'Unesite korisničko ime!'
+                },
+                email: {
+                    required: 'Unesite email adresu!',
+                    //error message for the email field
+                    email: 'Uneta adresa nije validna!'
+                },
+                password: {
+                    required: 'Unesite lozinku!'
+                },
+                password2: {
+                    required: 'Unesite lozinku!',
+                    equalTo: 'Lozinke se ne poklapaju'
+                },
+                phone: {
+                    required: 'Unesite broj telefona!'
+                },
+                name: {
+                    required: 'Unesite ime!'
+                },
+                lastname: {
+                    required: 'Unesite prezime!'
+                },
+                date: {
+                    required: 'Odaberite datum rođenja!'
+                },
+                role: {
+                    required: ''
+                }
+            },
+        })
     }
-}
-const form = document.getElementById('form');
-const username = document.getElementById('username');
-const email = document.getElementById('email');
-const password = document.getElementById('password');
-const password2 = document.getElementById('password2');
-const name = document.getElementById('nanme');
-const lastname = document.getElementById('lastname');
-const phone = document.getElementById('phone');
-const date = document.getElementById('date');
+})
 
-form.addEventListener('submit', (e)=>{
-    e.preventDefault();
-
-    checkInputs();
-});
-
-function checkInputs(){
-    const usernameValue = username.value.trim();
-    const emailValue = email.value.trim();
-    const passwordValue = password.value.trim();
-    const password2Value = password2.value.trim();
-
-    if(usernameValue === ''){
-        setErrorFor(username, "Korisnicko ime mora biti popunjeno!")
-    } else {
-        setSuccesFor(username);
+var username = document.querySelector('#username');
+username.addEventListener('keyup', function (){
+    var u_times = document.querySelector('.u_times');
+    var u_check = document.querySelector('.u_check');
+    if(username.value.length == 0 || username.value.length < 4){
+        username.style.border = '1px solid red';
+        u_times.style.display = 'block';
+        u_check.style.display = 'none';
+        return false;
+    }else{
+        username.style.border = '1px solid green';
+        u_times.style.display = 'none';
+        u_check.style.display = 'block';
     }
+})
 
-}
-function setErrorFor(input, message){
-    const controlGroup = input.parentElement;
-    const small = controlGroup.querySelector('small');
+var password = document.querySelector('#password');
+password.addEventListener('keyup', function (){
+    var p_times = document.querySelector('.p_times');
+    var p_check = document.querySelector('.p_check');
+    if(password.value.length == 0 || password.value.length < 4){
+        password.style.border = '1px solid red';
+        p_times.style.display = 'block';
+        p_check.style.display = 'none';
+        return false;
+    }else{
+        password.style.border = '1px solid green';
+        p_times.style.display = 'none';
+        p_check.style.display = 'block';
+    }
+})
 
-    small.innerText = message;
+var password2 = document.querySelector('#password2');
+password2.addEventListener('keyup', function (){
+    var p2_times = document.querySelector('.p2_times');
+    var p2_check = document.querySelector('.p2_check');
+    if(password2.value.length == 0 || password2.value.length < 4){
+        password2.style.border = '1px solid red';
+        p2_times.style.display = 'block';
+        p2_check.style.display = 'none';
+        return false;
+    }else{
+        password2.style.border = '1px solid green';
+        p2_times.style.display = 'none';
+        p2_check.style.display = 'block';
+    }
+})
 
-    controlGroup.className = 'control-group error'
-}
+var phone = document.querySelector('#phone');
+phone.addEventListener('keyup', function (){
+    var ph_times = document.querySelector('.ph_times');
+    var ph_check = document.querySelector('.ph_check');
+    if(phone.value.length == 0 || phone.value.length < 4){
+        phone.style.border = '1px solid red';
+        ph_times.style.display = 'block';
+        ph_check.style.display = 'none';
+        return false;
+    }else{
+        phone.style.border = '1px solid green';
+        ph_times.style.display = 'none';
+        ph_check.style.display = 'block';
+    }
+})
+
+var email = document.querySelector('#email');
+email.addEventListener('keyup', function (){
+    var e_times = document.querySelector('.e_times');
+    var e_check = document.querySelector('.e_check');
+    if(email.value.length == 0 || email.value.length < 4 || /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email.value)){
+        email.style.border = '1px solid red';
+        e_times.style.display = 'block';
+        e_check.style.display = 'none';
+        return false;
+    }else{
+        email.style.border = '1px solid green';
+        e_times.style.display = 'none';
+        e_check.style.display = 'block';
+    }
+})
+
+var name1 = document.querySelector('#name1');
+name1.addEventListener('keyup', function (){
+    var n_times = document.querySelector('.n_times');
+    var n_check = document.querySelector('.n_check');
+    if(name1.value.length == 0 || name1.value.length < 4){
+        name1.style.border = '1px solid red';
+        n_times.style.display = 'block';
+        n_check.style.display = 'none';
+        return false;
+    }else{
+        name1.style.border = '1px solid green';
+        n_times.style.display = 'none';
+        n_check.style.display = 'block';
+    }
+})
+
+var lastname = document.querySelector('#lastname');
+lastname.addEventListener('keyup', function (){
+    var l_times = document.querySelector('.l_times');
+    var l_check = document.querySelector('.l_check');
+    if(lastname.value.length == 0 || lastname.value.length < 4){
+        lastname.style.border = '1px solid red';
+        l_times.style.display = 'block';
+        l_check.style.display = 'none';
+        return false;
+    }else{
+        lastname.style.border = '1px solid green';
+        l_times.style.display = 'none';
+        l_check.style.display = 'block';
+    }
+})
+
+

@@ -5,6 +5,8 @@
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>Fitnes centar</title>
     <style>
         body{
@@ -41,38 +43,46 @@
           </div>
       </div>
   </nav>
-  <div class="d-flex justify-content-center">
-      <div style="background-image: url('https://images.unsplash.com/photo-1515549832467-8783363e19b6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8d2hpdGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'); opacity: 0.8;
-; padding: 15px; margin-top: 155px;">
-          <div id="legend">
-              <legend class="">Logovanje</legend>
-          </div>
-          <div class="control-group">
-              <!-- User name-->
-            <label class="control-label" for="username">Korisničko ime</label>
-            <div class="controls">
-                <input type="username" id="username" name="username" placeholder="" class="input-xlarge">
+      <div class="d-flex justify-content-center">
+          <div style="background-image: url('https://images.unsplash.com/photo-1515549832467-8783363e19b6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8d2hpdGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'); opacity: 0.8;
+    ; padding: 15px; margin-top: 155px;">
+              <form onsubmit="return validation()">
+              <div id="legend">
+                  <legend class="">Logovanje</legend>
+              </div>
+              <div class="control-group">
+                  <!-- User name-->
+                <label class="control-label" for="username">Korisničko ime (email)</label>
+                <div class="controls">
+                    <input type="username" id="username" name="username" placeholder="" class="input-xlarge">
+                    <i class="fa fa-times u_times"></i>
+                    <i class="fa fa-check u_check"></i>
+                </div>
             </div>
-        </div>
 
-        <div class="control-group">
-            <!-- Password -->
-            <label class="control-label">Lozinka</label>
-            <div class="controls">
-                <input type="password" id="name" name="password" placeholder="" class="input-xlarge">
+            <div class="control-group">
+                <!-- Password -->
+                <label class="control-label" for="password">Lozinka</label>
+                <div class="controls">
+                    <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+                    <i class="fa fa-times p_times"></i>
+                    <i class="fa fa-check p_check"></i>
+                </div>
             </div>
-        </div>
-
-        <div class="control-group">
-            <!-- Button -->
-            <div style="margin-top: 5px" class="controls">
-                <button class="btn btn-light" style="border-color: black; margin-right: 10px">Poništi</button>
-                <button class="btn btn-primary">Uloguj se</button>
+                  <p id="error"></p>
+            <div class="control-group">
+                <!-- Button -->
+                <div style="margin-top: 5px" class="controls">
+                    <button type="reset" style="border-color: black; margin-right: 10px">Poništi</button>
+                    <button type="submit" class="btn btn-primary">Uloguj se</button>
+                </div>
             </div>
+              </form>
         </div>
     </div>
-</div>
-</div>
-
+    </div>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script type="text/javascript" src ="login.js"></script>
 </body>
 </html>
