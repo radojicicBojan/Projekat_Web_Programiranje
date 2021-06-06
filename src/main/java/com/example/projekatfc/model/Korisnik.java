@@ -1,11 +1,13 @@
 package com.example.projekatfc.model;
 
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.text.DateFormat;
+import java.util.Date;
 
 import static javax.persistence.DiscriminatorType.STRING;
 import static javax.persistence.InheritanceType.SINGLE_TABLE;
@@ -42,7 +44,7 @@ public abstract class Korisnik implements Serializable {
     private String email;
 
     @Column
-    private String datumRodjenja;
+    private Date datumRodjenja;
 
     @Column
     private Boolean aktivan;

@@ -6,15 +6,18 @@ import com.example.projekatfc.model.DTO.LoginDto;
 import com.example.projekatfc.model.Korisnik;
 import com.example.projekatfc.model.Trener;
 import com.example.projekatfc.service.ClanService;
+import com.example.projekatfc.service.KorisnikService;
 import com.example.projekatfc.service.TrenerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
+@CrossOrigin
 @RestController
 @RequestMapping(value = "/api")
 public class KorisnikController {
@@ -22,6 +25,49 @@ public class KorisnikController {
     private TrenerService trenerService;
     @Autowired
     private ClanService clanService;
+    @Autowired
+    private KorisnikService korisnikService;
+
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<KorisnikDto> getKorisnik(@PathVariable("id") Long id) {
+        Korisnik korisnik = this.korisnikService.findOne(id);
+
+        // Kreiramo objekat klase EmployeeDTO koji ćemo vratiti u odgovoru na zahtev
+        KorisnikDto korisnikDto = new KorisnikDto();
+        korisnikDto.setId(korisnik.getId());
+        korisnikDto.setIme(korisnik.getIme());
+        korisnikDto.setKorisnickoIme(korisnik.getKorisnickoIme());
+        korisnikDto.setTelefon(korisnik.getTelefon());
+        korisnikDto.setPrezime(korisnik.getPrezime());
+        korisnikDto.setLozinka(korisnik.getLozinka());
+        korisnikDto.setDatumRodjenja(korisnik.getDatumRodjenja());
+
+
+        return new ResponseEntity<>(korisnikDto, HttpStatus.OK);
+    }
+
+
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<KorisnikDto>> getKorisnik() {
+        // Pozivanjem metode servisa dobavljamo sve zaposlene
+        List<Korisnik> listaKorisnika = this.korisnikService.findAll();
+
+        // Kreiramo listu DTO objekata koju ćemo vratiti u odgovoru na zahtev
+        List<KorisnikDto> korisnikDtos = new ArrayList<>();
+
+        for (Korisnik korisnik : listaKorisnika) {
+            // Kreiramo EmployeeDTO za svakog zaposlenog, kojeg je vratila metoda findAll()
+            // i ubacujemo ga u listu employeeDTOS
+            KorisnikDto korisnikDto = new KorisnikDto(korisnik.getId(), korisnik.getKorisnickoIme(),
+                    korisnik.getLozinka(), korisnik.getIme(), korisnik.getPrezime(),
+                    korisnik.getTelefon(), korisnik.getEmail(), korisnik.getDatumRodjenja(),
+                    korisnik.getAktivan());
+            korisnikDtos.add(korisnikDto);
+        }
+
+        // Vraćamo odgovor 200 OK, a kroz body odgovora šaljemo podatke o pronađenim zaposlenima
+        return new ResponseEntity<>(korisnikDtos, HttpStatus.OK);
+    }
 
     @PostMapping(value = "/registration")
     public ResponseEntity<KorisnikDto> registracija(@RequestBody KorisnikDto noviKorisnik){

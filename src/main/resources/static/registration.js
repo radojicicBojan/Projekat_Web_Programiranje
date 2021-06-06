@@ -8,7 +8,6 @@ $(function(){
                 },
                 email: {
                     required: true,
-                    customEmail: true
                 },
                 password: {
                     required: true
@@ -23,13 +22,13 @@ $(function(){
                 },
                 lastname: {
                     required: true,
-                    noSpace: true
+                    //noSpace: true
                 },
                 phone: {
                     required: true
                 },
                 date: {
-                    required: true
+                    required: true,
                 },
                 role: {
                     required: true
@@ -183,4 +182,47 @@ lastname.addEventListener('keyup', function (){
     }
 })
 
+$(document).on("submit", "#registration", function (event) {
+    event.preventDefault();
+    console.log('test');
+    // preuzimamo vrednosti unete u formi
+    let korisnickoIme = $("#username").val();
+    let lozinka = $("#password").val();
+    let ime = $("#name1").val();
+    let prezime = $("#lastname").val();
+    let telefon = $("#phone").val();
+    let email = $("#email").val();
+    let datumRodjenja = $("#date").val();
+    let uloga = $("#role").val();
+
+
+    let newTrener = {
+        korisnickoIme,
+        lozinka,
+        ime,
+        prezime,
+        telefon,
+        email,
+        datumRodjenja,
+        uloga
+    }
+
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/api/registration",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(newTrener),
+        success: function (response) {
+            console.log(response);
+
+            alert("Korisnik " + response.id + " je uspešno registrovan!");
+            window.location.href = "registration.html";
+        },
+        error: function () {
+            alert("Greška prilikom dodavanja zaposlenog!");
+        }
+    });
+});
 
