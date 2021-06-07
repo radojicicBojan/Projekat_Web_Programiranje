@@ -8,6 +8,8 @@ import com.example.projekatfc.repository.TrenerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class TrenerService {
     @Autowired
@@ -33,5 +35,12 @@ public class TrenerService {
                 return tr;
             }
         } return null;
+    }
+    public List<Trener> getAll(){
+        return trenerRepository.findAll();
+    }
+
+    public List<Trener> getAllUnactive(){
+        return trenerRepository.getAllByAktivan(false);
     }
 }

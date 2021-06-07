@@ -4,18 +4,21 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/api/approval",
-        url: "http://localhost:8080",
         dataType: "json",
         success: function (response) {
             console.log("SUCCESS:\n", response);
-
             for (let korisnik of response) {
-                let row = "<tr>";
+                let row = "<tr class=\"table-secondary\">";
                 row += "<td>" + korisnik.ime + "</td>";
                 row += "<td>" + korisnik.prezime + "</td>";
+                row += "<td>" + korisnik.telefon + "</td>";
+                row += "<td>" + korisnik.email + "</td>";
+                row += "<td>" + "NE" + "</td>";
+                row += "<td>" + korisnik.datumRodjenja.slice(0, 10); + "</td>";
+                row += "<td><input type='checkbox'/></td>";
 
 
-                $('#treneri').append(row);
+            $('#treneri').append(row);
             }
         },
         error: function (response) {
