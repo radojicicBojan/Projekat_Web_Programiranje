@@ -97,6 +97,7 @@ public class KorisnikController {
             korisnik.setPrezime(c.getPrezime());
             korisnik.setTelefon(c.getTelefon());
             korisnik.setAktivan(c.getAktivan());
+            korisnik.setUloga("CLAN");
 
             return new ResponseEntity<>(korisnik, HttpStatus.OK);
         }
@@ -112,6 +113,7 @@ public class KorisnikController {
             korisnik.setPrezime(t.getPrezime());
             korisnik.setTelefon(t.getTelefon());
             korisnik.setAktivan(t.getAktivan());
+            korisnik.setUloga("TRENER");
 
             return new ResponseEntity<>(korisnik, HttpStatus.OK);
         }

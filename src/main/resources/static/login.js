@@ -31,7 +31,11 @@ password.addEventListener('keyup', function (){
     }
 })
 
-function validation(){
+function validation(e){
+    e.preventDefault();
+    let username = document.getElementById("username");
+    let password = document.getElementById("password");
+
     if(username.value == 0 || username.value.length < 4){
         document.getElementById('error').innerText = "Neispravni podaci!";
         return false;
@@ -39,6 +43,30 @@ function validation(){
         document.getElementById('error').innerText = "Neispravni podaci!";
         return false;
     }else{
-        alert('Uspešno ste se ulogovali!')
+        let potencijalniKorisnik = {
+            korisnickoImeEmail: username.value,
+            lozinka: password.value,
+        }
+
+
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8080/api/login",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(potencijalniKorisnik),
+            success: function (response) {
+                console.log(response);
+
+                alert("Uspešno ste se ulogovali!");
+                window.localStorage.setItem("ID", response.id);
+                window.localStorage.setItem("ULOGA", response.uloga);
+                window.location.href = "login.html";
+            },
+            error: function () {
+                alert("Niste uneli pravilne podatke!");
+            }
+        });
     }
 }
+

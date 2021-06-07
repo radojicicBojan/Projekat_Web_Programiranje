@@ -3,22 +3,19 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
     // ajax poziv za dobavljanje svih zaposlenih sa backend-a i prikaz u tabeli
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/approval",
+        url: "http://localhost:8080/api/prikazTreninga",
         dataType: "json",
         success: function (response) {
             console.log("SUCCESS:\n", response);
-            for (let korisnik of response) {
+            for (let trening of response) {
                 let row = "<tr class=\"table-secondary\">";
-                row += "<td>" + korisnik.ime + "</td>";
-                row += "<td>" + korisnik.prezime + "</td>";
-                row += "<td>" + korisnik.telefon + "</td>";
-                row += "<td>" + korisnik.email + "</td>";
-                row += "<td>" + "NE" + "</td>";
-                row += "<td>" + korisnik.datumRodjenja.slice(0, 10); + "</td>";
-                row += "<td><input type='checkbox' class='chb'/></td>";
+                row += "<td>" + trening.id + "</td>";
+                row += "<td>" + trening.naziv + "</td>";
+                row += "<td>" + trening.opis + "</td>";
+                row += "<td>" + trening.tipTreninga + "</td>";
+                row += "<td>" + trening.trajanje + "</td>";
 
-
-            $('#treneri').append(row);
+                $('#treninzi').append(row);
             }
         },
         error: function (response) {
