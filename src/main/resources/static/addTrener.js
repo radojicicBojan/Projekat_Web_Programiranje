@@ -18,7 +18,7 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
                 row += "<td><input type='checkbox' class='chb'/></td>";
 
 
-            $('#treneri').append(row);
+            $('#treneri tbody').append(row);
             }
         },
         error: function (response) {

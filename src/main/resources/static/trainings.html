@@ -54,7 +54,7 @@
     </div>
 </nav>
 <div class="d-flex justify-content-center">
-    <form onsubmit="validation(event)" style="color: aliceblue; margin-left: 12px">
+    <div style="color: aliceblue; margin-left: 12px">
         <div id="legend">
             <legend class="">Pretraži po: </legend>
         </div>
@@ -89,7 +89,7 @@
         <div class="control-group">
             <label class="control-label" for="termTime">Vremenu termina</label>
             <div class="controls">
-                <input type="termTime" id="termTime" name="termTime" placeholder="" class="input-xlarge">
+                <input type="date" id="termTime" name="termTime" placeholder="" class="input-xlarge" style="width: 208px">
             </div>
         </div>
 
@@ -98,13 +98,13 @@
             <!-- Button -->
             <div style="margin-top: 5px" class="controls">
                 <button type="reset"  class="btn btn-light"style="margin-right: 50px">Poništi</button>
-                <button type="submit" class="btn btn-primary">Pretraži</button>
+                <button type="button" class="btn btn-primary" onclick="poNazivu()">Pretraži</button>
             </div>
         </div>
-    </form>
+    </div>
     <div class="d-flex flex-column" style="margin-left: 12px">
         <legend style="color: aliceblue; width: 150px; height: 50px">Sortiraj po: </legend>
-        <select name="price" id="priceSort" style="height: 40px; width: 150px; margin-top: 5px">
+        <select name="price" id="priceSort" style="height: 40px; width: 150px; margin-top: 5px" onchange="sortiraj()">
             <option value="risingPrice">Ceni rastuće</option>
             <option value="fallingPrice">Ceni opadajuće</option>
             <option value="risingTime">Vremenu rastuće</option>
@@ -126,8 +126,10 @@
                 <td>Vreme početka</td>
             </tr>
             </thead>
+            <tbody>
             <tr class="table-secondary">
             </tr>
+        </tbody>
         </table>
     </div>
 </div>
