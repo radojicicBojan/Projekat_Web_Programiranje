@@ -31,7 +31,30 @@ public class TreningService {
     }
 
     public List<Trening> findAll(){
-        return this.treningRepository.findAll();
+        List<Trening> treninzi = this.treningRepository.findAll();
+        return treninzi;
     }
+
+    public List<Trening> findAllByNazivContaining(String naziv){
+        List<Trening> treninzi = this.treningRepository.findAllByNazivContaining(naziv);
+        return treninzi;
+    }
+
+    public List<Trening> findAllByOpisContaining(String opis){
+        List<Trening> treninzi = this.treningRepository.findAllByOpisContaining(opis);
+        return treninzi;
+    }
+
+    public List<Trening> findAllByTipTreningaContaining(String tipTreninga){
+        List<Trening> treninzi = this.treningRepository.findAllByTipTreningaContaining(tipTreninga);
+        return treninzi;
+    }
+
+    public List<Trening> findAllByTerminCena(double cena){
+        List<Trening> treninzi = this.treningRepository.findAllByTerminiCena(cena);
+        return treninzi;
+    }
+
+
     public Trening save(Trening trening){return this.treningRepository.save(trening);}
 }

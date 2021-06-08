@@ -1,9 +1,8 @@
 package com.example.projekatfc.controller;
 
-import com.example.projekatfc.model.DTO.FitnesCentarDto;
-import com.example.projekatfc.model.DTO.KorisnikDto;
-import com.example.projekatfc.model.DTO.TreningDto;
+import com.example.projekatfc.model.DTO.*;
 import com.example.projekatfc.model.FitnesCentar;
+import com.example.projekatfc.model.Termin;
 import com.example.projekatfc.model.Trener;
 import com.example.projekatfc.model.Trening;
 import com.example.projekatfc.service.FitnesCentarService;
@@ -15,12 +14,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 @CrossOrigin
 @Controller
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/treninzi")
 public class TreningController {
 
     @Autowired
@@ -49,13 +49,91 @@ public class TreningController {
             treningDto.setOpis(trening.getOpis());
             treningDto.setTipTreninga(trening.getTipTreninga());
             treningDto.setTrajanje(trening.getTrajanje());
+            List<TerminDto> listaTerminaDto = new ArrayList<>();
+            for(Termin termin: trening.getTermini()){
+                TerminDto terminDto = new TerminDto();
+                terminDto.setCena(termin.getCena());
+                terminDto.setVremePocetka(termin.getVremePocetka());
+                terminDto.setId(termin.getId());
+                listaTerminaDto.add(terminDto);
+            }
+            treningDto.setListaTermina(listaTerminaDto);
             treningDtos.add(treningDto);
         }
 
         return new ResponseEntity<>(treningDtos, HttpStatus.OK);
     }
-    @GetMapping("/")
-    public String welcome() {return "homepage.html";}
 
+    @GetMapping(value="/ponazivu", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TreningDto>> getTreningPoNazivu(@RequestParam String naziv) {
+        // Pozivanjem metode servisa dobavljamo sve zaposlene
+        List<Trening> listaTreninga = this.treningService.findAllByNazivContaining(naziv);
+
+        // Kreiramo listu DTO objekata koju ćemo vratiti u odgovoru na zahtev
+        List<TreningDto> treningDtos = new ArrayList<>();
+
+        for (Trening trening : listaTreninga) {
+            // Kreiramo EmployeeDTO za svakog zaposlenog, kojeg je vratila metoda findAll()
+            // i ubacujemo ga u listu employeeDTOS
+            List<TerminDto> terminDtos = new ArrayList<>();
+            for(Termin termini : trening.getTermini()) {
+                terminDtos.add(new TerminDto(termini.getId(), termini.getVremePocetka(), termini.getCena()));
+            }
+            TreningDto treningDto = new TreningDto(trening.getId(), trening.getNaziv(),
+                    trening.getOpis(), trening.getTipTreninga(), trening.getTrajanje(), terminDtos);
+            treningDtos.add(treningDto);
+        }
+
+        // Vraćamo odgovor 200 OK, a kroz body odgovora šaljemo podatke o pronađenim zaposlenima
+        return new ResponseEntity<>(treningDtos, HttpStatus.OK);
+    }
+
+    @GetMapping(value="/potipu", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TreningDto>> getTreningPoTipu(@RequestParam String tipTreninga) {
+        // Pozivanjem metode servisa dobavljamo sve zaposlene
+        List<Trening> listaTreninga = this.treningService.findAllByTipTreningaContaining(tipTreninga);
+
+        // Kreiramo listu DTO objekata koju ćemo vratiti u odgovoru na zahtev
+        List<TreningDto> treningDtos = new ArrayList<>();
+
+        for (Trening trening : listaTreninga) {
+            // Kreiramo EmployeeDTO za svakog zaposlenog, kojeg je vratila metoda findAll()
+            // i ubacujemo ga u listu employeeDTOS
+            List<TerminDto> terminDtos = new ArrayList<>();
+            for(Termin termini : trening.getTermini()) {
+                terminDtos.add(new TerminDto(termini.getId(), termini.getVremePocetka(), termini.getCena()));
+            }
+            TreningDto treningDto = new TreningDto(trening.getId(), trening.getNaziv(),
+                    trening.getOpis(), trening.getTipTreninga(), trening.getTrajanje(), terminDtos);
+            treningDtos.add(treningDto);
+        }
+
+        // Vraćamo odgovor 200 OK, a kroz body odgovora šaljemo podatke o pronađenim zaposlenima
+        return new ResponseEntity<>(treningDtos, HttpStatus.OK);
+    }
+
+    @GetMapping(value="/poopisu", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TreningDto>> getTreningPoOpisu(@RequestParam String opis) {
+        // Pozivanjem metode servisa dobavljamo sve zaposlene
+        List<Trening> listaTreninga = this.treningService.findAllByOpisContaining(opis);
+
+        // Kreiramo listu DTO objekata koju ćemo vratiti u odgovoru na zahtev
+        List<TreningDto> treningDtos = new ArrayList<>();
+
+        for (Trening trening : listaTreninga) {
+            // Kreiramo EmployeeDTO za svakog zaposlenog, kojeg je vratila metoda findAll()
+            // i ubacujemo ga u listu employeeDTOS
+            List<TerminDto> terminDtos = new ArrayList<>();
+            for(Termin termini : trening.getTermini()) {
+                terminDtos.add(new TerminDto(termini.getId(), termini.getVremePocetka(), termini.getCena()));
+            }
+            TreningDto treningDto = new TreningDto(trening.getId(), trening.getNaziv(),
+                    trening.getOpis(), trening.getTipTreninga(), trening.getTrajanje(), terminDtos);
+            treningDtos.add(treningDto);
+        }
+
+        // Vraćamo odgovor 200 OK, a kroz body odgovora šaljemo podatke o pronađenim zaposlenima
+        return new ResponseEntity<>(treningDtos, HttpStatus.OK);
+    }
 
 }

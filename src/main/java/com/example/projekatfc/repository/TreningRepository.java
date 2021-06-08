@@ -6,14 +6,10 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import java.util.List;
 
 public interface TreningRepository extends JpaRepository<Trening, Long> {
-    List<Trening> findByNaziv(String naziv);
-    List<Trening> findByOpis(String opis);
-    List<Trening> findByTipTreninga(String tipTreninga);
-    List<Trening> findByTrajanje(Integer trajanje);
-    List<Trening> findByTrenerIme(String trenerIme);
-    List<Trening> findByNazivOrderByNaziv(String naziv);
-
-
+    List<Trening> findAllByNazivContaining(String naziv);
+    List<Trening> findAllByOpisContaining(String opis);
+    List<Trening> findAllByTipTreningaContaining(String tipTreninga);
+    List<Trening> findAllByTerminiCena(double cena);
 
 
 }
