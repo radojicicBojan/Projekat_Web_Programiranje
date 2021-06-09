@@ -41,4 +41,14 @@ public class TrenerController {
 
         return new ResponseEntity<>(trenerDtos, HttpStatus.OK);
     }
+    @PutMapping(value = "/approval", produces = MediaType.APPLICATION_JSON_VALUE)
+        public HttpStatus approve(@RequestBody List<Long> ids) throws Exception{
+        for(Long id: ids) {
+            Trener t = trenerService.findOne(id);
+            t.setAktivan(true);
+            trenerService.update(t);
+        }
+        return HttpStatus.OK;
+    }
+
 }

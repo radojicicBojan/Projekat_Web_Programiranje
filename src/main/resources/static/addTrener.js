@@ -15,7 +15,7 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
                 row += "<td>" + korisnik.email + "</td>";
                 row += "<td>" + "NE" + "</td>";
                 row += "<td>" + korisnik.datumRodjenja.slice(0, 10); + "</td>";
-                row += "<td><input type='checkbox' class='chb'/></td>";
+                row += "<td><input type='checkbox' korisnik_id='"+korisnik.id+"' class='chb'/></td>";
 
 
             $('#treneri tbody').append(row);
@@ -28,12 +28,26 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
 });
 
 function aktivan(){
+    let ids = [];
     var chb = document.getElementsByClassName('chb');
     for(let j=0; j<chb.length; j++) {
         if (chb[j].checked) {
-
+            ids.push($(chb[j]).attr("korisnik_id"));
             $(chb[j]).closest("tr").remove();
         }
     }
+    $.ajax({
+        type: "PUT",
+        url: "http://localhost:8080/api/approval",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(ids),
+        success: function (response) {
+           alert("Odobreni treneri sa ID-jem: " + ids.join(","));
+        },
+        error: function (response) {
+            console.log("ERROR:\n", response);
+        }
+    });
 
 }

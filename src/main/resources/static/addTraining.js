@@ -118,34 +118,12 @@ function poNazivu() {
         }
     }
 
-
-    $('#treninzi tbody').html("");
-    for (let trening of filtriraniTreninzi) {
-        for (let termin of trening.listaTermina) {
-            let row = "<tr class=\"table-secondary\">";
-            row += "<td>" + trening.id + "</td>";
-            row += "<td>" + trening.naziv + "</td>";
-            row += "<td>" + trening.opis + "</td>";
-            row += "<td>" + trening.tipTreninga + "</td>";
-            row += "<td>" + trening.trajanje + "</td>";
-            row += "<td>" + termin.id + "</td>";
-            row += "<td>" + termin.cena + "</td>";
-            row += "<td>" + termin.vremePocetka.slice(0, 16).split('T').join(' ');
-            +"</td>";
-            $('#treninzi tbody').append(row);
-        }
-    }
-}
-    function sortiraj() {
-        let priceSort = $("#priceSort").val();
-
-        if(priceSort == "risingPrice"){
-            filtriraniTreninzi.sortByPrice():
-        }
-        filtriraniTreninzi.sort;
+    if ($("#priceSort").val() != "nothing") {
+        sortiraj();
+    } else {
         $('#treninzi tbody').html("");
         for (let trening of filtriraniTreninzi) {
-            for(let termin of trening.listaTermina) {
+            for (let termin of trening.listaTermina) {
                 let row = "<tr class=\"table-secondary\">";
                 row += "<td>" + trening.id + "</td>";
                 row += "<td>" + trening.naziv + "</td>";
@@ -154,9 +132,63 @@ function poNazivu() {
                 row += "<td>" + trening.trajanje + "</td>";
                 row += "<td>" + termin.id + "</td>";
                 row += "<td>" + termin.cena + "</td>";
-                row += "<td>" + termin.vremePocetka.slice(0, 16).split('T').join(' '); + "</td>";
+                row += "<td>" + termin.vremePocetka.slice(0, 16).split('T').join(' ');
+                +"</td>";
                 $('#treninzi tbody').append(row);
             }
+        }
+    }
+}
+    function sortiraj() {
+        let priceSort = $("#priceSort").val();
+        let preSort = [];
+        for (let trening of filtriraniTreninzi) {
+            for(let termin of trening.listaTermina) {
+                preSort.push({
+                    id:trening.id,
+                    naziv:trening.naziv,
+                    opis:trening.opis,
+                    tipTreninga: trening.tipTreninga,
+                    trajanje: trening.trajanje,
+                    termin: {
+                        id: termin.id,
+                        cena: termin.cena,
+                        vremePocetka: termin.vremePocetka,
+                    }
+                })
+            }
+        }
+        if(priceSort == "risingPrice"){
+            preSort.sort(function (a, b){
+                return a.termin.cena - b.termin.cena;
+            });
+        }else if(priceSort == "fallingPrice"){
+            preSort.sort(function (b, a){
+                return a.termin.cena - b.termin.cena;
+            });
+        }
+        else if(priceSort == "risingTime"){
+            preSort.sort(function (a, b){
+                return new Date(a.termin.vremePocetka) - new Date( b.termin.vremePocetka);
+            });
+        }
+        else if(priceSort == "fallingTime"){
+            preSort.sort(function (b, a){
+                return new Date(a.termin.vremePocetka) - new Date(b.termin.vremePocetka);
+            });
+        }
+        $('#treninzi tbody').html("");
+        for (let trening of preSort) {
+                let row = "<tr class=\"table-secondary\">";
+                row += "<td>" + trening.id + "</td>";
+                row += "<td>" + trening.naziv + "</td>";
+                row += "<td>" + trening.opis + "</td>";
+                row += "<td>" + trening.tipTreninga + "</td>";
+                row += "<td>" + trening.trajanje + "</td>";
+                row += "<td>" + trening.termin.id + "</td>";
+                row += "<td>" + trening.termin.cena + "</td>";
+                row += "<td>" + trening.termin.vremePocetka.slice(0, 16).split('T').join(' '); + "</td>";
+                $('#treninzi tbody').append(row);
         }
 }
 
