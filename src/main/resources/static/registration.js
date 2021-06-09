@@ -7,7 +7,7 @@ $(function(){
                     required: true
                 },
                 email: {
-                    required: true,
+                    required: true
                 },
                 password: {
                     required: true
@@ -225,4 +225,5 @@ $(document).on("submit", "#registration", function (event) {
         }
     });
 });
+
 

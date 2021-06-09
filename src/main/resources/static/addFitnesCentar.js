@@ -31,3 +31,41 @@ $.ajax({
     }
 });
 });
+
+/*$(function(){
+    var $addFitnesCenter =$('#fitnesCentar');
+    if($addFitnesCenter.length){
+        $addFitnesCenter.validate({
+            rules: {
+                name1: {
+                    required: true
+                },
+                adress: {
+                    required: true
+                },
+                phone: {
+                    required: true
+                },
+                email: {
+                    required: true,
+                }
+
+            },
+            messages:{
+                name1:{
+                    required: 'Unesite ime fitnes centra!'
+                },
+                adress: {
+                    required: 'Unesite adresu!'
+                },
+                phone: {
+                    required: 'Unesite broj telefona!'
+                },
+                email: {
+                    required: 'Unesite email adresu!'
+                }
+            },
+        })
+    }
+})*/
+
