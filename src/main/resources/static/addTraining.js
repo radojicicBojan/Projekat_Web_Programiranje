@@ -68,7 +68,7 @@ $(document).on("submit", "#addingFitnesCentar", function (event) {
             console.log(response);
 
             alert("Fitnes Centar " + response.id + " je uspešno dodat!");
-            window.location.href = "fitnesCentar.html";
+            window.location.href = "addFitnesCentar.html";
         },
         error: function () {
             alert("Greška prilikom dodavanja Fitnes Centra!");

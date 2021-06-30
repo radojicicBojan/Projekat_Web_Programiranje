@@ -15,7 +15,7 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
                 row += "<td>" + korisnik.email + "</td>";
                 row += "<td>" + "NE" + "</td>";
                 row += "<td>" + korisnik.datumRodjenja.slice(0, 10); + "</td>";
-                row += "<td><input type='radio' korisnik_id='"+korisnik.id+"' class='chb' name='radiobutton'/></td>";
+                row += "<td><input type='radio' korisnik_id='"+korisnik.id+"' name='radiobutton' class='rb'/></td>";
 
 
             $('#treneri tbody').append(row);
@@ -29,11 +29,11 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
 
 function aktivan(){
     let ids = [];
-    var chb = document.getElementsByClassName('chb');
-    for(let j=0; j<chb.length; j++) {
-        if (chb[j].checked) {
-            ids.push($(chb[j]).attr("korisnik_id"));
-            $(chb[j]).closest("tr").remove();
+    var rb = document.getElementsByClassName('rb');
+    for(let j=0; j<rb.length; j++) {
+        if (rb[j].checked) {
+            ids.push($(rb[j]).attr("korisnik_id"));
+            $(rb[j]).closest("tr").remove();
         }
     }
     $.ajax({
@@ -43,7 +43,7 @@ function aktivan(){
         contentType: "application/json",
         data: JSON.stringify(ids),
         success: function (response) {
-           alert("Odobreni treneri sa ID-jem: " + ids.join(","));
+           alert("Odobreni trener sa ID-jem: " + ids.join(","));
         },
         error: function (response) {
             console.log("ERROR:\n", response);
