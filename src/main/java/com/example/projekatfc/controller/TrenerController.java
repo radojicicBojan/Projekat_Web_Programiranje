@@ -51,4 +51,25 @@ public class TrenerController {
         return HttpStatus.OK;
     }
 
+    @GetMapping(value = "/coaches", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<KorisnikDto>> getTrener() {
+        List<Trener> treneri = this.trenerService.getAll();
+
+        List<KorisnikDto> trenerDtos = new LinkedList<>();
+
+        for(Trener korisnik: treneri) {
+            KorisnikDto korisnikDto = new KorisnikDto();
+            korisnikDto.setId(korisnik.getId());
+            korisnikDto.setIme(korisnik.getIme());
+            korisnikDto.setKorisnickoIme(korisnik.getKorisnickoIme());
+            korisnikDto.setTelefon(korisnik.getTelefon());
+            korisnikDto.setPrezime(korisnik.getPrezime());
+            korisnikDto.setLozinka(korisnik.getLozinka());
+            korisnikDto.setEmail(korisnik.getEmail());
+            korisnikDto.setDatumRodjenja(korisnik.getDatumRodjenja());
+            trenerDtos.add(korisnikDto);
+        }
+
+        return new ResponseEntity<>(trenerDtos, HttpStatus.OK);
+    }
 }
