@@ -3,6 +3,7 @@ package com.example.projekatfc.controller;
 
 import com.example.projekatfc.model.DTO.FitnesCentarDto;
 import com.example.projekatfc.model.FitnesCentar;
+import com.example.projekatfc.model.Trener;
 import com.example.projekatfc.service.FitnesCentarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -48,5 +49,14 @@ public class FitnesCentarController {
         }
 
         return new ResponseEntity<>(fitnesCentarDtos, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
+    public HttpStatus approve(@RequestBody List<Long> ids) throws Exception{
+        for(Long id: ids) {
+            FitnesCentar fc = fitnesCentarService.findOne(id);
+            fitnesCentarService.delete(fc);
+        }
+        return HttpStatus.OK;
     }
 }

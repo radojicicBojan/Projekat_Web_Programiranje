@@ -27,4 +27,11 @@ public class FitnesCentarService {
     public List<FitnesCentar> getAll(){
         return fitnesCentarRepository.findAll();
     }
+    public void delete(FitnesCentar fc){
+        fitnesCentarRepository.deleteById(fc.getId());
+    }
+    public FitnesCentar findOne(Long id) {
+        FitnesCentar fitnesCentar = this.fitnesCentarRepository.getOne(id);
+        return fitnesCentar;
+    }
 }

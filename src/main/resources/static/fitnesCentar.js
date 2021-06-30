@@ -26,11 +26,25 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
 });
 
 function obrisi(){
+    let ids = [];
     var rb = document.getElementsByClassName('rb');
     for(let j=0; j<rb.length; j++) {
         if (rb[j].checked) {
-
+            ids.push($(rb[j]).attr("fitnesCentar_id"));
             $(rb[j]).closest("tr").remove();
         }
     }
+    $.ajax({
+        type: "DELETE",
+        url: "http://localhost:8080/api/delete",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(ids),
+        success: function (response) {
+            alert("Obrisan Fitnes centar sa ID-jem: " + ids.join(","));
+        },
+        error: function (response) {
+            console.log("ERROR:\n", response);
+        }
+    });
 }
