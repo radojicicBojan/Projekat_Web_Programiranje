@@ -20,7 +20,7 @@ $(document).on("submit", "#addingSala", function (event) {
             console.log(response);
 
             alert("Sala " + response.id + " je uspešno dodata!");
-            window.location.href = "addSala.html";
+            window.location.href = "sala.html";
         },
         error: function () {
             alert("Greška prilikom dodavanja Sale!");
