@@ -1,5 +1,4 @@
-$(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Object Model) učitan da bi JS mogao sa njim da manipuliše.
-    // ajax poziv za dobavljanje svih zaposlenih sa backend-a i prikaz u tabeli
+$(document).ready(function () {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/api/fitnesCentri",
@@ -12,7 +11,7 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
                 row += "<td>" + fitnesCentar.email + "</td>";
                 row += "<td>" + fitnesCentar.naziv + "</td>";
                 row += "<td>" + fitnesCentar.telefon + "</td>";
-                row += "<td><a href=\"login.html\" type=\"button\" class=\"btn btn-primary\">Izmeni</a></td>";
+                row += "<td><a href=\"changeFitnesCentar.html\" type=\"button\" class=\"btn btn-primary\">Izmeni</a></td>";
                 row += "<td><input type='radio' style='margin-left: 10px' fitnesCentar_id='"+fitnesCentar.id+"' name='radio' class='rb'/></td>";
 
 

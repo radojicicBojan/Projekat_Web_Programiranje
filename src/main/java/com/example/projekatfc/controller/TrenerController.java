@@ -1,6 +1,7 @@
 package com.example.projekatfc.controller;
 
 import com.example.projekatfc.model.DTO.KorisnikDto;
+import com.example.projekatfc.model.FitnesCentar;
 import com.example.projekatfc.model.Korisnik;
 import com.example.projekatfc.model.Trener;
 import com.example.projekatfc.service.KorisnikService;
@@ -67,9 +68,18 @@ public class TrenerController {
             korisnikDto.setLozinka(korisnik.getLozinka());
             korisnikDto.setEmail(korisnik.getEmail());
             korisnikDto.setDatumRodjenja(korisnik.getDatumRodjenja());
+            korisnikDto.setAktivan(korisnik.getAktivan());
             trenerDtos.add(korisnikDto);
         }
 
         return new ResponseEntity<>(trenerDtos, HttpStatus.OK);
+    }
+    @DeleteMapping(value = "/deleteCoach", produces = MediaType.APPLICATION_JSON_VALUE)
+    public HttpStatus remove(@RequestBody List<Long> ids) throws Exception{
+        for(Long id: ids) {
+            Trener trener = trenerService.findOne(id);
+            trenerService.delete(trener);
+        }
+        return HttpStatus.OK;
     }
 }

@@ -10,7 +10,7 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
                 let row = "<tr class=\"table-secondary\">";
                 row += "<td>" + sala.kapacitet + "</td>";
                 row += "<td>" + sala.oznaka + "</td>";
-                row += "<td><a href=\"login.html\" type=\"button\" class=\"btn btn-primary\">Izmeni</a></td>";
+                row += "<td><a href=\"changeSala.html\" type=\"button\" class=\"btn btn-primary\">Izmeni</a></td>";
                 row += "<td><input type='radio' style='margin-left: 10px' sala_id='"+sala.id+"' name='radio' class='rb'/></td>";
 
 

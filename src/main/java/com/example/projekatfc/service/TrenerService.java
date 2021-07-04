@@ -3,6 +3,7 @@ package com.example.projekatfc.service;
 import com.example.projekatfc.model.Clan;
 import com.example.projekatfc.model.DTO.KorisnikDto;
 import com.example.projekatfc.model.DTO.LoginDto;
+import com.example.projekatfc.model.FitnesCentar;
 import com.example.projekatfc.model.Trener;
 import com.example.projekatfc.repository.TrenerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,8 +49,10 @@ public class TrenerService {
         return savedEm;
     }
     public Trener findOne(Long id) {
-        Trener employee = this.trenerRepository.getOne(id);
-        return employee;
+        Trener trener = this.trenerRepository.getOne(id);
+        return trener;
     }
-
+    public void delete(Trener trener){
+        trenerRepository.deleteById(trener.getId());
+    }
 }
