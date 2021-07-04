@@ -27,3 +27,20 @@ $(document).on("submit", "#addingSala", function (event) {
         }
     });
 });
+
+$(document).ready(function () {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/fitnesCentri",
+        dataType: "json",
+        success: function (response) {
+            console.log("SUCCESS:\n", response);
+            for (let fitnesCentar of response) {
+                    $('#fitnesCentri').append("<option value='"+ fitnesCentar.id +"'>" + fitnesCentar.naziv + "</option>");
+            }
+        },
+        error: function (response) {
+            console.log("ERROR:\n", response);
+        }
+    });
+});

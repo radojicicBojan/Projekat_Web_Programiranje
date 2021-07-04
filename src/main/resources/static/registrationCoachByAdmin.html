@@ -1,0 +1,144 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-wEmeIV1mKuiNpC+IOBjI7aAzPcEZeedi5yW5f2yOq55WWLwNGmvvx4Um1vskeMj0" crossorigin="anonymous">
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js" integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8" crossorigin="anonymous"></script>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <title>Fitnes centar</title>
+  <style>
+
+    body{
+      background-image: url('https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80.jpg');
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-size: cover;
+    }
+    button{
+      width: 90px;
+    }
+
+  </style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid" style="height: 40px">
+    <div class="btn-group dropdown" style="width: 200px">
+      <button onclick=location.href="homepage.html" type="button" class="btn btn-warning" style="font-size: large">
+        Fitnes centar
+      </button>
+      <button class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" style="width: 25px">
+        <span class="visually-hidden">Toggle Dropdown</span>
+      </button>
+      <ul class="dropdown-menu" style="padding: 0px; height: 40px; width: 30px">
+        <button class="btn btn-primary" onclick=location.href="coachs.html" style="width: 100%;height: 100%" class="button">Lista trenera</button>
+        <button class="btn btn-light" onclick=location.href="trainings.html" style="width: 100%;height: 100%" class="button">Lista treninga</button>
+      </ul>
+    </div>
+  </div>
+</nav>
+<form id="registrationCoach" class="form-horizontal" action='' method="POST">
+  <fieldset>
+    <div class="d-flex justify-content-center">
+      <div style="opacity: 0.8; background-image: url('https://images.unsplash.com/photo-1515549832467-8783363e19b6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8d2hpdGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60');; padding: 5px; margin-top: 5px">
+        <div id="legend">
+          <legend class="">Registracija trenera</legend>
+        </div>
+        <div class="control-group">
+          <!-- Username -->
+          <label class="control-label"  for="username">Korisnicko ime</label>
+          <div class="controls">
+            <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+            <i class="fa fa-times u_times"></i>
+            <i class="fa fa-check u_check"></i>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <!-- Password-->
+          <label class="control-label" for="password">Lozinka</label>
+          <div class="controls">
+            <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+            <i class="fa fa-times p_times"></i>
+            <i class="fa fa-check p_check"></i>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <!-- Password validation-->
+          <label class="control-label" for="password">Potvrda lozinke</label>
+          <div class="controls">
+            <input type="password" id="password2" name="password2" placeholder="" class="input-xlarge">
+            <i class="fa fa-times p2_times"></i>
+            <i class="fa fa-check p2_check"></i>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <!-- Name -->
+          <label class="control-label"  for="name1">Ime</label>
+          <div class="controls">
+            <input type="text" id="name1" name="name1" placeholder="" class="input-xlarge">
+            <i class="fa fa-times n_times"></i>
+            <i class="fa fa-check n_check"></i>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <!-- Last Name -->
+          <label class="control-label"  for="lastname">Prezime</label>
+          <div class="controls">
+            <input type="text" id="lastname" name="lastname" placeholder="" class="input-xlarge">
+            <i class="fa fa-times l_times"></i>
+            <i class="fa fa-check l_check"></i>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <!-- Phone -->
+          <label class="control-label" for="phone">Kontakt telefon</label>
+          <div class="controls">
+            <input type="text" id="phone" name="phone" placeholder="" class="input-xlarge">
+            <i class="fa fa-times ph_times"></i>
+            <i class="fa fa-check ph_check"></i>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <!-- E-mail -->
+          <label class="control-label" for="email">E-mail</label>
+          <div class="controls">
+            <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+            <i class="fa fa-times e_times"></i>
+            <i class="fa fa-check e_check"></i>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <!-- Date -->
+          <label class="control-label" for="date">Datum rodjenja</label>
+          <div class="controls">
+            <input type="date" id="date" name="date" placeholder="" class="input-xlarge">
+            <i class="fa fa-times l_times"></i>
+            <i class="fa fa-check l_check"></i>
+          </div>
+        </div>
+
+        <div class="control-group">
+          <!-- Button -->
+          <div style="margin-top: 5px" class="controls">
+            <button type="reset" class="btn btn-light" style="border-color: black">Poništi</button>
+            <button type="submit" class="btn btn-primary" style="width: 110px">Registruj trenera</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </fieldset>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script type="text/javascript" src="registration.js"></script>
+</body>
+</html>

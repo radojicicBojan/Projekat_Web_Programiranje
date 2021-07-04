@@ -221,7 +221,53 @@ $(document).on("submit", "#registration", function (event) {
             window.location.href = "registration.html";
         },
         error: function () {
-            alert("Greška prilikom dodavanja zaposlenog!");
+            alert("Greška prilikom dodavanja korisnika!");
+        }
+    });
+});
+
+$(document).on("submit", "#registrationCoach", function (event) {
+    event.preventDefault();
+    console.log('test');
+    // preuzimamo vrednosti unete u formi
+    let korisnickoIme = $("#username").val();
+    let lozinka = $("#password").val();
+    let ime = $("#name1").val();
+    let prezime = $("#lastname").val();
+    let telefon = $("#phone").val();
+    let email = $("#email").val();
+    let datumRodjenja = $("#date").val();
+    let uloga = "TRENER";
+    let aktivan = true;
+
+
+    let Trener = {
+        korisnickoIme,
+        lozinka,
+        ime,
+        prezime,
+        telefon,
+        email,
+        datumRodjenja,
+        uloga,
+        aktivan
+    }
+
+
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/api/registration",
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(Trener),
+        success: function (response) {
+            console.log(response);
+
+            alert("Trener " + response.id + " je uspešno registrovan!");
+            window.location.href = "registrationCoachByAdmin.html";
+        },
+        error: function () {
+            alert("Greška prilikom dodavanja trenera!");
         }
     });
 });

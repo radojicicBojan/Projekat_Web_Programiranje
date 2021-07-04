@@ -1,5 +1,6 @@
 package com.example.projekatfc.controller;
 
+import com.example.projekatfc.model.Administrator;
 import com.example.projekatfc.model.Clan;
 import com.example.projekatfc.model.DTO.KorisnikDto;
 import com.example.projekatfc.model.DTO.LoginDto;
@@ -77,10 +78,17 @@ public class KorisnikController {
             noviKorisnik.setId(clan.getId());
             return new ResponseEntity<>(noviKorisnik, HttpStatus.CREATED);
         }else{
-            noviKorisnik.setAktivan(false);
-            Trener trener = trenerService.registrujTrenera(noviKorisnik);
-            noviKorisnik.setId(trener.getId());
-            return new ResponseEntity<>(noviKorisnik, HttpStatus.CREATED);
+            if(noviKorisnik.getAktivan()==true){
+                Trener trener = trenerService.registrujTrenera(noviKorisnik);
+                noviKorisnik.setId(trener.getId());
+                return new ResponseEntity<>(noviKorisnik, HttpStatus.CREATED);
+            }
+            else {
+                noviKorisnik.setAktivan(false);
+                Trener trener = trenerService.registrujTrenera(noviKorisnik);
+                noviKorisnik.setId(trener.getId());
+                return new ResponseEntity<>(noviKorisnik, HttpStatus.CREATED);
+            }
         }
     }
     @PostMapping(value = "/login")
@@ -102,6 +110,22 @@ public class KorisnikController {
             return new ResponseEntity<>(korisnik, HttpStatus.OK);
         }
         Trener t = trenerService.login(potencijalniKorisnik);
+        if(t!=null){
+            KorisnikDto korisnik = new KorisnikDto();
+            korisnik.setId(t.getId());
+            korisnik.setKorisnickoIme(t.getKorisnickoIme());
+            korisnik.setEmail(t.getEmail());
+            korisnik.setDatumRodjenja(t.getDatumRodjenja());
+            korisnik.setLozinka(t.getLozinka());
+            korisnik.setIme(t.getIme());
+            korisnik.setPrezime(t.getPrezime());
+            korisnik.setTelefon(t.getTelefon());
+            korisnik.setAktivan(t.getAktivan());
+            korisnik.setUloga("TRENER");
+
+            return new ResponseEntity<>(korisnik, HttpStatus.OK);
+        }
+        //Administrator a = administratorService.login(potencijalniKorisnik);
         if(t!=null){
             KorisnikDto korisnik = new KorisnikDto();
             korisnik.setId(t.getId());
