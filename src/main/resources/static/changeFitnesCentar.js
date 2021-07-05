@@ -1,41 +1,51 @@
-/*function change() {
+let id = new URL(window.location.href).searchParams.get("id");
+
+$.ajax({
+    type: "GET",
+    url: "http://localhost:8080/api/fitnesCentri/" + id,
+    dataType: "json",
+    success: function (response) {
+        console.log("SUCCESS:\n", response);
+        $("#name1").val(response.naziv);
+        $("#adress").val(response.adresa);
+        $("#email").val(response.email);
+        $("#phone").val(response.telefon);
+    },
+    error: function (response) {
+        console.log("ERROR:\n", response);
+    }
+});
+
+$(document).on("submit", "#changeFitnesCentar", function (event) {
+    event.preventDefault();
+    console.log('test');
+    // preuzimamo vrednosti unete u formi
     let naziv = $("#name1").val();
     let adresa = $("#adress").val();
     let telefon = $("#phone").val();
     let email = $("#email").val();
 
+    let newFitnesCentar = {
+        naziv,
+        adresa,
+        telefon,
+        email
+    }
 
-    if (naziv != "") {
-        filtriraniTreninzi = filtriraniTreninzi.filter(function (trening) {
-            return trening.naziv.includes(naziv);
-        })
-    }
-    if (tip != "") {
-        filtriraniTreninzi = filtriraniTreninzi.filter(function (trening) {
-            return trening.tipTreninga.includes(tip);
-        })
-    }
-    if (opis != "") {
-        filtriraniTreninzi = filtriraniTreninzi.filter(function (trening) {
-            return trening.opis.includes(opis);
-        })
-    }
-    if (cena != "") {
-        console.log(filtriraniTreninzi);
-        for (let i in filtriraniTreninzi) {
-            filtriraniTreninzi[i].listaTermina = filtriraniTreninzi[i].listaTermina.filter(function (termin) {
-                return termin.cena <= cena;
-            })
+    $.ajax({
+        type: "PUT",
+        url: "http://localhost:8080/api/fitnesCentri/" + id,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(newFitnesCentar),
+        success: function (response) {
+            console.log(response);
+
+            alert("Fitnes Centar " + response.id + " je uspešno izmenjen!");
+            window.location.href = "fitnesCentar.html";
+        },
+        error: function () {
+            alert("Greška prilikom izmene Fitnes Centra!");
         }
-    }
-
-    if (vremePocetka != "") {
-        console.log(filtriraniTreninzi);
-        for (let i in filtriraniTreninzi) {
-            filtriraniTreninzi[i].listaTermina = filtriraniTreninzi[i].listaTermina.filter(function (termin) {
-                return dates.compare(termin.vremePocetka, vremePocetka);
-            })
-        }
-    }
-    */
-
+    });
+});

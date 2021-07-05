@@ -6,6 +6,7 @@ import com.example.projekatfc.model.DTO.KorisnikDto;
 import com.example.projekatfc.model.DTO.LoginDto;
 import com.example.projekatfc.model.Korisnik;
 import com.example.projekatfc.model.Trener;
+import com.example.projekatfc.service.AdministratorService;
 import com.example.projekatfc.service.ClanService;
 import com.example.projekatfc.service.KorisnikService;
 import com.example.projekatfc.service.TrenerService;
@@ -28,6 +29,8 @@ public class KorisnikController {
     private ClanService clanService;
     @Autowired
     private KorisnikService korisnikService;
+    @Autowired
+    private AdministratorService administratorService;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<KorisnikDto> getKorisnik(@PathVariable("id") Long id) {
@@ -125,19 +128,19 @@ public class KorisnikController {
 
             return new ResponseEntity<>(korisnik, HttpStatus.OK);
         }
-        //Administrator a = administratorService.login(potencijalniKorisnik);
-        if(t!=null){
+        Administrator a = administratorService.login(potencijalniKorisnik);
+        if(a!=null){
             KorisnikDto korisnik = new KorisnikDto();
-            korisnik.setId(t.getId());
-            korisnik.setKorisnickoIme(t.getKorisnickoIme());
-            korisnik.setEmail(t.getEmail());
-            korisnik.setDatumRodjenja(t.getDatumRodjenja());
-            korisnik.setLozinka(t.getLozinka());
-            korisnik.setIme(t.getIme());
-            korisnik.setPrezime(t.getPrezime());
-            korisnik.setTelefon(t.getTelefon());
-            korisnik.setAktivan(t.getAktivan());
-            korisnik.setUloga("TRENER");
+            korisnik.setId(a.getId());
+            korisnik.setKorisnickoIme(a.getKorisnickoIme());
+            korisnik.setEmail(a.getEmail());
+            korisnik.setDatumRodjenja(a.getDatumRodjenja());
+            korisnik.setLozinka(a.getLozinka());
+            korisnik.setIme(a.getIme());
+            korisnik.setPrezime(a.getPrezime());
+            korisnik.setTelefon(a.getTelefon());
+            korisnik.setAktivan(a.getAktivan());
+            korisnik.setUloga("ADMINISTRATOR");
 
             return new ResponseEntity<>(korisnik, HttpStatus.OK);
         }

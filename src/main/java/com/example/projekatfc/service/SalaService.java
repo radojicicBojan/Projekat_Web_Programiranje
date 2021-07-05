@@ -1,6 +1,7 @@
 package com.example.projekatfc.service;
 
 import com.example.projekatfc.model.DTO.SalaDto;
+import com.example.projekatfc.model.FitnesCentar;
 import com.example.projekatfc.model.Sala;
 import com.example.projekatfc.repository.SalaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,5 +31,8 @@ public class SalaService {
     public Sala findOne(Long id) {
         Sala sala = this.salaRepository.getOne(id);
         return sala;
+    }
+    public void save(Sala sala) {
+        this.salaRepository.save(sala);
     }
 }

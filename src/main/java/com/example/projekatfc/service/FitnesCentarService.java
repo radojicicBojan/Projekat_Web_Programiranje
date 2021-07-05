@@ -34,4 +34,8 @@ public class FitnesCentarService {
         FitnesCentar fitnesCentar = this.fitnesCentarRepository.getOne(id);
         return fitnesCentar;
     }
+
+    public void save(FitnesCentar fitnesCentar) {
+        this.fitnesCentarRepository.save(fitnesCentar);
+    }
 }

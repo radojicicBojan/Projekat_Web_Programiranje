@@ -51,6 +51,35 @@ public class FitnesCentarController {
         return new ResponseEntity<>(fitnesCentarDtos, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/fitnesCentri/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FitnesCentarDto> getFitnesCentar(@PathVariable Long id) {
+        FitnesCentar fitnesCentar = this.fitnesCentarService.findOne(id);
+            FitnesCentarDto fitnesCentarDto = new FitnesCentarDto();
+            fitnesCentarDto.setId(fitnesCentar.getId());
+            fitnesCentarDto.setAdresa(fitnesCentar.getAdresa());
+            fitnesCentarDto.setEmail(fitnesCentar.getEmail());
+            fitnesCentarDto.setNaziv(fitnesCentar.getNaziv());
+            fitnesCentarDto.setTelefon(fitnesCentar.getTelefon());
+
+        return new ResponseEntity<>(fitnesCentarDto, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/fitnesCentri/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<FitnesCentarDto> putFitnesCentar(@PathVariable Long id, @RequestBody FitnesCentarDto noviFitnesCentar) {
+        FitnesCentar fitnesCentar = this.fitnesCentarService.findOne(id);
+
+        fitnesCentar.setNaziv(noviFitnesCentar.getNaziv());
+        fitnesCentar.setAdresa(noviFitnesCentar.getAdresa());
+        fitnesCentar.setEmail(noviFitnesCentar.getEmail());
+        fitnesCentar.setTelefon(noviFitnesCentar.getTelefon());
+
+        this.fitnesCentarService.save(fitnesCentar);
+
+        noviFitnesCentar.setId(id);
+
+        return new ResponseEntity<>(noviFitnesCentar, HttpStatus.OK);
+    }
+
     @DeleteMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
     public HttpStatus approve(@RequestBody List<Long> ids) throws Exception{
         for(Long id: ids) {

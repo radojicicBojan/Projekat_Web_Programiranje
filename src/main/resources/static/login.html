@@ -15,28 +15,48 @@
             background-attachment: fixed;
             background-size: cover;
         }
-        button{
-            width: 95px;
-        }
     </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <div class="container-fluid" style="height: 40px">
+    <div class="container-fluid">
+
         <div class="btn-group dropdown" style="width: 200px">
             <button onclick=location.href="homepage.html" type="button" class="btn btn-warning" style="font-size: large">
                 Fitnes centar
             </button>
-            <button class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false" style="width: 25px">
+            <button class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
             </button>
             <ul class="dropdown-menu" style="padding: 0px; height: 40px; width: 30px">
-                <button class="btn btn-primary" onclick=location.href="coachs.html" style="width: 100%;height: 100%" class="button">Lista trenera</button>
-                <button class="btn btn-light" onclick=location.href="trainings.html" style="width: 100%;height: 100%" class="button">Lista treninga</button>
+                <button class="btn btn-primary" onclick=location.href="trainings.html" style="width: 100%;height: 100%" class="button">Lista treninga</button>
+
             </ul>
         </div>
-      </div>
-  </nav>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation" style="width: 25px">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <!--<a class="nav-link active" aria-current="page" href="#">Home</a>-->
+                </li>
+                <li class="nav-item">
+                    <!--  <a class="nav-link" href="#">Features</a>-->
+                </li>
+                <li class="nav-item">
+                    <!--<a class="nav-link" href="#">Pricing</a>-->
+                </li>
+            </ul>
+
+            <div>
+                <span style="color: red; margin-right: 5px">Nemate nalog?</span>
+                <a href="registration.html" type="button" class="btn btn-primary">Registruj se</a>
+            </div>
+
+        </div>
+    </div>
+</nav>
       <div class="d-flex justify-content-center">
           <div style="background-image: url('https://images.unsplash.com/photo-1515549832467-8783363e19b6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8d2hpdGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'); opacity: 0.8;
     ; padding: 15px; margin-top: 155px;">
@@ -67,8 +87,8 @@
             <div class="control-group">
                 <!-- Button -->
                 <div style="margin-top: 5px" class="controls">
-                    <button type="reset" class="btn btn-light" style="border-color: black; margin-right: 10px">Poništi</button>
-                    <button onclick="login()" type="submit" class="btn btn-primary">Uloguj se</button>
+                    <button type="reset" class="btn btn-light" style="border-color: black; margin-right: 35px">Poništi</button>
+                    <button type="submit" class="btn btn-primary">Uloguj se</button>
                 </div>
             </div>
               </form>

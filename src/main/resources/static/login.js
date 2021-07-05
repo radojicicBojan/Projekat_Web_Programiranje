@@ -47,8 +47,6 @@ function validation(e){
             korisnickoImeEmail: username.value,
             lozinka: password.value,
         }
-
-
         $.ajax({
             type: "POST",
             url: "http://localhost:8080/api/login",
@@ -61,7 +59,15 @@ function validation(e){
                 alert("Uspešno ste se ulogovali!");
                 window.localStorage.setItem("ID", response.id);
                 window.localStorage.setItem("ULOGA", response.uloga);
-                login();
+                if(response.uloga == "TRENER") {
+                    window.location.href = "homepageCoach.html";
+                }
+                if(response.uloga == "CLAN") {
+                    window.location.href = "homepageMember.html";
+                }
+                if(response.uloga == "ADMINISTRATOR") {
+                    window.location.href = "homepageAdmin.html";
+                }
             },
             error: function () {
                 alert("Niste uneli pravilne podatke!");
@@ -69,15 +75,9 @@ function validation(e){
         });
     }
 }
-function login() {
-    if (window.localStorage.getItem("ULOGA") == "CLAN") {
-        window.location.href = "registration.html";
-    } else if (window.localStorage.getItem("ULOGA") == "TRENER") {
-        window.location.href = "registration.html";
-    } else if (window.localStorage.getItem("ULOGA") == "ADMINISTRATOR") {
-        window.location.href = "registration.html";
-    } else
-        window.location.href = "homepage.html";
+function logout() {
+    window.localStorage.clear();
+    window.location.href = "homepage.html";
 }
 
 

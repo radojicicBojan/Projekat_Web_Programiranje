@@ -11,7 +11,8 @@ $(document).ready(function () {
                 row += "<td>" + fitnesCentar.email + "</td>";
                 row += "<td>" + fitnesCentar.naziv + "</td>";
                 row += "<td>" + fitnesCentar.telefon + "</td>";
-                row += "<td><a href=\"changeFitnesCentar.html\" type=\"button\" class=\"btn btn-primary\">Izmeni</a></td>";
+                row += "<td><a href=\"sala.html?id=" + fitnesCentar.id+"\" type=\"button\" class=\"btn btn-primary\">Prikaži sale</a></td>";
+                row += "<td><a href=\"changeFitnesCentar.html?id="+fitnesCentar.id+"\" type=\"button\" class=\"btn btn-primary\">Izmeni</a></td>";
                 row += "<td><input type='radio' style='margin-left: 10px' fitnesCentar_id='"+fitnesCentar.id+"' name='radio' class='rb'/></td>";
 
 
@@ -47,3 +48,4 @@ function obrisi(){
         }
     });
 }
+

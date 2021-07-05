@@ -1,15 +1,13 @@
-/*
+
     if(window.localStorage.getItem("ULOGA") == "CLAN") {
-        window.location.href = "registration.html";
+        window.location.href = "homepageMember.html";
     }
-    else if(window.localStorage.getItem("ULOGA") == "TRENER") {
-        window.location.href = "registration.html";
+    if(window.localStorage.getItem("ULOGA") == "TRENER") {
+        window.location.href = "homepageCoach.html";
     }
-    else if(window.localStorage.getItem("ULOGA") == "ADMINISTRATOR") {
-        window.location.href = "registration.html";
+    if(window.localStorage.getItem("ULOGA") == "ADMINISTRATOR") {
+        window.location.href = "homepageAdmin.html";
     }
-    else
-         window.location.href = "homepage.html";
 
 
-*/
+
