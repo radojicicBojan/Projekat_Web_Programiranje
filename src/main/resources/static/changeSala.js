@@ -1,7 +1,7 @@
 let id = new URL(window.location.href).searchParams.get("id");
 
 $.ajax({
-    type: "GET",
+    type: "PUT",
     url: "http://localhost:8080/api/sale/fitnesCentar" + id,
     dataType: "json",
     success: function (response) {

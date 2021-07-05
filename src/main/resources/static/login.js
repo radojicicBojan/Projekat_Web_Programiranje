@@ -55,19 +55,11 @@ function validation(e){
             data: JSON.stringify(potencijalniKorisnik),
             success: function (response) {
                 console.log(response);
-
                 alert("Uspešno ste se ulogovali!");
                 window.localStorage.setItem("ID", response.id);
                 window.localStorage.setItem("ULOGA", response.uloga);
-                if(response.uloga == "TRENER") {
-                    window.location.href = "homepageCoach.html";
-                }
-                if(response.uloga == "CLAN") {
-                    window.location.href = "homepageMember.html";
-                }
-                if(response.uloga == "ADMINISTRATOR") {
-                    window.location.href = "homepageAdmin.html";
-                }
+                window.location.href = "homepage.html";
+
             },
             error: function () {
                 alert("Niste uneli pravilne podatke!");

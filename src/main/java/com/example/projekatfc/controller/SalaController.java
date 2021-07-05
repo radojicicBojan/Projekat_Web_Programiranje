@@ -1,6 +1,7 @@
 package com.example.projekatfc.controller;
 
 import com.example.projekatfc.model.DTO.SalaDto;
+import com.example.projekatfc.model.DTO.SalaFCDto;
 import com.example.projekatfc.model.Sala;
 import com.example.projekatfc.service.FitnesCentarService;
 import com.example.projekatfc.service.SalaService;
@@ -30,9 +31,10 @@ public class SalaController {
     }
 
     @PostMapping(value = "/dodavanjeSale")
-    public ResponseEntity<SalaDto> addSala(@RequestBody SalaDto novaSala){
+    public ResponseEntity<SalaFCDto> addSala(@RequestBody SalaFCDto novaSala){
         Sala sala = salaService.dodajSalu(novaSala);
         novaSala.setId(sala.getId());
+
         return new ResponseEntity<>(novaSala, HttpStatus.CREATED);
     }
     @GetMapping(value = "/sale/fitnesCentar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

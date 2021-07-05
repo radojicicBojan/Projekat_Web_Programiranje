@@ -4,10 +4,12 @@ $(document).on("submit", "#addingSala", function (event) {
     // preuzimamo vrednosti unete u formi
     let kapacitet = $("#capacity").val();
     let oznaka = $("#oznaka").val();
+    let fitnesCentarID = $("#fitnesCentri").val();
 
     let novaSala = {
         kapacitet,
-        oznaka
+        oznaka,
+        fitnesCentarID
     }
 
     $.ajax({
@@ -20,7 +22,7 @@ $(document).on("submit", "#addingSala", function (event) {
             console.log(response);
 
             alert("Sala " + response.id + " je uspešno dodata!");
-            window.location.href = "sala.html";
+            window.location.href = "sala.html?id="+response.fitnesCentarID;
         },
         error: function () {
             alert("Greška prilikom dodavanja Sale!");

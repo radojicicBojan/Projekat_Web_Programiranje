@@ -1,6 +1,7 @@
 package com.example.projekatfc.service;
 
 import com.example.projekatfc.model.DTO.SalaDto;
+import com.example.projekatfc.model.DTO.SalaFCDto;
 import com.example.projekatfc.model.FitnesCentar;
 import com.example.projekatfc.model.Sala;
 import com.example.projekatfc.repository.SalaRepository;
@@ -13,12 +14,17 @@ import java.util.List;
 public class SalaService {
     @Autowired
     private SalaRepository salaRepository;
+    @Autowired
+    private FitnesCentarService fitnesCentarService;
 
-    public Sala dodajSalu(SalaDto novaSala){
+    public Sala dodajSalu(SalaFCDto novaSala){
         Sala sala = new Sala();
         sala.setKapacitet(novaSala.getKapacitet());
         sala.setOznaka(novaSala.getOznaka());
 
+        FitnesCentar fitnesCentar = fitnesCentarService.findOne(novaSala.getFitnesCentarID());
+
+        sala.setFitnesCentar(fitnesCentar);
         salaRepository.save(sala);
         return sala;
     }
