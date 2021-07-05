@@ -14,6 +14,12 @@
             background-size: cover;
         }
     </style>
+    <script type="text/javascript">
+    if(localStorage.getItem("ULOGA") != "ADMINISTRATOR") {
+        location.href = "homepage.html";
+    }
+</script>
+
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -26,12 +32,7 @@
             <button class="btn btn-dark dropdown-toggle dropdown-toggle-split" data-bs-toggle="dropdown" aria-expanded="false">
                 <span class="visually-hidden">Toggle Dropdown</span>
             </button>
-            <ul class="dropdown-menu" style="padding: 0px; height: 40px; width: 30px">
-                <button class="btn btn-primary" onclick=location.href="trainings.html" style="width: 120%;height: 100%" class="button">Lista treninga</button>
-                <button class="btn btn-light" onclick=location.href="fitnesCentar.html" style="width: 120%;height: 100%" class="button">Fitnes centar</button>
-                <button class="btn btn-primary" onclick=location.href="approval.html" style="width: 120%;height: 100%" class="button">Zahtevi trenera</button>
-                <button class="btn btn-light" onclick=location.href="registrationCoachByAdmin.html" style="width: 120%;height: 100%" class="button">Registracija trenera</button>
-                <button class="btn btn-primary" onclick=location.href="coaches.html" style="width: 120%;height: 100%" class="button">Uklanjanje trenera</button>
+            <ul id= "main-dropdown" class="dropdown-menu" style="padding: 0px; height: 40px; width: 30px">
 
             </ul>
         </div>
@@ -58,6 +59,9 @@
         </div>
     </div>
 </nav>
-<script type="text/javascript", src="login.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script type="text/javascript", src="main.js"></script>
+
 </body>
 </html>

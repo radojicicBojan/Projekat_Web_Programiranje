@@ -75,10 +75,6 @@ function validation(e){
         });
     }
 }
-function logout() {
-    window.localStorage.clear();
-    window.location.href = "homepage.html";
-}
 
 
 

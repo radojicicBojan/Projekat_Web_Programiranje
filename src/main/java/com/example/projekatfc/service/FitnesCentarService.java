@@ -38,4 +38,5 @@ public class FitnesCentarService {
     public void save(FitnesCentar fitnesCentar) {
         this.fitnesCentarRepository.save(fitnesCentar);
     }
+
 }

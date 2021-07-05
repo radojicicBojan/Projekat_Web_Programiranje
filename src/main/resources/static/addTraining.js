@@ -112,7 +112,7 @@ function poNazivu() {
         console.log(filtriraniTreninzi);
         for (let i in filtriraniTreninzi) {
             filtriraniTreninzi[i].listaTermina = filtriraniTreninzi[i].listaTermina.filter(function (termin) {
-                return dates.compare(termin.vremePocetka, vremePocetka);
+                return (termin.vremePocetka > vremePocetka);
             })
         }
     }

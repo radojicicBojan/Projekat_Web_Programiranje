@@ -2,6 +2,7 @@ package com.example.projekatfc.controller;
 
 import com.example.projekatfc.model.DTO.SalaDto;
 import com.example.projekatfc.model.Sala;
+import com.example.projekatfc.service.FitnesCentarService;
 import com.example.projekatfc.service.SalaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 @CrossOrigin
 @RestController
@@ -18,6 +20,9 @@ import java.util.List;
 public class SalaController {
     @Autowired
     private SalaService salaService;
+
+    @Autowired
+    private FitnesCentarService fitnesCentarService;
 
     public SalaController(SalaService salaService) {
 
@@ -32,13 +37,11 @@ public class SalaController {
     }
     @GetMapping(value = "/sale/fitnesCentar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SalaDto>> getSalaFromFitnesCentar(@PathVariable Long id) {
-        List<Sala> sale = this.salaService.getAll();
-        Sala sala = new Sala();
+        Set<Sala> sale = this.fitnesCentarService.findOne(id).getListaSala();
 
         List<SalaDto> salaDtos = new LinkedList<>();
 
-        if (sala.getFitnesCentar().getId() == id) {
-            for (Sala s : sale) {
+            for (Sala sala : sale) {
                 SalaDto salaDto = new SalaDto();
                 salaDto.setId(sala.getId());
                 salaDto.setKapacitet(sala.getKapacitet());
@@ -46,10 +49,7 @@ public class SalaController {
                 salaDtos.add(salaDto);
             }
             return new ResponseEntity<>(salaDtos, HttpStatus.OK);
-        }
-        else {
-            return new ResponseEntity<>(salaDtos, HttpStatus.OK);
-        }
+
     }
     @GetMapping(value = "/sale/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<SalaDto> getSala(@PathVariable Long id) {
