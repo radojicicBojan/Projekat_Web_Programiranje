@@ -35,4 +35,8 @@ public class ClanService {
             }
         } return null;
     }
+    public Clan findOneById(Long id){
+        Clan clan = this.clanRepository.findOneById(id);
+        return clan;
+    }
 }

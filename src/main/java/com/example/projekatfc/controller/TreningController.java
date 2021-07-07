@@ -110,33 +110,6 @@ public class TreningController {
         return new ResponseEntity<>(treningDto, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/prikazTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<TreningDto>> getTreningOfTrener(@PathVariable Long id) {
-        List<Trening> treninzi = this.treningService.findAllByTrenerId(id);
-
-        List<TreningDto> treningDtos = new LinkedList<>();
-
-        for(Trening trening: treninzi) {
-            TreningDto treningDto = new TreningDto();
-            treningDto.setId(trening.getId());
-            treningDto.setNaziv(trening.getNaziv());
-            treningDto.setOpis(trening.getOpis());
-            treningDto.setTipTreninga(trening.getTipTreninga());
-            treningDto.setTrajanje(trening.getTrajanje());
-            List<TerminDto> listaTerminaDto = new ArrayList<>();
-            for(Termin termin: trening.getTermini()){
-                TerminDto terminDto = new TerminDto();
-                terminDto.setCena(termin.getCena());
-                terminDto.setVremePocetka(termin.getVremePocetka());
-                terminDto.setId(termin.getId());
-                listaTerminaDto.add(terminDto);
-            }
-            treningDto.setListaTermina(listaTerminaDto);
-            treningDtos.add(treningDto);
-        }
-
-        return new ResponseEntity<>(treningDtos, HttpStatus.OK);
-    }
 
     @GetMapping(value = "/prikazListeTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TreningDto>> getTrainingsOfTrener(@PathVariable Long id) {
@@ -228,7 +201,6 @@ public class TreningController {
         // Vraćamo odgovor 200 OK, a kroz body odgovora šaljemo podatke o pronađenim zaposlenima
         return new ResponseEntity<>(treningDtos, HttpStatus.OK);
     }
-
 
 
 }

@@ -3,6 +3,7 @@ package com.example.projekatfc.controller;
 
 import com.example.projekatfc.model.*;
 import com.example.projekatfc.model.DTO.*;
+import com.example.projekatfc.service.ClanService;
 import com.example.projekatfc.service.TerminService;
 import com.example.projekatfc.service.TreningService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,9 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+
 @CrossOrigin
 @RestController
 @RequestMapping(value = "api/termini")
@@ -22,6 +22,8 @@ public class TerminController {
     private TerminService terminService;
     @Autowired
     private TreningService treningService;
+    @Autowired
+    private ClanService clanService;
 
     public TerminController(TerminService terminService) {
         this.terminService = terminService;
@@ -193,6 +195,30 @@ public class TerminController {
 
 
         return new ResponseEntity<>(termin, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/prikazPrijavljenihTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TreningTerminSalaDto>> getPrijavljeniTreninzi(@PathVariable Long id) {
+        Clan clan = this.clanService.findOneById(id);
+        Set<RezervisanTrening> termins = clan.getListaRezervisanihTermina();
+        List<TreningTerminSalaDto> terminDtos = new ArrayList<>();
+
+        for(RezervisanTrening trening: termins) {
+            TreningTerminSalaDto treningTerminSalaDto = new TreningTerminSalaDto();
+            treningTerminSalaDto.setId(trening.getId());
+            treningTerminSalaDto.setNaziv(trening.getTermin().getTrening().getNaziv());
+            treningTerminSalaDto.setTipTreninga(trening.getTermin().getTrening().getTipTreninga());
+            treningTerminSalaDto.setOpis(trening.getTermin().getTrening().getOpis());
+            treningTerminSalaDto.setTrajanje(trening.getTermin().getTrening().getTrajanje());
+            treningTerminSalaDto.setCena(trening.getTermin().getCena());
+            treningTerminSalaDto.setVremePocetka(trening.getTermin().getVremePocetka());
+            treningTerminSalaDto.setOznaka(trening.getTermin().getSala().getOznaka());
+            treningTerminSalaDto.setBrojPrijavljenihClanova(trening.getTermin().getBrojPrijavljenihClanova());
+            terminDtos.add(treningTerminSalaDto);
+
+        }
+
+        return new ResponseEntity<>(terminDtos, HttpStatus.OK);
     }
 
     @PutMapping(value = "/izmena/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
