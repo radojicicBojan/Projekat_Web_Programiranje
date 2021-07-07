@@ -1,15 +1,8 @@
 package com.example.projekatfc.controller;
 
-import com.example.projekatfc.model.Administrator;
-import com.example.projekatfc.model.Clan;
-import com.example.projekatfc.model.DTO.KorisnikDto;
-import com.example.projekatfc.model.DTO.LoginDto;
-import com.example.projekatfc.model.Korisnik;
-import com.example.projekatfc.model.Trener;
-import com.example.projekatfc.service.AdministratorService;
-import com.example.projekatfc.service.ClanService;
-import com.example.projekatfc.service.KorisnikService;
-import com.example.projekatfc.service.TrenerService;
+import com.example.projekatfc.model.*;
+import com.example.projekatfc.model.DTO.*;
+import com.example.projekatfc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -17,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 @RestController
@@ -147,4 +141,25 @@ public class KorisnikController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @GetMapping(value = "/prikazKorisnika/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<KorisnikDto> getProfilKorisnik(@PathVariable Long id) {
+        Korisnik korisnik = this.korisnikService.findOne(id);
+
+        KorisnikDto korisnikDto = new KorisnikDto();
+        korisnikDto.setUloga("Član");
+        korisnikDto.setId(korisnik.getId());
+        korisnikDto.setAktivan(korisnik.getAktivan());
+        korisnikDto.setEmail(korisnik.getEmail());
+        korisnikDto.setKorisnickoIme(korisnik.getKorisnickoIme());
+        korisnikDto.setLozinka(korisnik.getLozinka());
+        korisnikDto.setIme(korisnik.getIme());
+        korisnikDto.setPrezime(korisnik.getPrezime());
+        korisnikDto.setTelefon(korisnik.getTelefon());
+        korisnikDto.setDatumRodjenja(korisnik.getDatumRodjenja());
+
+
+        return new ResponseEntity<>(korisnikDto, HttpStatus.OK);
+    }
+
 }

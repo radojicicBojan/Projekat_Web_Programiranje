@@ -24,7 +24,7 @@ $(document).ready(function () {
                     row += "<td>" + trening.kapacitet + "</td>";
                     row += "<td>" + trening.brojPrijavljenihClanova + "</td>";
                     row += "<td>" + trening.brojSlobodnihMesta + "</td>";
-                    row += "<td>" + `<button class='btn btn-primary' type='submit'>Prijavi se</button></td>"`;
+                    row += "<td>" + `<button class='btn btn-primary' onclick='prijava()' '>Prijavi se</button></td>"`;
 
                     let brojPrijavljenihClanova = trening.brojPrijavljenihClanova;
                     $('#trainings').append(row);
@@ -34,27 +34,21 @@ $(document).ready(function () {
         }
     });
 });
-
-$(document).on("submit", function (event) {
-    event.preventDefault();
-    console.log('test');
-
-
+function prijava(){
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8080/api/treninzi/prijavaZaTrening" + id,
+        url: "http://localhost:8080/api/termini/prijavaZaTrening/" + id,
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify(brojPrijavljenihTreninga),
         success: function (response) {
             console.log(response);
 
             alert("Uspešno ste se prijavili za trening!");
-            window.location.href = "terminDetails.html";
+            window.location.href = "terminDetails.html?id=" + id;
         },
         error: function () {
             alert("Greška prilikom prijavljivanja!");
         }
     });
-});
+}
 

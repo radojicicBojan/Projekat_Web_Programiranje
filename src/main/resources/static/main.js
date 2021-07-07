@@ -9,7 +9,7 @@ if(localStorage.getItem("ULOGA") == "TRENER") {
 }else
 if(localStorage.getItem("ULOGA")  == "CLAN") {
     $("#main-dropdown").html(`<button class="btn btn-primary" onclick=location.href="trainings.html" style="width: 120%;height: 100%" class="button">Raspored treninga</button>`)
-    $("#Identification").html(`<a href="homepage.html" type="button" onclick="logout()" class="btn btn-primary">Odjavi se</a>`)
+    $("#Identification").html(`<a href="profil.html" type="button" style="margin-right: 5px" class="btn btn-light">Moj profil</a><a href="homepage.html" type="button" onclick="logout()" class="btn btn-primary">Odjavi se</a>`)
 
 
 }else

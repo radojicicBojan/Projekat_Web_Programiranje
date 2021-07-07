@@ -185,6 +185,16 @@ public class TerminController {
         return new ResponseEntity<>(prikazTreningaDto, HttpStatus.OK);
     }
 
+    @PutMapping(value = "/prijavaZaTrening/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Termin> putTermin(@PathVariable Long id, @RequestBody TreningTerminSalaDto novTermin) {
+
+        Termin termin = this.terminService.findOne(id);
+        termin.setBrojPrijavljenihClanova(novTermin.getBrojPrijavljenihClanova()+1);
+
+
+        return new ResponseEntity<>(termin, HttpStatus.OK);
+    }
+
     @PutMapping(value = "/izmena/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PrikazTreningaDto> putTerminAndTrening(@PathVariable Long id, @RequestBody PrikazTreningaDto noviTerminAndTermin) {
         Termin termin = this.terminService.findOne(id);

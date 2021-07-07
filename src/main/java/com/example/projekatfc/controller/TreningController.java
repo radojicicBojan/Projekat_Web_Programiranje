@@ -110,38 +110,6 @@ public class TreningController {
         return new ResponseEntity<>(treningDto, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/prijavaZaTrening/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TreningTerminSalaDto> putTerminAndTrening(@PathVariable Long id) {
-        Trening trening = this.treningService.findOneByTerminiId(id);
-        TreningTerminSalaDto treningDto = new TreningTerminSalaDto();
-        treningDto.setId(trening.getId());
-        treningDto.setNaziv(trening.getNaziv());
-        treningDto.setOpis(trening.getOpis());
-        treningDto.setTipTreninga(trening.getTipTreninga());
-        treningDto.setTrajanje(trening.getTrajanje());
-
-        Termin termin = this.terminService.findOneById(id);
-        TerminDto terminDto = new TerminDto();
-        terminDto.setCena(termin.getCena());
-        terminDto.setVremePocetka(termin.getVremePocetka());
-        terminDto.setId(termin.getId());
-        SalaDto salaDto = new SalaDto();
-        salaDto.setId(termin.getSala().getId());
-
-        treningDto.setCena(terminDto.getCena());
-        treningDto.setVremePocetka(terminDto.getVremePocetka());
-
-        treningDto.setKapacitet(termin.getSala().getKapacitet());
-        treningDto.setOznaka(termin.getSala().getOznaka());
-        treningDto.setBrojPrijavljenihClanova(termin.getBrojPrijavljenihClanova());
-        Integer temp = treningDto.getKapacitet() - treningDto.getBrojPrijavljenihClanova();
-        treningDto.setBrojSlobodnihMesta(--temp);
-
-
-
-        return new ResponseEntity<>(treningDto, HttpStatus.OK);
-    }
-
     @GetMapping(value = "/prikazTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TreningDto>> getTreningOfTrener(@PathVariable Long id) {
         List<Trening> treninzi = this.treningService.findAllByTrenerId(id);
