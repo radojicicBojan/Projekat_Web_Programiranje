@@ -12,8 +12,7 @@ $(document).on("submit", "#addTrening", function (event) {
         naziv,
         opis,
         tipTreninga,
-        trajanje,
-        ID
+        trajanje
     }
 
 

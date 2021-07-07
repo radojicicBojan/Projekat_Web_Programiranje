@@ -3,6 +3,7 @@ package com.example.projekatfc.controller;
 import com.example.projekatfc.model.*;
 import com.example.projekatfc.model.DTO.*;
 import com.example.projekatfc.service.FitnesCentarService;
+import com.example.projekatfc.service.TerminService;
 import com.example.projekatfc.service.TreningService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,6 +24,9 @@ public class TreningController {
     @Autowired
     private TreningService treningService;
 
+    @Autowired
+    private TerminService terminService;
+
     public TreningController(TreningService treningService) {
         this.treningService = treningService;
     }
@@ -34,11 +38,16 @@ public class TreningController {
         return new ResponseEntity<>(noviTrening, HttpStatus.CREATED);
     }
     @PostMapping(value = "/addTraining/{id}")
-    public ResponseEntity<TreningTrenerDto> dodavanjeTreninga(@RequestParam Long ID, @RequestBody TreningTrenerDto newTrening){
+    public ResponseEntity<TreningTrenerDto> dodavanjeTreninga(@RequestParam Long id, @RequestBody TreningTrenerDto newTrening){
 
         Trening trening = treningService.dodajTreningTrener(newTrening);
         newTrening.setId(trening.getId());
-        newTrening.setTrenerId(ID);
+        newTrening.setTrenerId(id);
+        newTrening.setTipTreninga(trening.getTipTreninga());
+        newTrening.setNaziv(trening.getNaziv());
+        newTrening.setTrajanje(trening.getTrajanje());
+        newTrening.setOpis(trening.getOpis());
+
         return new ResponseEntity<>(newTrening, HttpStatus.CREATED);
 
     }
@@ -73,7 +82,6 @@ public class TreningController {
     @GetMapping(value = "/prosireniPrikazTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TreningTerminSalaDto> getTrainingDetails(@PathVariable Long id) {
         Trening trening = this.treningService.findOneByTerminiId(id);
-        List<TreningTerminSalaDto> treningDtos = new LinkedList<>();
         TreningTerminSalaDto treningDto = new TreningTerminSalaDto();
         treningDto.setId(trening.getId());
         treningDto.setNaziv(trening.getNaziv());
@@ -81,20 +89,55 @@ public class TreningController {
         treningDto.setTipTreninga(trening.getTipTreninga());
         treningDto.setTrajanje(trening.getTrajanje());
 
-        List<TerminDto> listaTerminaDto = new ArrayList<>();
-        for(Termin termin: trening.getTermini()){
-            TerminDto terminDto = new TerminDto();
-            terminDto.setCena(termin.getCena());
-            terminDto.setVremePocetka(termin.getVremePocetka());
-            terminDto.setId(termin.getId());
-            listaTerminaDto.add(terminDto);
-        }
-        treningDto.setListaTermina(listaTerminaDto);
-        treningDtos.add(treningDto);
+        Termin termin = this.terminService.findOneById(id);
+        TerminDto terminDto = new TerminDto();
+        terminDto.setCena(termin.getCena());
+        terminDto.setVremePocetka(termin.getVremePocetka());
+        terminDto.setId(termin.getId());
+        SalaDto salaDto = new SalaDto();
+        salaDto.setId(termin.getSala().getId());
 
-        Sala sala = new Sala();
-        treningDto.setKapacitet(sala.getKapacitet());
-        treningDto.setOznaka(sala.getOznaka());
+        treningDto.setCena(terminDto.getCena());
+        treningDto.setVremePocetka(terminDto.getVremePocetka());
+
+        treningDto.setKapacitet(termin.getSala().getKapacitet());
+        treningDto.setOznaka(termin.getSala().getOznaka());
+        treningDto.setBrojPrijavljenihClanova(termin.getBrojPrijavljenihClanova());
+        treningDto.setBrojSlobodnihMesta(treningDto.getKapacitet() - treningDto.getBrojPrijavljenihClanova());
+
+
+
+        return new ResponseEntity<>(treningDto, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/prijavaZaTrening/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TreningTerminSalaDto> putTerminAndTrening(@PathVariable Long id) {
+        Trening trening = this.treningService.findOneByTerminiId(id);
+        TreningTerminSalaDto treningDto = new TreningTerminSalaDto();
+        treningDto.setId(trening.getId());
+        treningDto.setNaziv(trening.getNaziv());
+        treningDto.setOpis(trening.getOpis());
+        treningDto.setTipTreninga(trening.getTipTreninga());
+        treningDto.setTrajanje(trening.getTrajanje());
+
+        Termin termin = this.terminService.findOneById(id);
+        TerminDto terminDto = new TerminDto();
+        terminDto.setCena(termin.getCena());
+        terminDto.setVremePocetka(termin.getVremePocetka());
+        terminDto.setId(termin.getId());
+        SalaDto salaDto = new SalaDto();
+        salaDto.setId(termin.getSala().getId());
+
+        treningDto.setCena(terminDto.getCena());
+        treningDto.setVremePocetka(terminDto.getVremePocetka());
+
+        treningDto.setKapacitet(termin.getSala().getKapacitet());
+        treningDto.setOznaka(termin.getSala().getOznaka());
+        treningDto.setBrojPrijavljenihClanova(termin.getBrojPrijavljenihClanova());
+        Integer temp = treningDto.getKapacitet() - treningDto.getBrojPrijavljenihClanova();
+        treningDto.setBrojSlobodnihMesta(--temp);
+
+
 
         return new ResponseEntity<>(treningDto, HttpStatus.OK);
     }

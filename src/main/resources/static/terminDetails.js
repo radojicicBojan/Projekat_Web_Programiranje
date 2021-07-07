@@ -11,24 +11,50 @@ $(document).ready(function () {
             trainings=response;
             console.log("SUCCESS:\n", response);
             let trening = response;
-                for(let termin of trening.listaTermina) {
                     let row = "<tr class=\"table-secondary\">";
-                    idd = termin.id;
                     row += "<td>" + trening.id + "</td>";
                     row += "<td>" + trening.naziv + "</td>";
                     row += "<td>" + trening.opis + "</td>";
                     row += "<td>" + trening.tipTreninga + "</td>";
                     row += "<td>" + trening.trajanje + "</td>";
-                    row += "<td>" + termin.id + "</td>";
-                    row += "<td>" + termin.cena + "</td>";
-                    row += "<td>" + termin.vremePocetka.slice(0, 16).split('T').join(' '); + "</td>";
-                    row += "<td>" + `<button class='btn btn-primary' onclick=location.href="terminDetails.html?id="+idd>Odaberi</button></td>"`;
+                    row += "<td>" + id + "</td>";
+                    row += "<td>" + trening.cena + "</td>";
+                    row += "<td>" + trening.vremePocetka.slice(0, 16).split('T').join(' '); + "</td>";
+                    row += "<td>" + trening.oznaka + "</td>";
+                    row += "<td>" + trening.kapacitet + "</td>";
+                    row += "<td>" + trening.brojPrijavljenihClanova + "</td>";
+                    row += "<td>" + trening.brojSlobodnihMesta + "</td>";
+                    row += "<td>" + `<button class='btn btn-primary' type='submit'>Prijavi se</button></td>"`;
 
+                    let brojPrijavljenihClanova = trening.brojPrijavljenihClanova;
                     $('#trainings').append(row);
-                }
         },
         error: function (response) {
             console.log("ERROR:\n", response);
         }
     });
 });
+
+$(document).on("submit", function (event) {
+    event.preventDefault();
+    console.log('test');
+
+
+    $.ajax({
+        type: "PUT",
+        url: "http://localhost:8080/api/treninzi/prijavaZaTrening" + id,
+        dataType: "json",
+        contentType: "application/json",
+        data: JSON.stringify(brojPrijavljenihTreninga),
+        success: function (response) {
+            console.log(response);
+
+            alert("Uspešno ste se prijavili za trening!");
+            window.location.href = "terminDetails.html";
+        },
+        error: function () {
+            alert("Greška prilikom prijavljivanja!");
+        }
+    });
+});
+

@@ -1,11 +1,8 @@
 package com.example.projekatfc.controller;
 
 
+import com.example.projekatfc.model.*;
 import com.example.projekatfc.model.DTO.*;
-import com.example.projekatfc.model.FitnesCentar;
-import com.example.projekatfc.model.Sala;
-import com.example.projekatfc.model.Termin;
-import com.example.projekatfc.model.Trening;
 import com.example.projekatfc.service.TerminService;
 import com.example.projekatfc.service.TreningService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -202,6 +199,7 @@ public class TerminController {
         termin.setCena(noviTerminAndTermin.getCena());
 
         this.terminService.save(termin);
+        this.treningService.save(trening);
 
         noviTerminAndTermin.setId(id);
         noviTerminAndTermin.setIdTermin(id);
@@ -211,12 +209,7 @@ public class TerminController {
 
     @PostMapping(value = "/dodavanjeTermina/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TerminTreningDto> dodajTermin(@PathVariable Long id, @RequestBody TerminTreningDto novTermin) {
-        Termin termin = this.terminService.findOneByTreningId(id);
-
-        termin.setVremePocetka(novTermin.getVremePocetka());
-        termin.setCena(novTermin.getCena());
-
-        this.terminService.save(termin);
+        Termin termin = terminService.addTermin(novTermin);
 
         novTermin.setId(id);
         novTermin.setTreningId(id);

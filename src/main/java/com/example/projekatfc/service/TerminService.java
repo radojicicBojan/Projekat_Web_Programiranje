@@ -1,5 +1,6 @@
 package com.example.projekatfc.service;
 
+import com.example.projekatfc.model.DTO.TerminTreningDto;
 import com.example.projekatfc.model.Termin;
 import com.example.projekatfc.model.Trening;
 import com.example.projekatfc.repository.TerminRepository;
@@ -57,4 +58,27 @@ public class TerminService {
         return termin;
     }
 
+    public Termin findOneById(Long id) {
+        Termin termin = this.terminRepository.findOneById(id);
+        return termin;
+    }
+
+    public Termin update(Termin termin) {
+        Termin saved = this.terminRepository.save(termin);
+        return saved;
+
+    }
+
+    public Termin addTermin(TerminTreningDto novTermin) {
+        Termin termin = new Termin();
+
+        termin.setCena(novTermin.getCena());
+        termin.setVremePocetka(novTermin.getVremePocetka());
+
+
+        terminRepository.save(termin);
+        return termin;
+
+
+    }
 }

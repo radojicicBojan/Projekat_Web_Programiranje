@@ -11,8 +11,6 @@ if(localStorage.getItem("ULOGA")  == "CLAN") {
     $("#main-dropdown").html(`<button class="btn btn-primary" onclick=location.href="trainings.html" style="width: 120%;height: 100%" class="button">Raspored treninga</button>`)
     $("#Identification").html(`<a href="homepage.html" type="button" onclick="logout()" class="btn btn-primary">Odjavi se</a>`)
 
-    //document.getElementById("details").style.display = "";
-
 
 }else
 if(localStorage.getItem("ULOGA") == "ADMINISTRATOR") {

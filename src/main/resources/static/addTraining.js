@@ -197,3 +197,7 @@ function poNazivu() {
             $('#trainings tbody').append(row);
         }
 }
+if(localStorage.getItem("ULOGA")  == "CLAN")
+{
+    document.getElementById("details").style.display = "";
+}

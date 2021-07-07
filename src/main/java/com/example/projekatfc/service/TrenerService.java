@@ -44,6 +44,7 @@ public class TrenerService {
     public List<Trener> getAllUnactive(){
         return trenerRepository.getAllByAktivan(false);
     }
+
     public Trener update(Trener trener) throws Exception {
         Trener savedEm = this.trenerRepository.save(trener);
         return savedEm;
