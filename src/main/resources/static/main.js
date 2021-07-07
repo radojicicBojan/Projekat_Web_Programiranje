@@ -1,13 +1,22 @@
-
+let Id = localStorage.getItem("ID");
 
 if(localStorage.getItem("ULOGA") == "TRENER") {
+    $("#main-dropdown").html(`<button class="btn btn-primary" onclick=location.href="trainings.html" style="width: 120%;height: 100%" class="button">Raspored treninga</button>
+                <button class="btn btn-light" onclick=location.href=\"listTrainings.html?id="+Id+"\" style="width: 120%;height: 100%" class="button">Lista treninga</button>`)
+    $("#Identification").html(`<a href="homepage.html" type="button" onclick="logout()" class="btn btn-primary">Odjavi se</a>`)
+
 
 }else
 if(localStorage.getItem("ULOGA")  == "CLAN") {
+    $("#main-dropdown").html(`<button class="btn btn-primary" onclick=location.href="trainings.html" style="width: 120%;height: 100%" class="button">Raspored treninga</button>`)
+    $("#Identification").html(`<a href="homepage.html" type="button" onclick="logout()" class="btn btn-primary">Odjavi se</a>`)
+
+    //document.getElementById("details").style.display = "";
+
 
 }else
 if(localStorage.getItem("ULOGA") == "ADMINISTRATOR") {
-    $("#main-dropdown").html(`<button class="btn btn-primary" onclick=location.href="trainings.html" style="width: 120%;height: 100%" class="button">Lista treninga</button>
+    $("#main-dropdown").html(`<button class="btn btn-primary" onclick=location.href="trainings.html" style="width: 120%;height: 100%" class="button">Raspored treninga</button>
                 <button class="btn btn-light" onclick=location.href="fitnesCentar.html" style="width: 120%;height: 100%" class="button">Fitnes centar</button>
                 <button class="btn btn-primary" onclick=location.href="approval.html" style="width: 120%;height: 100%" class="button">Zahtevi trenera</button>
                 <button class="btn btn-light" onclick=location.href="registrationCoachByAdmin.html" style="width: 120%;height: 100%" class="button">Registracija trenera</button>
@@ -15,7 +24,7 @@ if(localStorage.getItem("ULOGA") == "ADMINISTRATOR") {
 `)
     $("#Identification").html(`<a href="homepage.html" type="button" onclick="logout()" class="btn btn-primary">Odjavi se</a>`)
 }else{
-    $("#main-dropdown").html(`<button class="btn btn-primary" onclick=location.href="trainings.html" style="width: 120%;height: 100%" class="button">Lista treninga</button>`)
+    $("#main-dropdown").html(`<button class="btn btn-primary" onclick=location.href="trainings.html" style="width: 120%;height: 100%" class="button">Raspored treninga</button>`)
     $("#Identification").html(`<a href="login.html" type="button" class="btn btn-primary">Uloguj se</a>
     <a href="registration.html" type="button" class="btn btn-light">Registruj se</a>`)
 

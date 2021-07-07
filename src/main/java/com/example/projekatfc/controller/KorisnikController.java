@@ -81,19 +81,20 @@ public class KorisnikController {
             noviKorisnik.setId(clan.getId());
             return new ResponseEntity<>(noviKorisnik, HttpStatus.CREATED);
         }else{
-            if(noviKorisnik.getAktivan()==true){
+            if(noviKorisnik.getAktivan()==null){
+                noviKorisnik.setAktivan(false);
                 Trener trener = trenerService.registrujTrenera(noviKorisnik);
                 noviKorisnik.setId(trener.getId());
                 return new ResponseEntity<>(noviKorisnik, HttpStatus.CREATED);
             }
             else {
-                noviKorisnik.setAktivan(false);
                 Trener trener = trenerService.registrujTrenera(noviKorisnik);
                 noviKorisnik.setId(trener.getId());
                 return new ResponseEntity<>(noviKorisnik, HttpStatus.CREATED);
             }
         }
     }
+
     @PostMapping(value = "/login")
     public ResponseEntity<KorisnikDto> login(@RequestBody LoginDto potencijalniKorisnik){
         Clan c = clanService.login(potencijalniKorisnik);

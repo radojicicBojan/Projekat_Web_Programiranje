@@ -11,10 +11,9 @@ import java.util.List;
 
 @Service
 public class TerminService {
-    private final TerminRepository terminRepository;
-
-
     @Autowired
+    private TerminRepository terminRepository;
+
     public TerminService(TerminRepository terminRepository) {
         this.terminRepository = terminRepository;
     }
@@ -48,4 +47,14 @@ public class TerminService {
         return termin;
     }
     public Termin save(Termin termin){return this.terminRepository.save(termin);}
+
+    public Termin findOne(Long id){
+        Termin termin = this.terminRepository.findOneById(id);
+        return termin;
+    }
+    public Termin findOneByTreningId(Long id){
+        Termin termin = this.terminRepository.findOneByTreningId(id);
+        return termin;
+    }
+
 }

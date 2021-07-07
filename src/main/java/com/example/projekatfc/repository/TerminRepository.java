@@ -1,7 +1,6 @@
 package com.example.projekatfc.repository;
 
 import com.example.projekatfc.model.Termin;
-import com.example.projekatfc.model.Trening;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Date;
@@ -15,6 +14,7 @@ public interface TerminRepository extends JpaRepository<Termin, Long> {
     List<Termin> findAllByOrderByVremePocetka();
     List<Termin> findAllByOrderByVremePocetkaDesc();
 
+    Termin findOneById(Long id);
 
-
+    Termin findOneByTreningId(Long id);
 }

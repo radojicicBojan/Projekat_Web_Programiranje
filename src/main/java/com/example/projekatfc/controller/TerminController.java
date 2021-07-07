@@ -1,13 +1,14 @@
 package com.example.projekatfc.controller;
 
-import com.example.projekatfc.model.DTO.PrikazTreningaDto;
-import com.example.projekatfc.model.DTO.TerminDto;
-import com.example.projekatfc.model.DTO.TreningDto;
+
+import com.example.projekatfc.model.DTO.*;
+import com.example.projekatfc.model.FitnesCentar;
+import com.example.projekatfc.model.Sala;
 import com.example.projekatfc.model.Termin;
 import com.example.projekatfc.model.Trening;
-import com.example.projekatfc.repository.TerminRepository;
 import com.example.projekatfc.service.TerminService;
-import org.springframework.format.annotation.DateTimeFormat;
+import com.example.projekatfc.service.TreningService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,14 @@ import org.springframework.web.bind.annotation.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+@CrossOrigin
 @RestController
 @RequestMapping(value = "api/termini")
 public class TerminController {
-    private  final TerminService terminService;
+    @Autowired
+    private TerminService terminService;
+    @Autowired
+    private TreningService treningService;
 
     public TerminController(TerminService terminService) {
         this.terminService = terminService;
@@ -165,4 +169,59 @@ public class TerminController {
         }
         return new ResponseEntity<>(prikazTreningaDtos, HttpStatus.OK);
     }
+    @GetMapping(value = "/ispis/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PrikazTreningaDto> getTermin(@PathVariable Long id) {
+        Termin termin = this.terminService.findOne(id);
+        Trening trening = this.treningService.findOne(id);
+
+        PrikazTreningaDto prikazTreningaDto = new PrikazTreningaDto();
+
+        prikazTreningaDto.setId(trening.getId());
+        prikazTreningaDto.setNaziv(trening.getNaziv());
+        prikazTreningaDto.setTipTreninga(trening.getTipTreninga());
+        prikazTreningaDto.setTrajanje(trening.getTrajanje());
+        prikazTreningaDto.setOpis(trening.getOpis());
+        prikazTreningaDto.setIdTermin(termin.getId());
+        prikazTreningaDto.setVremePocetka(termin.getVremePocetka());
+        prikazTreningaDto.setCena(termin.getCena());
+
+        return new ResponseEntity<>(prikazTreningaDto, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "/izmena/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<PrikazTreningaDto> putTerminAndTrening(@PathVariable Long id, @RequestBody PrikazTreningaDto noviTerminAndTermin) {
+        Termin termin = this.terminService.findOne(id);
+        Trening trening = this.treningService.findOneByTerminiId(id);
+
+        trening.setNaziv(noviTerminAndTermin.getNaziv());
+        trening.setTipTreninga(noviTerminAndTermin.getTipTreninga());
+        trening.setTrajanje(noviTerminAndTermin.getTrajanje());
+        trening.setOpis(noviTerminAndTermin.getOpis());
+
+        termin.setVremePocetka(noviTerminAndTermin.getVremePocetka());
+        termin.setCena(noviTerminAndTermin.getCena());
+
+        this.terminService.save(termin);
+
+        noviTerminAndTermin.setId(id);
+        noviTerminAndTermin.setIdTermin(id);
+
+        return new ResponseEntity<>(noviTerminAndTermin, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/dodavanjeTermina/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TerminTreningDto> dodajTermin(@PathVariable Long id, @RequestBody TerminTreningDto novTermin) {
+        Termin termin = this.terminService.findOneByTreningId(id);
+
+        termin.setVremePocetka(novTermin.getVremePocetka());
+        termin.setCena(novTermin.getCena());
+
+        this.terminService.save(termin);
+
+        novTermin.setId(id);
+        novTermin.setTreningId(id);
+
+        return new ResponseEntity<>(novTermin, HttpStatus.OK);
+    }
 }
+

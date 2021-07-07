@@ -20,8 +20,8 @@ public class SalaService {
     public Sala dodajSalu(SalaFCDto novaSala){
         Sala sala = new Sala();
         sala.setKapacitet(novaSala.getKapacitet());
-        sala.setOznaka(novaSala.getOznaka());
 
+        sala.setOznaka(novaSala.getOznaka());
         FitnesCentar fitnesCentar = fitnesCentarService.findOne(novaSala.getFitnesCentarID());
 
         sala.setFitnesCentar(fitnesCentar);

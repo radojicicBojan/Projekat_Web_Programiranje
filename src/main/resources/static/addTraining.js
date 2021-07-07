@@ -1,18 +1,20 @@
-let treninzi;
+let uloga = localStorage.getItem("ULOGA");
+let idd;
+let trainings;
 let filtriraniTreninzi;
-$(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Object Model) učitan da bi JS mogao sa njim da manipuliše.
-    // ajax poziv za dobavljanje svih zaposlenih sa backend-a i prikaz u tabeli
+$(document).ready(function () {
     $.ajax({
         type: "GET",
         url: "http://localhost:8080/api/treninzi/prikazTreninga",
         dataType: "json",
         success: function (response) {
-            treninzi=response;
-            filtriraniTreninzi = JSON.parse(JSON.stringify(treninzi));
+            trainings=response;
+            filtriraniTreninzi = JSON.parse(JSON.stringify(trainings));
             console.log("SUCCESS:\n", response);
             for (let trening of response) {
                 for(let termin of trening.listaTermina) {
                     let row = "<tr class=\"table-secondary\">";
+                    idd = termin.id;
                     row += "<td>" + trening.id + "</td>";
                     row += "<td>" + trening.naziv + "</td>";
                     row += "<td>" + trening.opis + "</td>";
@@ -21,7 +23,10 @@ $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Obj
                     row += "<td>" + termin.id + "</td>";
                     row += "<td>" + termin.cena + "</td>";
                     row += "<td>" + termin.vremePocetka.slice(0, 16).split('T').join(' '); + "</td>";
-                    $('#treninzi').append(row);
+                    if(uloga == "CLAN") {
+                        row += "<td>" + `<button class='btn btn-primary' onclick=location.href="terminDetails.html?id="+idd>Odaberi</button></td>"`;
+                    }
+                    $('#trainings').append(row);
                 }
             }
         },
@@ -120,7 +125,7 @@ function poNazivu() {
     if ($("#priceSort").val() != "nothing") {
         sortiraj();
     } else {
-        $('#treninzi tbody').html("");
+        $('#trainings tbody').html("");
         for (let trening of filtriraniTreninzi) {
             for (let termin of trening.listaTermina) {
                 let row = "<tr class=\"table-secondary\">";
@@ -133,7 +138,7 @@ function poNazivu() {
                 row += "<td>" + termin.cena + "</td>";
                 row += "<td>" + termin.vremePocetka.slice(0, 16).split('T').join(' ');
                 +"</td>";
-                $('#treninzi tbody').append(row);
+                $('#trainings').append(row);
             }
         }
     }
@@ -176,7 +181,7 @@ function poNazivu() {
                 return new Date(a.termin.vremePocetka) - new Date(b.termin.vremePocetka);
             });
         }
-        $('#treninzi tbody').html("");
+        $('#trainings tbody').html("");
         for (let trening of preSort) {
                 let row = "<tr class=\"table-secondary\">";
                 row += "<td>" + trening.id + "</td>";
@@ -187,7 +192,8 @@ function poNazivu() {
                 row += "<td>" + trening.termin.id + "</td>";
                 row += "<td>" + trening.termin.cena + "</td>";
                 row += "<td>" + trening.termin.vremePocetka.slice(0, 16).split('T').join(' '); + "</td>";
-                $('#treninzi tbody').append(row);
+                $('#trainings').append(row);
+
+            $('#trainings tbody').append(row);
         }
 }
-

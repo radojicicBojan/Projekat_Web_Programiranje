@@ -10,6 +10,10 @@ public interface TreningRepository extends JpaRepository<Trening, Long> {
     List<Trening> findAllByOpisContaining(String opis);
     List<Trening> findAllByTipTreningaContaining(String tipTreninga);
     List<Trening> findAllByTerminiCena(double cena);
+    List<Trening> findAllByTrenerId(Long id);
+
+    Trening findOneById(Long id);
 
 
+    Trening findOneByTerminiId(Long id);
 }

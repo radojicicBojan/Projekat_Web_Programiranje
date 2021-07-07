@@ -1,3 +1,6 @@
+if(document.getElementsByName("role").value == "TRENER"){
+    document.getElementById("registration").innerHTML
+}
 $(function(){
     var $registerForm =$('#registration');
     if($registerForm.length){
