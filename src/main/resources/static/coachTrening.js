@@ -1,8 +1,9 @@
 let id = new URL(window.location.href).searchParams.get("id");
+
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/treninzi/prikazTreninga/" + id,
+        url: "http://localhost:8080/api/treninzi/prikazListeTreninga/" + id,
         dataType: "json",
         success: function (response) {
             console.log("SUCCESS:\n", response);

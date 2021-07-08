@@ -1,5 +1,5 @@
 let ID = localStorage.getItem("ID");
-$(document).on("submit", "#addTrening", function (event) {
+$(document).on("submit", "#addTrainingCoach", function (event) {
     event.preventDefault();
     console.log('test');
     // preuzimamo vrednosti unete u formi
@@ -12,13 +12,14 @@ $(document).on("submit", "#addTrening", function (event) {
         naziv,
         opis,
         tipTreninga,
-        trajanje
+        trajanje,
+        trenerId:ID
     }
 
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/api/treninzi/addTraining/" + ID,
+        url: "http://localhost:8080/api/treninzi/addTraining",
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(newTrening),
@@ -26,7 +27,7 @@ $(document).on("submit", "#addTrening", function (event) {
             console.log(response);
 
             alert("Trening " + response.id + " je uspešno dodat!");
-            window.location.href = "seeTrainings.html";
+            window.location.href = "seeTrainings.html?id="+ID;
         },
         error: function () {
             alert("Greška prilikom dodavanja treninga!");

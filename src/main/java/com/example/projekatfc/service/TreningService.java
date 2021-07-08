@@ -5,6 +5,7 @@ import com.example.projekatfc.model.DTO.TreningDto;
 import com.example.projekatfc.model.DTO.TreningTrenerDto;
 import com.example.projekatfc.model.FitnesCentar;
 import com.example.projekatfc.model.Termin;
+import com.example.projekatfc.model.Trener;
 import com.example.projekatfc.model.Trening;
 import com.example.projekatfc.repository.TreningRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import java.util.List;
 public class TreningService {
     @Autowired
     private TreningRepository treningRepository;
+    @Autowired
+    private TrenerService trenerService;
 
     public Trening findOne(Long id){
 
@@ -28,7 +31,10 @@ public class TreningService {
         trening.setOpis(noviTrening.getOpis());
         trening.setTipTreninga(noviTrening.getTipTreninga());
         trening.setTrajanje(noviTrening.getTrajanje());
-        trening.getTrener().setId(noviTrening.getTrenerId());
+
+        Trener trener = trenerService.findOne(noviTrening.getTrenerId());
+
+        trening.setTrener(trener);
 
         treningRepository.save(trening);
         return trening;
@@ -75,8 +81,8 @@ public class TreningService {
         return treninzi;
     }
 
-    public Trening findOneByTerminiId(Long id){
-        Trening trening = this.treningRepository.findOneByTerminiId(id);
+    public Trening findByTermini(Termin termin){
+        Trening trening = this.treningRepository.findByTermini(termin);
         return trening;
     }
 

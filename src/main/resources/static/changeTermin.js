@@ -1,4 +1,5 @@
 let id = new URL(window.location.href).searchParams.get("id");
+let ID = localStorage.getItem("ID");
 
 $.ajax({
     type: "GET",
@@ -19,29 +20,27 @@ $.ajax({
     }
 });
 
-$(document).on("submit", "#changeTermin", function (event) {
-    event.preventDefault();
-    console.log('test');
-    // preuzimamo vrednosti unete u formi
-    let name = $("#name1").val();
-    let description = $("#description").val();
-    let type = $("#type").val();
-    let duration = $("#duration").val();
-    let time = $("#time").val();
-    let price = $("#price").val();
+function izmeni() {
+
+    let naziv = $("#name1").val();
+    let opis = $("#description").val();
+    let tipTreninga = $("#type").val();
+    let trajanje = $("#duration").val();
+    let vremePocetka = $("#time").val();
+    let cena = $("#price").val();
 
     let newTermin = {
-        name,
-        description,
-        type,
-        duration,
-        time,
-        price
+        naziv,
+        opis,
+        tipTreninga,
+        trajanje,
+        vremePocetka,
+        cena
     }
 
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8080/api/termini/izmena/" + id,
+        url: "http://localhost:8080/api/treninzi/izmena/" + id,
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(newTermin),
@@ -49,10 +48,10 @@ $(document).on("submit", "#changeTermin", function (event) {
             console.log(response);
 
             alert("Termin " + response.id + " je uspešno izmenjen!");
-            window.location.href = "changeTermin.html";
+            window.location.href = "listTrainings.html?id="+ID;
         },
         error: function () {
             alert("Greška prilikom izmene Termina!");
         }
     });
-});
+}

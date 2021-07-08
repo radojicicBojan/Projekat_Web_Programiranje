@@ -1,5 +1,6 @@
 package com.example.projekatfc.repository;
 
+import com.example.projekatfc.model.Termin;
 import com.example.projekatfc.model.Trening;
 import org.springframework.data.jpa.repository.JpaRepository;
 
@@ -15,5 +16,5 @@ public interface TreningRepository extends JpaRepository<Trening, Long> {
     Trening findOneById(Long id);
 
 
-    Trening findOneByTerminiId(Long id);
+    Trening findByTermini(Termin termin);
 }

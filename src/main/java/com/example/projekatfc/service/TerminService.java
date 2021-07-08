@@ -1,7 +1,9 @@
 package com.example.projekatfc.service;
 
 import com.example.projekatfc.model.DTO.TerminTreningDto;
+import com.example.projekatfc.model.Sala;
 import com.example.projekatfc.model.Termin;
+import com.example.projekatfc.model.Trener;
 import com.example.projekatfc.model.Trening;
 import com.example.projekatfc.repository.TerminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,14 +71,19 @@ public class TerminService {
 
     }
 
-    public Termin addTermin(TerminTreningDto novTermin) {
+    public Termin addTermin(TerminTreningDto novTermin, Trening trening, Sala sala) {
         Termin termin = new Termin();
 
+        termin.setTrening(trening);
         termin.setCena(novTermin.getCena());
         termin.setVremePocetka(novTermin.getVremePocetka());
+        termin.setBrojPrijavljenihClanova(0);
+        termin.setSala(sala);
 
 
         terminRepository.save(termin);
+
+
         return termin;
 
 

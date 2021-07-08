@@ -81,7 +81,7 @@
           <!-- Vreme početka -->
           <label class="control-label"  for="time" style="color: white">Vreme početka</label>
           <div class="controls">
-            <input required="true" type="date" id="time" name="time" placeholder="" class="input-xlarge" style="margin-left: 5px">
+            <input required="true" type="datetime-local" id="time" name="time" placeholder="" class="input-xlarge" style="margin-left: 5px">
             <i class="fa fa-times n_times"></i>
             <i class="fa fa-check n_check"></i>
           </div>
@@ -101,7 +101,7 @@
           <!-- Button -->
           <div style="margin-top: 15px" class="controls">
             <button type="reset" class="btn btn-light" style="border-color: black">Poništi</button>
-            <button type="submit" class="btn btn-primary" style="width: 110px">Izmeni</button>
+            <button type="button" onclick="izmeni()" class="btn btn-primary" style="width: 110px">Izmeni</button>
           </div>
         </div>
       </div>

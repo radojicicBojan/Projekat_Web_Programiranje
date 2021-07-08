@@ -14,7 +14,6 @@ $(document).ready(function () {
             for (let trening of response) {
                 for(let termin of trening.listaTermina) {
                     let row = "<tr class=\"table-secondary\">";
-                    idd = termin.id;
                     row += "<td>" + trening.id + "</td>";
                     row += "<td>" + trening.naziv + "</td>";
                     row += "<td>" + trening.opis + "</td>";
@@ -24,9 +23,9 @@ $(document).ready(function () {
                     row += "<td>" + termin.cena + "</td>";
                     row += "<td>" + termin.vremePocetka.slice(0, 16).split('T').join(' '); + "</td>";
                     if(uloga == "CLAN") {
-                        row += "<td>" + `<button class='btn btn-primary' onclick=location.href="terminDetails.html?id="+idd>Odaberi</button></td>"`;
+                        row += "<td>" + `<button class='btn btn-primary' onclick=location.href="terminDetails.html?id=${termin.id}">Odaberi</button></td>"`;
                     }
-                    $('#trainings').append(row);
+                    $('#listTrainings').append(row);
                 }
             }
         },
@@ -88,7 +87,7 @@ function poNazivu() {
     let vremePocetka = $("#termTime").val();
 
 
-    filtriraniTreninzi = JSON.parse(JSON.stringify(treninzi));
+    filtriraniTreninzi = JSON.parse(JSON.stringify(trainings));
     if (naziv != "") {
         filtriraniTreninzi = filtriraniTreninzi.filter(function (trening) {
             return trening.naziv.includes(naziv);
@@ -125,7 +124,7 @@ function poNazivu() {
     if ($("#priceSort").val() != "nothing") {
         sortiraj();
     } else {
-        $('#trainings tbody').html("");
+        $('#listTrainings tbody').html("");
         for (let trening of filtriraniTreninzi) {
             for (let termin of trening.listaTermina) {
                 let row = "<tr class=\"table-secondary\">";
@@ -138,7 +137,7 @@ function poNazivu() {
                 row += "<td>" + termin.cena + "</td>";
                 row += "<td>" + termin.vremePocetka.slice(0, 16).split('T').join(' ');
                 +"</td>";
-                $('#trainings').append(row);
+                $('#listTrainings').append(row);
             }
         }
     }
@@ -181,7 +180,7 @@ function poNazivu() {
                 return new Date(a.termin.vremePocetka) - new Date(b.termin.vremePocetka);
             });
         }
-        $('#trainings tbody').html("");
+        $('#listTrainings tbody').html("");
         for (let trening of preSort) {
                 let row = "<tr class=\"table-secondary\">";
                 row += "<td>" + trening.id + "</td>";
@@ -192,9 +191,7 @@ function poNazivu() {
                 row += "<td>" + trening.termin.id + "</td>";
                 row += "<td>" + trening.termin.cena + "</td>";
                 row += "<td>" + trening.termin.vremePocetka.slice(0, 16).split('T').join(' '); + "</td>";
-                $('#trainings').append(row);
-
-            $('#trainings tbody').append(row);
+                $('#listTrainings tbody').append(row);
         }
 }
 if(localStorage.getItem("ULOGA")  == "CLAN")

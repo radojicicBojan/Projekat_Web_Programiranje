@@ -13,7 +13,7 @@ $(document).on("submit", "#addTermin", function (event) {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/api/termini/dodavanjeTermina/" + id,
+        url: "http://localhost:8080/api/treninzi/dodavanjeTermina/" + id,
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(novTermin),

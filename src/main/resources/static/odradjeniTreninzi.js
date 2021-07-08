@@ -90,14 +90,9 @@ $(document).ready(function () {
 });
 
 function oceni(){
-    /*let ids = [];
-    var rb = document.getElementsByClassName('rb');
-    for(let j=0; j<rb.length; j++) {
-        if (rb[j].checked) {
-            ids.push($(rb[j]).attr("fitnesCentar_id"));
-            $(rb[j]).closest("tr").remove();
-        }
-    }*/
+
+    let ocena = document.getElementById('ocena').val;
+
     $.ajax({
         type: "PUT",
         url: "http://localhost:8080/api/termini/oceni/" + id/ + ID,

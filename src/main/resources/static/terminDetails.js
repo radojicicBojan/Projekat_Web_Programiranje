@@ -5,7 +5,7 @@ let id = new URL(window.location.href).searchParams.get("id");
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/treninzi/prosireniPrikazTreninga/" + id,
+        url: "http://localhost:8080/api/treninzi/prosireniPrikazTreninga/" + id +"?uloga=" + uloga,
         dataType: "json",
         success: function (response) {
             trainings=response;
@@ -36,10 +36,11 @@ $(document).ready(function () {
 });
 function prijava(){
     $.ajax({
-        type: "PUT",
+        type: "POST",
         url: "http://localhost:8080/api/termini/prijavaZaTrening/" + id,
-        dataType: "json",
+        dataType: "text",
         contentType: "application/json",
+        data: JSON.stringify(window.localStorage.getItem("ID")),
         success: function (response) {
             console.log(response);
 

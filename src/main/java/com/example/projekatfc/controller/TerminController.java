@@ -187,14 +187,33 @@ public class TerminController {
         return new ResponseEntity<>(prikazTreningaDto, HttpStatus.OK);
     }
 
-    @PutMapping(value = "/prijavaZaTrening/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Termin> putTermin(@PathVariable Long id, @RequestBody TreningTerminSalaDto novTermin) {
+    @PostMapping(value = "/prijavaZaTrening/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> putTermin(@PathVariable Long id, @RequestBody Long clanId) {
 
         Termin termin = this.terminService.findOne(id);
-        termin.setBrojPrijavljenihClanova(novTermin.getBrojPrijavljenihClanova()+1);
+        Clan clan = clanService.findOneById(clanId);
 
+        if(termin.getBrojPrijavljenihClanova() >= termin.getSala().getKapacitet()){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        if(clanService.prijavaZaTermin(clan, termin)){
+            return new ResponseEntity<>("Kreirano" ,HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
-        return new ResponseEntity<>(termin, HttpStatus.OK);
+    }
+
+    @PostMapping(value = "/otkazivanjePrijave/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> otkazivanjePrijave(@PathVariable Long id, @RequestBody Long clanId) {
+
+        Termin termin = this.terminService.findOne(id);
+        Clan clan = clanService.findOneById(clanId);
+
+        if(clanService.otkazivanjePrijaveZaTermin(clan, termin)){
+            return new ResponseEntity<>("Otkazano" ,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
     }
 
     @GetMapping(value = "/prikazPrijavljenihTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -243,38 +262,6 @@ public class TerminController {
         }
 
         return new ResponseEntity<>(terminDtos, HttpStatus.OK);
-    }
-
-    @PutMapping(value = "/izmena/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PrikazTreningaDto> putTerminAndTrening(@PathVariable Long id, @RequestBody PrikazTreningaDto noviTerminAndTermin) {
-        Termin termin = this.terminService.findOne(id);
-        Trening trening = this.treningService.findOneByTerminiId(id);
-
-        trening.setNaziv(noviTerminAndTermin.getNaziv());
-        trening.setTipTreninga(noviTerminAndTermin.getTipTreninga());
-        trening.setTrajanje(noviTerminAndTermin.getTrajanje());
-        trening.setOpis(noviTerminAndTermin.getOpis());
-
-        termin.setVremePocetka(noviTerminAndTermin.getVremePocetka());
-        termin.setCena(noviTerminAndTermin.getCena());
-
-        this.terminService.save(termin);
-        this.treningService.save(trening);
-
-        noviTerminAndTermin.setId(id);
-        noviTerminAndTermin.setIdTermin(id);
-
-        return new ResponseEntity<>(noviTerminAndTermin, HttpStatus.OK);
-    }
-
-    @PostMapping(value = "/dodavanjeTermina/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<TerminTreningDto> dodajTermin(@PathVariable Long id, @RequestBody TerminTreningDto novTermin) {
-        Termin termin = terminService.addTermin(novTermin);
-
-        novTermin.setId(id);
-        novTermin.setTreningId(id);
-
-        return new ResponseEntity<>(novTermin, HttpStatus.OK);
     }
 }
 

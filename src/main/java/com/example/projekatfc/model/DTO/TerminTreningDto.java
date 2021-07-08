@@ -11,6 +11,8 @@ public class TerminTreningDto {
 
     private Date vremePocetka;
 
+    private Integer brojPrijavljenihClanova;
+
     private Double cena;
 
     private Long TreningId;
@@ -23,9 +25,10 @@ public class TerminTreningDto {
 
     private Integer trajanje;
 
-    public TerminTreningDto(Long id, Date vremePocetka, Double cena,  Long TreningId,  String naziv, String opis, String tipTreninga, Integer trajanje ) {
+    public TerminTreningDto(Long id, Date vremePocetka, Integer brojPrijavljenihClanova, Double cena,  Long TreningId,  String naziv, String opis, String tipTreninga, Integer trajanje ) {
         this.id = id;
         this.vremePocetka = vremePocetka;
+        this.brojPrijavljenihClanova = brojPrijavljenihClanova;
         this.cena = cena;
         this.TreningId = TreningId;
         this.naziv = naziv;
