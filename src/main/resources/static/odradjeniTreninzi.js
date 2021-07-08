@@ -3,7 +3,7 @@ let id = localStorage.getItem("ID");
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/termini/prikazPrijavljenihTreninga/" + id,
+        url: "http://localhost:8080/api/termini/prikazOdradjenihTreninga/" + id,
         dataType: "json",
         success: function (response) {
             trainings=response;
@@ -17,10 +17,9 @@ $(document).ready(function () {
                 row += "<td>" + trening.trajanje + "</td>";
                 row += "<td>" + trening.oznaka + "</td>";
                 row += "<td>" + trening.cena + "</td>";
-                row += "<td>" + trening.vremePocetka.slice(0, 16).split('T').join(' '); + "</td>";
-                row += "<td>" + `<button class='btn btn-primary'>Otkaži</button></td>"`;
+                row += "<td>" + trening.ocena + "</td>";
 
-                $('#prijavljeniTreninzi').append(row);
+                $('#odradjeniTreninzi').append(row);
             }
         },
         error: function (response) {

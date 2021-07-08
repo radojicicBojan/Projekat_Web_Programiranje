@@ -221,6 +221,30 @@ public class TerminController {
         return new ResponseEntity<>(terminDtos, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/prikazOdradjenihTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TreningTerminSalaDto>> getOdradjeniTreninzi(@PathVariable Long id) {
+        Clan clan = this.clanService.findOneById(id);
+        Set<OdradjenTrening> termins = clan.getListaOdradjenihTreninga();
+        List<TreningTerminSalaDto> terminDtos = new ArrayList<>();
+
+        for(OdradjenTrening trening: termins) {
+            TreningTerminSalaDto treningTerminSalaDto = new TreningTerminSalaDto();
+            treningTerminSalaDto.setId(trening.getId());
+            treningTerminSalaDto.setNaziv(trening.getTermin().getTrening().getNaziv());
+            treningTerminSalaDto.setTipTreninga(trening.getTermin().getTrening().getTipTreninga());
+            treningTerminSalaDto.setOpis(trening.getTermin().getTrening().getOpis());
+            treningTerminSalaDto.setTrajanje(trening.getTermin().getTrening().getTrajanje());
+            treningTerminSalaDto.setCena(trening.getTermin().getCena());
+            treningTerminSalaDto.setOznaka(trening.getTermin().getSala().getOznaka());
+            treningTerminSalaDto.setOcena(trening.getOcena());
+            treningTerminSalaDto.setBrojPrijavljenihClanova(trening.getTermin().getBrojPrijavljenihClanova());
+            terminDtos.add(treningTerminSalaDto);
+
+        }
+
+        return new ResponseEntity<>(terminDtos, HttpStatus.OK);
+    }
+
     @PutMapping(value = "/izmena/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PrikazTreningaDto> putTerminAndTrening(@PathVariable Long id, @RequestBody PrikazTreningaDto noviTerminAndTermin) {
         Termin termin = this.terminService.findOne(id);

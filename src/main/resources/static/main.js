@@ -10,7 +10,7 @@ if(localStorage.getItem("ULOGA") == "TRENER") {
 if(localStorage.getItem("ULOGA")  == "CLAN") {
     $("#main-dropdown").html(`<button class="btn btn-primary" onclick=location.href="trainings.html" style="width: 120%;height: 100%" class="button">Raspored treninga</button>
             <button class="btn btn-light" onclick=location.href="prijavljeniTreninzi.html" style="width: 120%;height: 100%" class="button">Prijavljeni treninzi</button>
-            <button class="btn btn-primary" onclick=location.href="trainings.html" style="width: 120%;height: 100%" class="button">Odrađeni treninzi</button>
+            <button class="btn btn-primary" onclick=location.href="odradjeniTreninzi.html" style="width: 120%;height: 100%" class="button">Odrađeni treninzi</button>
 `)
     $("#Identification").html(`<a href="profil.html" type="button" style="margin-right: 5px" class="btn btn-warning">Moj profil</a><a href="homepage.html" type="button" onclick="logout()" class="btn btn-outline-danger">Odjavi se</a>`)
 
