@@ -18,7 +18,7 @@ $(document).ready(function () {
                 row += "<td>" + trening.oznaka + "</td>";
                 row += "<td>" + trening.cena + "</td>";
                 row += "<td>" + trening.vremePocetka.slice(0, 16).split('T').join(' '); + "</td>";
-                row += "<td>" + `<button class='btn btn-primary'>Otkaži</button></td>"`;
+                row += "<td>" + `<button class='btn btn-primary' onclick='otkazivanje()' '>Otkaži</button></td>"`;
 
                 $('#prijavljeniTreninzi').append(row);
             }
@@ -28,3 +28,22 @@ $(document).ready(function () {
         }
     });
 });
+
+function otkazivanje(){
+    $.ajax({
+        type: "POST",
+        url: "http://localhost:8080/api/termini/otkazivanjePrijave/" + id,
+        dataType: "text",
+        contentType: "application/json",
+        data: JSON.stringify(window.localStorage.getItem("ID")),
+        success: function (response) {
+            console.log(response);
+
+            alert("Uspešno ste otkazali trening!");
+            window.location.href = "terminDetails.html?id=" + id;
+        },
+        error: function () {
+            alert("Greška prilikom otkazivanja!");
+        }
+    });
+}

@@ -162,4 +162,23 @@ public class KorisnikController {
         return new ResponseEntity<>(korisnikDto, HttpStatus.OK);
     }
 
+    @PutMapping(value = "/izmenaKorisnika/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<KorisnikDto> putKorisnik(@PathVariable Long id, @RequestBody KorisnikDto korisnikDto) {
+        Korisnik korisnik = this.korisnikService.findOne(id);
+
+        korisnik.setKorisnickoIme(korisnikDto.getKorisnickoIme());
+        korisnik.setEmail(korisnikDto.getEmail());
+        korisnik.setTelefon(korisnikDto.getTelefon());
+        korisnik.setIme(korisnikDto.getIme());
+        korisnik.setDatumRodjenja(korisnikDto.getDatumRodjenja());
+        korisnik.setPrezime(korisnikDto.getPrezime());
+        korisnik.setLozinka(korisnikDto.getLozinka());
+
+        this.korisnikService.save(korisnik);
+
+        korisnikDto.setId(id);
+
+        return new ResponseEntity<>(korisnikDto, HttpStatus.OK);
+    }
+
 }

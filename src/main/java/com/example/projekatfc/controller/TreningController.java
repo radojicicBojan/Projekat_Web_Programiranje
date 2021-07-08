@@ -162,31 +162,31 @@ public class TreningController {
 
     @GetMapping(value = "/prikazListeTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TreningDto>> getTrainingsOfTrener(@PathVariable Long id) {
-    List<Trening> treninzi = this.treningService.findAllByTrenerId(id);
+        List<Trening> treninzi = this.treningService.findAllByTrenerId(id);
 
-    List<TreningDto> treningDtos = new LinkedList<>();
+        List<TreningDto> treningDtos = new LinkedList<>();
 
         for(Trening trening: treninzi) {
-        TreningDto treningDto = new TreningDto();
-        treningDto.setId(trening.getId());
-        treningDto.setNaziv(trening.getNaziv());
-        treningDto.setOpis(trening.getOpis());
-        treningDto.setTipTreninga(trening.getTipTreninga());
-        treningDto.setTrajanje(trening.getTrajanje());
-        List<TerminDto> listaTerminaDto = new ArrayList<>();
-        for(Termin termin: trening.getTermini()){
-            TerminDto terminDto = new TerminDto();
-            terminDto.setCena(termin.getCena());
-            terminDto.setVremePocetka(termin.getVremePocetka());
-            terminDto.setId(termin.getId());
-            listaTerminaDto.add(terminDto);
+            TreningDto treningDto = new TreningDto();
+            treningDto.setId(trening.getId());
+            treningDto.setNaziv(trening.getNaziv());
+            treningDto.setOpis(trening.getOpis());
+            treningDto.setTipTreninga(trening.getTipTreninga());
+            treningDto.setTrajanje(trening.getTrajanje());
+            List<TerminDto> listaTerminaDto = new ArrayList<>();
+            for(Termin termin: trening.getTermini()){
+                TerminDto terminDto = new TerminDto();
+                terminDto.setCena(termin.getCena());
+                terminDto.setVremePocetka(termin.getVremePocetka());
+                terminDto.setId(termin.getId());
+                listaTerminaDto.add(terminDto);
+            }
+            treningDto.setListaTermina(listaTerminaDto);
+            treningDtos.add(treningDto);
         }
-        treningDto.setListaTermina(listaTerminaDto);
-        treningDtos.add(treningDto);
-    }
 
         return new ResponseEntity<>(treningDtos, HttpStatus.OK);
-}
+    }
 
     @GetMapping(value="/ponazivu", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TreningDto>> getTreningPoNazivu(@RequestParam String naziv) {

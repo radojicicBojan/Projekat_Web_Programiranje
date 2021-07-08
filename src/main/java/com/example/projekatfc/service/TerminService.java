@@ -42,8 +42,8 @@ public class TerminService {
     }
 
     public List<Termin> findAllByOrderByVremePocetka() {
-    List<Termin> termin = this.terminRepository.findAllByOrderByVremePocetka();
-    return termin;
+        List<Termin> termin = this.terminRepository.findAllByOrderByVremePocetka();
+        return termin;
     }
     public List<Termin> findAllByOrderByVremePocetkaDesc() {
         List<Termin> termin = this.terminRepository.findAllByOrderByVremePocetkaDesc();

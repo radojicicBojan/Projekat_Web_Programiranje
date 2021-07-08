@@ -52,7 +52,7 @@ public class TerminController {
                     termin.getId(),
                     termin.getVremePocetka(),
                     termin.getCena());
-                prikazTreningaDtos.add(prikazTreningaDto);
+            prikazTreningaDtos.add(prikazTreningaDto);
         }
 
         return new ResponseEntity<>(prikazTreningaDtos, HttpStatus.OK);
@@ -103,27 +103,27 @@ public class TerminController {
         return new ResponseEntity<>(prikazTreningaDtos, HttpStatus.OK);
     }
 
-        @GetMapping(value="/sortpoceniopadajuce", produces = MediaType.APPLICATION_JSON_VALUE)
-        public ResponseEntity<List<PrikazTreningaDto>> getTreningSortPoCeniOpadajuce() {
-            List<Termin> listaTermina = this.terminService.findAllByOrderByCenaDesc();
+    @GetMapping(value="/sortpoceniopadajuce", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<PrikazTreningaDto>> getTreningSortPoCeniOpadajuce() {
+        List<Termin> listaTermina = this.terminService.findAllByOrderByCenaDesc();
 
-            List<PrikazTreningaDto> prikazTreningaDtos = new ArrayList<>();
+        List<PrikazTreningaDto> prikazTreningaDtos = new ArrayList<>();
 
-            for (Termin termin : listaTermina) {
+        for (Termin termin : listaTermina) {
 
-                PrikazTreningaDto prikazTreningaDto = new PrikazTreningaDto(
-                        termin.getTrening().getId(),
-                        termin.getTrening().getNaziv(),
-                        termin.getTrening().getOpis(),
-                        termin.getTrening().getTipTreninga(),
-                        termin.getTrening().getTrajanje(),
-                        termin.getId(),
-                        termin.getVremePocetka(),
-                        termin.getCena());
-                prikazTreningaDtos.add(prikazTreningaDto);
-            }
-            return new ResponseEntity<>(prikazTreningaDtos, HttpStatus.OK);
+            PrikazTreningaDto prikazTreningaDto = new PrikazTreningaDto(
+                    termin.getTrening().getId(),
+                    termin.getTrening().getNaziv(),
+                    termin.getTrening().getOpis(),
+                    termin.getTrening().getTipTreninga(),
+                    termin.getTrening().getTrajanje(),
+                    termin.getId(),
+                    termin.getVremePocetka(),
+                    termin.getCena());
+            prikazTreningaDtos.add(prikazTreningaDto);
         }
+        return new ResponseEntity<>(prikazTreningaDtos, HttpStatus.OK);
+    }
 
     @GetMapping(value="/sortpovremenu", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<PrikazTreningaDto>> getTreningSortPoVremenu() {
@@ -264,4 +264,3 @@ public class TerminController {
         return new ResponseEntity<>(terminDtos, HttpStatus.OK);
     }
 }
-

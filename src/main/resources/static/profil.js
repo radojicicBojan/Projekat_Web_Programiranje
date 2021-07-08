@@ -25,6 +25,7 @@ $(document).ready(function () {
             row += "<td>" + korisnik.korisnickoIme + "</td>";
             row += "<td>" + korisnik.telefon + "</td>";
             row += "<td>" +  aktivan + "</td>";
+            row += "<td><a href=\"changeProfil.html\" type=\"button\" class=\"btn btn-primary\">Izmeni</a></td>";
             $('#profil').append(row);
         },
         error: function (response) {

@@ -1,6 +1,7 @@
 package com.example.projekatfc.service;
 
 import com.example.projekatfc.model.Korisnik;
+import com.example.projekatfc.model.Sala;
 import com.example.projekatfc.repository.KorisnikRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,5 +34,9 @@ public class KorisnikService {
         public void delete (Long id){
             this.korisnikRepository.deleteById(id);
         }
+
+    public void save(Korisnik korisnik) {
+        this.korisnikRepository.save(korisnik);
+    }
 }
 
