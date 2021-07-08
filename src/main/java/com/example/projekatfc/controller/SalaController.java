@@ -61,6 +61,7 @@ public class SalaController {
         salaDto.setId(sala.getId());
         salaDto.setKapacitet(sala.getKapacitet());
         salaDto.setOznaka(sala.getOznaka());
+        salaDto.setFitnesCentarId(sala.getFitnesCentar().getId());
 
 
         return new ResponseEntity<>(salaDto, HttpStatus.OK);

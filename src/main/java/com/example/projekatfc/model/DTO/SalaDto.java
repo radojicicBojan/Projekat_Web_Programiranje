@@ -1,5 +1,6 @@
 package com.example.projekatfc.model.DTO;
 
+import com.example.projekatfc.model.FitnesCentar;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,4 +12,6 @@ public class SalaDto {
     private Integer kapacitet;
 
     private String oznaka;
+
+    private Long FitnesCentarId;
 }
