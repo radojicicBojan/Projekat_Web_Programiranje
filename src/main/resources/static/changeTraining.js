@@ -1,10 +1,10 @@
 let id = new URL(window.location.href).searchParams.get("id");
-let ID = localStorage.getItem("ID");
 let uloga = localStorage.getItem("ULOGA");
+let ID = localStorage.getItem("ID");
 
 $.ajax({
     type: "GET",
-    url: "http://localhost:8080/api/termini/ispis/" + id + "?uloga=" + uloga,
+    url: "http://localhost:8080/api/treninzi/ispis/" + id + "?uloga=" + uloga,
     dataType: "json",
     success: function (response) {
         console.log("SUCCESS:\n", response);
@@ -12,8 +12,6 @@ $.ajax({
         $("#description").val(response.opis);
         $("#type").val(response.tipTreninga);
         $("#duration").val(response.trajanje);
-        $("#time").val(response.vremePocetka);
-        $("#price").val(response.cena);
 
     },
     error: function (response) {
@@ -27,32 +25,28 @@ function izmeni() {
     let opis = $("#description").val();
     let tipTreninga = $("#type").val();
     let trajanje = $("#duration").val();
-    let vremePocetka = $("#time").val();
-    let cena = $("#price").val();
 
-    let newTermin = {
+    let newTraining = {
         naziv,
         opis,
         tipTreninga,
-        trajanje,
-        vremePocetka,
-        cena
+        trajanje
     }
 
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8080/api/termini/izmena/" + id + "?uloga=" + uloga,
+        url: "http://localhost:8080/api/treninzi/izmenaTreninga/" + id + "?uloga=" + uloga,
         dataType: "json",
         contentType: "application/json",
-        data: JSON.stringify(newTermin),
+        data: JSON.stringify(newTraining),
         success: function (response) {
             console.log(response);
 
-            alert("Termin " + response.id + " je uspešno izmenjen!");
-            window.location.href = "listTrainings.html?id="+ID;
+            alert("Trening " + response.id + " je uspešno izmenjen!");
+            window.location.href = "seeTrainings.html?id="+ID;
         },
         error: function () {
-            alert("Greška prilikom izmene Termina!");
+            alert("Greška prilikom izmene Treninga!");
         }
     });
 }

@@ -175,7 +175,7 @@ public class TerminController {
         }
 
         Termin termin = this.terminService.findOne(id);
-        Trening trening = this.treningService.findOne(id);
+        Trening trening = this.treningService.findOne(termin.getTrening().getId());
 
         PrikazTreningaDto prikazTreningaDto = new PrikazTreningaDto();
 

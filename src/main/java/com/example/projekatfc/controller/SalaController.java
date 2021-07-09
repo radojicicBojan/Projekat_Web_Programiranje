@@ -2,9 +2,11 @@ package com.example.projekatfc.controller;
 
 import com.example.projekatfc.model.DTO.SalaDto;
 import com.example.projekatfc.model.DTO.SalaFCDto;
+import com.example.projekatfc.model.FitnesCentar;
 import com.example.projekatfc.model.Sala;
 import com.example.projekatfc.service.FitnesCentarService;
 import com.example.projekatfc.service.SalaService;
+import com.example.projekatfc.service.TrenerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,6 +25,9 @@ public class SalaController {
     private SalaService salaService;
 
     @Autowired
+    private TrenerService trenerService;
+
+    @Autowired
     private FitnesCentarService fitnesCentarService;
 
     public SalaController(SalaService salaService) {
@@ -38,19 +43,22 @@ public class SalaController {
         return new ResponseEntity<>(novaSala, HttpStatus.CREATED);
     }
     @GetMapping(value = "/sale/fitnesCentar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<SalaDto>> getSalaFromFitnesCentar(@PathVariable Long id) {
-        Set<Sala> sale = this.fitnesCentarService.findOne(id).getListaSala();
+    public ResponseEntity<List<SalaFCDto>> getSalaFromFitnesCentar(@PathVariable Long id) {
+        FitnesCentar fitnesCentar = trenerService.findOne(id).getFitnesCentar();
 
-        List<SalaDto> salaDtos = new LinkedList<>();
+        Set<Sala> sale = fitnesCentar.getListaSala();
+
+        List<SalaFCDto> salaFCDtos = new LinkedList<>();
 
             for (Sala sala : sale) {
-                SalaDto salaDto = new SalaDto();
-                salaDto.setId(sala.getId());
-                salaDto.setKapacitet(sala.getKapacitet());
-                salaDto.setOznaka(sala.getOznaka());
-                salaDtos.add(salaDto);
+                SalaFCDto salaFCDto = new SalaFCDto();
+                salaFCDto.setId(sala.getId());
+                salaFCDto.setKapacitet(sala.getKapacitet());
+                salaFCDto.setOznaka(sala.getOznaka());
+                salaFCDto.setFitnesCentarID(sala.getFitnesCentar().getId());
+                salaFCDtos.add(salaFCDto);
             }
-            return new ResponseEntity<>(salaDtos, HttpStatus.OK);
+            return new ResponseEntity<>(salaFCDtos, HttpStatus.OK);
 
     }
     @GetMapping(value = "/sale/{id}", produces = MediaType.APPLICATION_JSON_VALUE)

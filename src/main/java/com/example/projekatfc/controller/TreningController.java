@@ -41,6 +41,24 @@ public class TreningController {
         noviTrening.setId(trening.getId());
         return new ResponseEntity<>(noviTrening, HttpStatus.CREATED);
     }
+    @GetMapping(value = "/ispis/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TreningDto> getTraining(@PathVariable Long id, @RequestParam String uloga) {
+        if(!uloga.equals("TRENER")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+        Trening trening = this.treningService.findOne(id);
+
+        TreningDto treningDto = new TreningDto();
+
+        treningDto.setId(trening.getId());
+        treningDto.setNaziv(trening.getNaziv());
+        treningDto.setTipTreninga(trening.getTipTreninga());
+        treningDto.setTrajanje(trening.getTrajanje());
+        treningDto.setOpis(trening.getOpis());
+
+        return new ResponseEntity<>(treningDto, HttpStatus.OK);
+    }
+
     @PostMapping(value = "/addTraining")
     public ResponseEntity<TreningTrenerDto> dodavanjeTreninga(@RequestParam String uloga, @RequestBody TreningTrenerDto newTrening){
         if(!uloga.equals("TRENER")){
@@ -80,38 +98,73 @@ public class TreningController {
     }
 
     @GetMapping(value = "/prikazTreninga", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<TreningDto>> getTrening() {
+    public ResponseEntity<List<TreningTerminSalaDto>> getTrening() {
         List<Trening> treninzi = this.treningService.findAll();
 
-        List<TreningDto> treningDtos = new LinkedList<>();
+        List<TreningTerminSalaDto> treningTerminSalaDtos = new LinkedList<>();
 
         for(Trening trening: treninzi) {
-            TreningDto treningDto = new TreningDto();
-            treningDto.setId(trening.getId());
-            treningDto.setNaziv(trening.getNaziv());
-            treningDto.setOpis(trening.getOpis());
-            treningDto.setTipTreninga(trening.getTipTreninga());
-            treningDto.setTrajanje(trening.getTrajanje());
-            List<TerminDto> listaTerminaDto = new ArrayList<>();
+            TreningTerminSalaDto treningTerminSalaDto = new TreningTerminSalaDto();
+            treningTerminSalaDto.setId(trening.getId());
+            treningTerminSalaDto.setNaziv(trening.getNaziv());
+            treningTerminSalaDto.setOpis(trening.getOpis());
+            treningTerminSalaDto.setTipTreninga(trening.getTipTreninga());
+            treningTerminSalaDto.setTrajanje(trening.getTrajanje());
+            List<TerminSalaDto> terminSalaDtoList = new ArrayList<>();
             for(Termin termin: trening.getTermini()){
-                TerminDto terminDto = new TerminDto();
-                terminDto.setCena(termin.getCena());
-                terminDto.setVremePocetka(termin.getVremePocetka());
-                terminDto.setId(termin.getId());
-                listaTerminaDto.add(terminDto);
+                TerminSalaDto terminSalaDto = new TerminSalaDto();
+                terminSalaDto.setCena(termin.getCena());
+                terminSalaDto.setVremePocetka(termin.getVremePocetka());
+                terminSalaDto.setId(termin.getId());
+                terminSalaDto.setSala_id(termin.getSala().getId());
+                terminSalaDto.setKapacitet(termin.getSala().getKapacitet());
+                terminSalaDto.setOznaka(termin.getSala().getOznaka());
+                terminSalaDtoList.add(terminSalaDto);
             }
-            treningDto.setListaTermina(listaTerminaDto);
-            treningDtos.add(treningDto);
+            treningTerminSalaDto.setListaTermina(terminSalaDtoList);
+            treningTerminSalaDtos.add(treningTerminSalaDto);
         }
 
-        return new ResponseEntity<>(treningDtos, HttpStatus.OK);
+        return new ResponseEntity<>(treningTerminSalaDtos, HttpStatus.OK);
+    }
+
+    @GetMapping(value = "/prikazListeTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<TreningTerminSalaDto>> getTrainingsOfTrener(@PathVariable Long id, @RequestParam String uloga) {
+
+        List<Trening> treninzi = this.treningService.findAllByTrenerId(id);
+
+        List<TreningTerminSalaDto> treningTerminSalaDtos = new LinkedList<>();
+
+        for(Trening trening: treninzi) {
+            TreningTerminSalaDto treningTerminSalaDto = new TreningTerminSalaDto();
+            treningTerminSalaDto.setId(trening.getId());
+            treningTerminSalaDto.setNaziv(trening.getNaziv());
+            treningTerminSalaDto.setOpis(trening.getOpis());
+            treningTerminSalaDto.setTipTreninga(trening.getTipTreninga());
+            treningTerminSalaDto.setTrajanje(trening.getTrajanje());
+            List<TerminSalaDto> terminSalaDtoList = new ArrayList<>();
+            for(Termin termin: trening.getTermini()){
+                TerminSalaDto terminSalaDto = new TerminSalaDto();
+                terminSalaDto.setId(termin.getId());
+                terminSalaDto.setCena(termin.getCena());
+                terminSalaDto.setVremePocetka(termin.getVremePocetka());
+                terminSalaDto.setId(termin.getId());
+                Sala sala = salaService.findOne(termin.getSala().getId());
+                terminSalaDto.setSala_id(sala.getId());
+                terminSalaDto.setKapacitet(sala.getKapacitet());
+                terminSalaDto.setOznaka(sala.getOznaka());
+                terminSalaDtoList.add(terminSalaDto);
+            }
+            treningTerminSalaDto.setListaTermina(terminSalaDtoList);
+            treningTerminSalaDtos.add(treningTerminSalaDto);
+        }
+
+        return new ResponseEntity<>(treningTerminSalaDtos, HttpStatus.OK);
     }
 
     @GetMapping(value = "/prosireniPrikazTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<TreningTerminSalaDto> getTrainingDetails(@PathVariable Long id, @RequestParam String uloga) {
-        if(!uloga.equals("CLAN")){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+
         Trening trening = this.treningService.findByTermini(terminService.findOneById(id));
         TreningTerminSalaDto treningDto = new TreningTerminSalaDto();
         treningDto.setId(trening.getId());
@@ -141,6 +194,27 @@ public class TreningController {
         return new ResponseEntity<>(treningDto, HttpStatus.OK);
     }
 
+    @PutMapping(value = "/izmenaTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<TreningDto> putTraining(@PathVariable Long id, @RequestParam String uloga, @RequestBody TreningDto treningDto) {
+        if(!uloga.equals("TRENER")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Trening trening = this.treningService.findOne(id);
+
+
+        trening.setNaziv(treningDto.getNaziv());
+        trening.setTipTreninga(treningDto.getTipTreninga());
+        trening.setTrajanje(treningDto.getTrajanje());
+        trening.setOpis(treningDto.getOpis());
+
+        this.treningService.save(trening);
+
+        treningDto.setId(id);
+
+        return new ResponseEntity<>(treningDto, HttpStatus.OK);
+    }
+
     @PutMapping(value = "/izmena/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<PrikazTreningaDto> putTerminAndTrening(@PathVariable Long id, @RequestParam String uloga, @RequestBody PrikazTreningaDto noviTerminAndTermin) {
         if(!uloga.equals("TRENER")){
@@ -149,6 +223,10 @@ public class TreningController {
 
         Termin termin = this.terminService.findOne(id);
         Trening trening = this.treningService.findByTermini(terminService.findOneById(id));
+
+        if(termin.getBrojPrijavljenihClanova() > 0){
+            return new ResponseEntity<>(noviTerminAndTermin, HttpStatus.BAD_REQUEST);
+        }
 
         trening.setNaziv(noviTerminAndTermin.getNaziv());
         trening.setTipTreninga(noviTerminAndTermin.getTipTreninga());
@@ -167,37 +245,6 @@ public class TreningController {
         return new ResponseEntity<>(noviTerminAndTermin, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/prikazListeTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<TreningDto>> getTrainingsOfTrener(@PathVariable Long id, @RequestParam String uloga) {
-        if(!uloga.equals("TRENER")){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
-
-        List<Trening> treninzi = this.treningService.findAllByTrenerId(id);
-
-        List<TreningDto> treningDtos = new LinkedList<>();
-
-        for(Trening trening: treninzi) {
-            TreningDto treningDto = new TreningDto();
-            treningDto.setId(trening.getId());
-            treningDto.setNaziv(trening.getNaziv());
-            treningDto.setOpis(trening.getOpis());
-            treningDto.setTipTreninga(trening.getTipTreninga());
-            treningDto.setTrajanje(trening.getTrajanje());
-            List<TerminDto> listaTerminaDto = new ArrayList<>();
-            for(Termin termin: trening.getTermini()){
-                TerminDto terminDto = new TerminDto();
-                terminDto.setCena(termin.getCena());
-                terminDto.setVremePocetka(termin.getVremePocetka());
-                terminDto.setId(termin.getId());
-                listaTerminaDto.add(terminDto);
-            }
-            treningDto.setListaTermina(listaTerminaDto);
-            treningDtos.add(treningDto);
-        }
-
-        return new ResponseEntity<>(treningDtos, HttpStatus.OK);
-    }
 
     @GetMapping(value="/ponazivu", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<TreningDto>> getTreningPoNazivu(@RequestParam String naziv) {

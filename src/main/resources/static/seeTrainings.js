@@ -10,11 +10,11 @@ $(document).ready(function () {
             console.log("SUCCESS:\n", response);
             for (let trening of response) {
                     let row = "<tr class=\"table-secondary\">";
-                    row += "<td>" + trening.id + "</td>";
                     row += "<td>" + trening.naziv + "</td>";
                     row += "<td>" + trening.opis + "</td>";
                     row += "<td>" + trening.tipTreninga + "</td>";
                     row += "<td>" + trening.trajanje + "</td>";
+                    row += "<td><a href=\"changeTraining.html?id=" + trening.id + "\" type=\"button\" class=\"btn btn-primary\">Izmeni</a></td>";
                     row += "<td><a href=\"addTermin.html?id=" + trening.id + "\" type=\"button\" class=\"btn btn-primary\">Dodaj</a></td>";
                     $('#treninzi').append(row);
                 }
