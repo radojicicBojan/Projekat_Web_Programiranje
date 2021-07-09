@@ -196,7 +196,7 @@ $(document).on("submit", "#registration", function (event) {
     let telefon = $("#phone").val();
     let email = $("#email").val();
     let datumRodjenja = $("#date").val();
-    let uloga = $("#role").val();
+    let uloga = "CLAN";
 
 
     let newTrener = {
@@ -227,8 +227,9 @@ $(document).on("submit", "#registration", function (event) {
         }
     });
 });
-let uloga = localStorage.getItem("ULOGA");
 
+
+let uloga = localStorage.getItem("ULOGA");
 $(document).ready(function () {
     $.ajax({
         type: "GET",

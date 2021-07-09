@@ -51,12 +51,14 @@
     </div>
 </nav>
 
-    <form id="registration" class="form-horizontal" action='' method="POST">
-        <fieldset>
-            <div class="d-flex justify-content-center">
-                <div style="opacity: 0.8; background-image: url('https://images.unsplash.com/photo-1515549832467-8783363e19b6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8d2hpdGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60');; padding: 5px; margin-top: 5px">
+<form id="registration" class="form-horizontal" action='' method="POST">
+    <fieldset>
+        <button onclick="location.href='registrationTypeCoach.html'" type="button" class="btn btn-primary" style="width: 219px; height: 55px;  height: 55px; margin-left: 42.9%">Registruj se kao trener</button>
+
+        <div class="d-flex justify-content-center">
+            <div style="opacity: 0.8; background-image: url('https://images.unsplash.com/photo-1515549832467-8783363e19b6?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Nnx8d2hpdGV8ZW58MHx8MHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60');; padding: 5px; margin-top: 5px">
                 <div id="legend">
-                    <legend class="">Registracija</legend>
+                    <legend class="">Registracija člana</legend>
                 </div>
                 <div class="control-group">
                     <!-- Username -->
@@ -139,19 +141,6 @@
                 </div>
 
                 <div class="control-group">
-                    <!-- Role -->
-                    <label class="control-label" for="role">Uloga</label>
-                    <div class="controls">
-                        <select name="role" id="role">
-                            <option value="">Izaberite vasu ulogu </option>
-                            <option value="TRENER">Trener</option>
-                            <option value="CLAN">Clan fitnes centra</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="control-group">
                     <!-- Button -->
                     <div style="margin-top: 5px" class="controls">
                         <button type="reset" class="btn btn-light" style="border-color: black; width: 100px; height: 55px">Poništi</button>
@@ -159,12 +148,12 @@
                     </div>
                 </div>
             </div>
-            </div>
-        </fieldset>
-    </form>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
-    <script type="text/javascript" src="registration.js"></script>
-    <script type="text/javascript" src="main.js"></script>
+        </div>
+    </fieldset>
+</form>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.js"></script>
+<script type="text/javascript" src="registration.js"></script>
+<script type="text/javascript" src="main.js"></script>
 </body>
 </html>

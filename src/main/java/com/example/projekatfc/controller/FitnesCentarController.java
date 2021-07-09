@@ -75,6 +75,25 @@ public class FitnesCentarController {
         return new ResponseEntity<>(fitnesCentarDto, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/fitnesCentri/prikaz", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<FitnesCentarDto>> getFitnesCentar() {
+        List<FitnesCentar> fitnesCentri = this.fitnesCentarService.getAll();
+
+        List<FitnesCentarDto> fitnesCentarDtos = new LinkedList<>();
+
+        for(FitnesCentar fitnesCentar: fitnesCentri) {
+            FitnesCentarDto fitnesCentarDto = new FitnesCentarDto();
+            fitnesCentarDto.setId(fitnesCentar.getId());
+            fitnesCentarDto.setAdresa(fitnesCentar.getAdresa());
+            fitnesCentarDto.setEmail(fitnesCentar.getEmail());
+            fitnesCentarDto.setNaziv(fitnesCentar.getNaziv());
+            fitnesCentarDto.setTelefon(fitnesCentar.getTelefon());
+            fitnesCentarDtos.add(fitnesCentarDto);
+        }
+
+        return new ResponseEntity<>(fitnesCentarDtos, HttpStatus.OK);
+    }
+
     @PutMapping(value = "/fitnesCentri/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<FitnesCentarDto> putFitnesCentar(@PathVariable Long id, @RequestParam String uloga, @RequestBody FitnesCentarDto noviFitnesCentar) {
         if(!uloga.equals("ADMINISTRATOR")){
