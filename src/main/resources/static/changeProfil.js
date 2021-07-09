@@ -1,8 +1,9 @@
 let id = localStorage.getItem("ID");
+let uloga = localStorage.getItem("ULOGA");
 
 $.ajax({
     type: "GET",
-    url: "http://localhost:8080/api/prikazKorisnika/" + id,
+    url: "http://localhost:8080/api/prikazKorisnika/" + id + "?uloga=" + uloga,
     dataType: "json",
     success: function (response) {
         console.log("SUCCESS:\n", response);
@@ -45,15 +46,15 @@ $(document).on("submit", "#changeProfil", function (event) {
 
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8080/api/izmenaKorisnika/" + id,
+        url: "http://localhost:8080/api/izmenaKorisnika/" + id + "?uloga=" + uloga,
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(newProfil),
         success: function (response) {
             console.log(response);
 
-            alert("Profil " + response.id + " je uspešno izmenjen!");
-            window.location.href = "homepage.html";
+            alert("Vaš profil je uspešno izmenjen!");
+            window.location.href = "profil.html";
         },
         error: function () {
             alert("Greška prilikom izmene profila!");

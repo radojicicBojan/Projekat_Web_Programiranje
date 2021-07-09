@@ -1,9 +1,10 @@
 let id = localStorage.getItem("ID");
+let uloga = localStorage.getItem("ULOGA");
 
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/termini/prikazOdradjenihTreninga/" + id,
+        url: "http://localhost:8080/api/termini/prikazOdradjenihTreninga/" + id + "?uloga=" + uloga,
         dataType: "json",
         success: function (response) {
             trainings=response;
@@ -17,7 +18,6 @@ $(document).ready(function () {
                 row += "<td>" + trening.trajanje + "</td>";
                 row += "<td>" + trening.oznaka + "</td>";
                 row += "<td>" + trening.cena + "</td>";
-                row += "<td>" + trening.ocena + "</td>";
 
                 $('#odradjeniTreninzi').append(row);
             }
@@ -31,7 +31,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/termini/prikazOdradjenihTreninga/" + id,
+        url: "http://localhost:8080/api/termini/prikazOdradjenihTreninga/" + id + "?uloga=" + uloga,
         dataType: "json",
         success: function (response) {
             trainings=response;
@@ -62,7 +62,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/termini/prikazOdradjenihTreninga/" + id,
+        url: "http://localhost:8080/api/termini/prikazOdradjenihTreninga/" + id + "?uloga=" + uloga,
         dataType: "json",
         success: function (response) {
             trainings=response;
@@ -95,7 +95,7 @@ function oceni(){
 
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8080/api/termini/oceni/" + id/ + ID,
+        url: "http://localhost:8080/api/termini/oceni/" + id/ + ID + "?uloga=" + uloga,
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(ids),

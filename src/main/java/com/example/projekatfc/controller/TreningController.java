@@ -42,7 +42,10 @@ public class TreningController {
         return new ResponseEntity<>(noviTrening, HttpStatus.CREATED);
     }
     @PostMapping(value = "/addTraining")
-    public ResponseEntity<TreningTrenerDto> dodavanjeTreninga(@RequestBody TreningTrenerDto newTrening){
+    public ResponseEntity<TreningTrenerDto> dodavanjeTreninga(@RequestParam String uloga, @RequestBody TreningTrenerDto newTrening){
+        if(!uloga.equals("TRENER")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         Trening trening = treningService.dodajTreningTrener(newTrening);
         newTrening.setId(trening.getId());
@@ -139,7 +142,11 @@ public class TreningController {
     }
 
     @PutMapping(value = "/izmena/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PrikazTreningaDto> putTerminAndTrening(@PathVariable Long id, @RequestBody PrikazTreningaDto noviTerminAndTermin) {
+    public ResponseEntity<PrikazTreningaDto> putTerminAndTrening(@PathVariable Long id, @RequestParam String uloga, @RequestBody PrikazTreningaDto noviTerminAndTermin) {
+        if(!uloga.equals("TRENER")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         Termin termin = this.terminService.findOne(id);
         Trening trening = this.treningService.findByTermini(terminService.findOneById(id));
 
@@ -161,7 +168,11 @@ public class TreningController {
     }
 
     @GetMapping(value = "/prikazListeTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<TreningDto>> getTrainingsOfTrener(@PathVariable Long id) {
+    public ResponseEntity<List<TreningDto>> getTrainingsOfTrener(@PathVariable Long id, @RequestParam String uloga) {
+        if(!uloga.equals("TRENER")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         List<Trening> treninzi = this.treningService.findAllByTrenerId(id);
 
         List<TreningDto> treningDtos = new LinkedList<>();

@@ -1,9 +1,10 @@
 let id = localStorage.getItem("ID");
+let uloga = localStorage.getItem("ULOGA");
 
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/termini/prikazPrijavljenihTreninga/" + id,
+        url: "http://localhost:8080/api/termini/prikazPrijavljenihTreninga/" + id + "?uloga=" + uloga,
         dataType: "json",
         success: function (response) {
             trainings=response;
@@ -18,7 +19,7 @@ $(document).ready(function () {
                 row += "<td>" + trening.oznaka + "</td>";
                 row += "<td>" + trening.cena + "</td>";
                 row += "<td>" + trening.vremePocetka.slice(0, 16).split('T').join(' '); + "</td>";
-                row += "<td>" + `<button class='btn btn-primary' onclick='otkazivanje()' '>Otkaži</button></td>"`;
+                row += "<td>" + `<button class='btn btn-primary' termin_id='"+trening.id+"' onclick='otkazivanje()' '>Otkaži</button></td>"`;
 
                 $('#prijavljeniTreninzi').append(row);
             }
@@ -32,7 +33,7 @@ $(document).ready(function () {
 function otkazivanje(){
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/api/termini/otkazivanjePrijave/" + id,
+        url: "http://localhost:8080/api/termini/otkazivanjePrijave/" + 1 + "/" + 6 + "?uloga=" + uloga,
         dataType: "text",
         contentType: "application/json",
         data: JSON.stringify(window.localStorage.getItem("ID")),

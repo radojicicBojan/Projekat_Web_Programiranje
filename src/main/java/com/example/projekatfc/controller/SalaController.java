@@ -68,7 +68,11 @@ public class SalaController {
     }
 
     @PutMapping(value = "/sale/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<SalaDto> putSala(@PathVariable Long id, @RequestBody SalaDto novaSala) {
+    public ResponseEntity<SalaDto> putSala(@PathVariable Long id, @RequestParam String uloga, @RequestBody SalaDto novaSala) {
+        if(!uloga.equals("ADMINISTRATOR")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         Sala sala = this.salaService.findOne(id);
 
         sala.setKapacitet(novaSala.getKapacitet());
@@ -82,7 +86,11 @@ public class SalaController {
     }
     
     @DeleteMapping(value = "/deleteSala", produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpStatus approve(@RequestBody List<Long> ids) throws Exception{
+    public HttpStatus approve(@RequestParam String uloga, @RequestBody List<Long> ids) throws Exception{
+        if(!uloga.equals("ADMINISTRATOR")){
+            return HttpStatus.BAD_REQUEST;
+        }
+
         for(Long id: ids) {
             Sala sala = salaService.findOne(id);
             salaService.delete(sala);

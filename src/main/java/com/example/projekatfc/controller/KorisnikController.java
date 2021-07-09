@@ -143,7 +143,11 @@ public class KorisnikController {
     }
 
     @GetMapping(value = "/prikazKorisnika/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<KorisnikDto> getProfilKorisnik(@PathVariable Long id) {
+    public ResponseEntity<KorisnikDto> getProfilKorisnik(@PathVariable Long id, @RequestParam String uloga) {
+        if(!uloga.equals("CLAN")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         Korisnik korisnik = this.korisnikService.findOne(id);
 
         KorisnikDto korisnikDto = new KorisnikDto();
@@ -163,7 +167,11 @@ public class KorisnikController {
     }
 
     @PutMapping(value = "/izmenaKorisnika/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<KorisnikDto> putKorisnik(@PathVariable Long id, @RequestBody KorisnikDto korisnikDto) {
+    public ResponseEntity<KorisnikDto> putKorisnik(@PathVariable Long id, @RequestParam String uloga, @RequestBody KorisnikDto korisnikDto) {
+        if(!uloga.equals("CLAN")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         Korisnik korisnik = this.korisnikService.findOne(id);
 
         korisnik.setKorisnickoIme(korisnikDto.getKorisnickoIme());

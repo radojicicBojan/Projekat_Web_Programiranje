@@ -1,9 +1,10 @@
 let id = new URL(window.location.href).searchParams.get("id");
 let ID = localStorage.getItem("ID");
+let uloga = localStorage.getItem("ULOGA");
 
 $.ajax({
     type: "GET",
-    url: "http://localhost:8080/api/termini/ispis/" + id,
+    url: "http://localhost:8080/api/termini/ispis/" + id + "?uloga=" + uloga,
     dataType: "json",
     success: function (response) {
         console.log("SUCCESS:\n", response);
@@ -40,7 +41,7 @@ function izmeni() {
 
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8080/api/treninzi/izmena/" + id,
+        url: "http://localhost:8080/api/treninzi/izmena/" + id + "?uloga=" + uloga,
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(newTermin),

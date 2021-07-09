@@ -1,7 +1,9 @@
+let uloga = localStorage.getItem("ULOGA");
+
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/fitnesCentri",
+        url: "http://localhost:8080/api/fitnesCentri" + "?uloga=" + uloga,
         dataType: "json",
         success: function (response) {
             console.log("SUCCESS:\n", response);
@@ -36,7 +38,7 @@ function obrisi(){
     }
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:8080/api/delete",
+        url: "http://localhost:8080/api/delete" + "?uloga=" + uloga,
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(ids),

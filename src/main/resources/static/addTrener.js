@@ -1,9 +1,9 @@
-// Prikaz svih zaposlenih
-$(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Object Model) učitan da bi JS mogao sa njim da manipuliše.
-    // ajax poziv za dobavljanje svih zaposlenih sa backend-a i prikaz u tabeli
+let uloga = localStorage.getItem("ULOGA");
+
+$(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/approval",
+        url: "http://localhost:8080/api/approval" + "?uloga=" + uloga,
         dataType: "json",
         success: function (response) {
             console.log("SUCCESS:\n", response);
@@ -38,7 +38,7 @@ function aktivan(){
     }
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8080/api/approval",
+        url: "http://localhost:8080/api/approval"  + "?uloga=" + uloga,
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(ids),

@@ -1,4 +1,6 @@
 let ID = localStorage.getItem("ID");
+let uloga = localStorage.getItem("ULOGA");
+
 $(document).on("submit", "#addTrainingCoach", function (event) {
     event.preventDefault();
     console.log('test');
@@ -19,7 +21,7 @@ $(document).on("submit", "#addTrainingCoach", function (event) {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/api/treninzi/addTraining",
+        url: "http://localhost:8080/api/treninzi/addTraining" + "?uloga=" + uloga,
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(newTrening),

@@ -26,14 +26,21 @@ public class FitnesCentarController {
     }
 
     @PostMapping(value = "/dodavanjeFitnesCentra")
-    public ResponseEntity<FitnesCentarDto> addFitnesCentar(@RequestBody FitnesCentarDto noviFitnesCentar){
-            FitnesCentar fitnesCentar = fitnesCentarService.dodajFitnesCentar(noviFitnesCentar);
+    public ResponseEntity<FitnesCentarDto> addFitnesCentar(@RequestParam String uloga, @RequestBody FitnesCentarDto noviFitnesCentar){
+        if(!uloga.equals("ADMINISTRATOR")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        FitnesCentar fitnesCentar = fitnesCentarService.dodajFitnesCentar(noviFitnesCentar);
             noviFitnesCentar.setId(fitnesCentar.getId());
             return new ResponseEntity<>(noviFitnesCentar, HttpStatus.CREATED);
 
         }
     @GetMapping(value = "/fitnesCentri", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<FitnesCentarDto>> getFitnesCentar() {
+    public ResponseEntity<List<FitnesCentarDto>> getFitnesCentar(@RequestParam String uloga) {
+        if(!uloga.equals("ADMINISTRATOR")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         List<FitnesCentar> fitnesCentri = this.fitnesCentarService.getAll();
 
         List<FitnesCentarDto> fitnesCentarDtos = new LinkedList<>();
@@ -52,7 +59,11 @@ public class FitnesCentarController {
     }
 
     @GetMapping(value = "/fitnesCentri/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FitnesCentarDto> getFitnesCentar(@PathVariable Long id) {
+    public ResponseEntity<FitnesCentarDto> getFitnesCentar(@PathVariable Long id, @RequestParam String uloga) {
+        if(!uloga.equals("ADMINISTRATOR")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         FitnesCentar fitnesCentar = this.fitnesCentarService.findOne(id);
             FitnesCentarDto fitnesCentarDto = new FitnesCentarDto();
             fitnesCentarDto.setId(fitnesCentar.getId());
@@ -65,7 +76,11 @@ public class FitnesCentarController {
     }
 
     @PutMapping(value = "/fitnesCentri/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<FitnesCentarDto> putFitnesCentar(@PathVariable Long id, @RequestBody FitnesCentarDto noviFitnesCentar) {
+    public ResponseEntity<FitnesCentarDto> putFitnesCentar(@PathVariable Long id, @RequestParam String uloga, @RequestBody FitnesCentarDto noviFitnesCentar) {
+        if(!uloga.equals("ADMINISTRATOR")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         FitnesCentar fitnesCentar = this.fitnesCentarService.findOne(id);
 
         fitnesCentar.setNaziv(noviFitnesCentar.getNaziv());
@@ -81,7 +96,11 @@ public class FitnesCentarController {
     }
 
     @DeleteMapping(value = "/delete", produces = MediaType.APPLICATION_JSON_VALUE)
-    public HttpStatus approve(@RequestBody List<Long> ids) throws Exception{
+    public HttpStatus approve(@RequestBody List<Long> ids, @RequestParam String uloga) throws Exception{
+        if(!uloga.equals("ADMINISTRATOR")){
+            return HttpStatus.BAD_REQUEST;
+        }
+
         for(Long id: ids) {
             FitnesCentar fc = fitnesCentarService.findOne(id);
             fitnesCentarService.delete(fc);

@@ -169,7 +169,11 @@ public class TerminController {
         return new ResponseEntity<>(prikazTreningaDtos, HttpStatus.OK);
     }
     @GetMapping(value = "/ispis/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<PrikazTreningaDto> getTermin(@PathVariable Long id) {
+    public ResponseEntity<PrikazTreningaDto> getTermin(@PathVariable Long id, @RequestParam String uloga) {
+        if(!uloga.equals("TRENER")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         Termin termin = this.terminService.findOne(id);
         Trening trening = this.treningService.findOne(id);
 
@@ -188,7 +192,10 @@ public class TerminController {
     }
 
     @PostMapping(value = "/prijavaZaTrening/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> putTermin(@PathVariable Long id, @RequestBody Long clanId) {
+    public ResponseEntity<String> putTermin(@PathVariable Long id, @RequestParam String uloga, @RequestBody Long clanId) {
+        if(!uloga.equals("CLAN")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         Termin termin = this.terminService.findOne(id);
         Clan clan = clanService.findOneById(clanId);
@@ -204,7 +211,10 @@ public class TerminController {
     }
 
     @PostMapping(value = "/otkazivanjePrijave/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> otkazivanjePrijave(@PathVariable Long id, @RequestBody Long clanId) {
+    public ResponseEntity<String> otkazivanjePrijave(@PathVariable Long id, @RequestParam String uloga, @RequestBody Long clanId) {
+        if(!uloga.equals("CLAN")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
 
         Termin termin = this.terminService.findOne(id);
         Clan clan = clanService.findOneById(clanId);
@@ -217,7 +227,10 @@ public class TerminController {
     }
 
     @GetMapping(value = "/prikazPrijavljenihTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<TreningTerminSalaDto>> getPrijavljeniTreninzi(@PathVariable Long id) {
+    public ResponseEntity<List<TreningTerminSalaDto>> getPrijavljeniTreninzi(@PathVariable Long id, @RequestParam String uloga) {
+        if(!uloga.equals("CLAN")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         Clan clan = this.clanService.findOneById(id);
         Set<RezervisanTrening> termins = clan.getListaRezervisanihTermina();
         List<TreningTerminSalaDto> terminDtos = new ArrayList<>();
@@ -241,7 +254,11 @@ public class TerminController {
     }
 
     @GetMapping(value = "/prikazOdradjenihTreninga/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<TreningTerminSalaDto>> getOdradjeniTreninzi(@PathVariable Long id) {
+    public ResponseEntity<List<TreningTerminSalaDto>> getOdradjeniTreninzi(@PathVariable Long id, @RequestParam String uloga) {
+        if(!uloga.equals("CLAN")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         Clan clan = this.clanService.findOneById(id);
         Set<OdradjenTrening> termins = clan.getListaOdradjenihTreninga();
         List<TreningTerminSalaDto> terminDtos = new ArrayList<>();

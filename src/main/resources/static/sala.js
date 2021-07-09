@@ -1,10 +1,12 @@
 let id = new URL(window.location.href).searchParams.get("id");
+let uloga = localStorage.getItem("ULOGA");
+
 
 $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Object Model) učitan da bi JS mogao sa njim da manipuliše.
     // ajax poziv za dobavljanje svih zaposlenih sa backend-a i prikaz u tabeli
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/sale/fitnesCentar/" + id,
+        url: "http://localhost:8080/api/sale/fitnesCentar/" + id + "?uloga=" + uloga,
         dataType: "json",
         success: function (response) {
             console.log("SUCCESS:\n", response);
@@ -36,7 +38,7 @@ function obrisi(){
     }
     $.ajax({
         type: "DELETE",
-        url: "http://localhost:8080/api/deleteSala",
+        url: "http://localhost:8080/api/deleteSala" + "?uloga=" + uloga,
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(ids),

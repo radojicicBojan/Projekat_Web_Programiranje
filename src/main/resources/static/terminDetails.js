@@ -35,9 +35,10 @@ $(document).ready(function () {
     });
 });
 function prijava(){
+    let uloga = window.localStorage.getItem("ULOGA");
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/api/termini/prijavaZaTrening/" + id,
+        url: "http://localhost:8080/api/termini/prijavaZaTrening/" + id + "?uloga=" + uloga,
         dataType: "text",
         contentType: "application/json",
         data: JSON.stringify(window.localStorage.getItem("ID")),
@@ -45,7 +46,7 @@ function prijava(){
             console.log(response);
 
             alert("Uspešno ste se prijavili za trening!");
-            window.location.href = "terminDetails.html?id=" + id;
+            window.location.href = "prijavljeniTreninzi.html";
         },
         error: function () {
             alert("Greška prilikom prijavljivanja!");

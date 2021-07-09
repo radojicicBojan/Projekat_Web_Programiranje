@@ -210,7 +210,6 @@ $(document).on("submit", "#registration", function (event) {
         uloga
     }
 
-
     $.ajax({
         type: "POST",
         url: "http://localhost:8080/api/registration",

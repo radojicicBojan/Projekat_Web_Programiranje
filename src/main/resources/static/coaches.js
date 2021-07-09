@@ -1,8 +1,10 @@
+let uloga = localStorage.getItem("ULOGA");
+
 $(document).ready(function () {
 
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/coaches",
+        url: "http://localhost:8080/api/coaches" + "?uloga=" + uloga,
         dataType: "json",
         success: function (response) {
             console.log("SUCCESS:\n", response);

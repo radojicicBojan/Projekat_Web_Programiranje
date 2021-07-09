@@ -1,3 +1,5 @@
+let uloga = localStorage.getItem("ULOGA");
+
 $(document).on("submit", "#addingSala", function (event) {
     event.preventDefault();
     console.log('test');
@@ -14,7 +16,7 @@ $(document).on("submit", "#addingSala", function (event) {
 
     $.ajax({
         type: "POST",
-        url: "http://localhost:8080/api/dodavanjeSale",
+        url: "http://localhost:8080/api/dodavanjeSale" + "?uloga=" + uloga,
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(novaSala),
@@ -33,7 +35,7 @@ $(document).on("submit", "#addingSala", function (event) {
 $(document).ready(function () {
     $.ajax({
         type: "GET",
-        url: "http://localhost:8080/api/fitnesCentri",
+        url: "http://localhost:8080/api/fitnesCentri" + "?uloga=" + uloga,
         dataType: "json",
         success: function (response) {
             console.log("SUCCESS:\n", response);

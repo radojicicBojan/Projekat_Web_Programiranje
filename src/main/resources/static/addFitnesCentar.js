@@ -1,3 +1,5 @@
+let uloga = localStorage.getItem("ULOGA");
+
 $(document).on("submit", "#addingFitnesCentar", function (event) {
     event.preventDefault();
     console.log('test');
@@ -16,7 +18,7 @@ let newFitnesCentar = {
 
 $.ajax({
     type: "POST",
-    url: "http://localhost:8080/api/dodavanjeFitnesCentra",
+    url: "http://localhost:8080/api/dodavanjeFitnesCentra" + "?uloga=" + uloga,
     dataType: "json",
     contentType: "application/json",
     data: JSON.stringify(newFitnesCentar),

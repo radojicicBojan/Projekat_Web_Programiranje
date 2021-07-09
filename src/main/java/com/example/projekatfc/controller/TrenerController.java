@@ -22,7 +22,10 @@ public class TrenerController {
     @Autowired
     private TrenerService trenerService;
     @GetMapping(value = "/approval", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<KorisnikDto>> getKorisnik() {
+    public ResponseEntity<List<KorisnikDto>> getKorisnik(@RequestParam String uloga) {
+        if(!uloga.equals("ADMINISTRATOR")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
         List<Trener> treneri = this.trenerService.getAllUnactive();
 
         List<KorisnikDto> trenerDtos = new LinkedList<>();
@@ -43,7 +46,11 @@ public class TrenerController {
         return new ResponseEntity<>(trenerDtos, HttpStatus.OK);
     }
     @PutMapping(value = "/approval", produces = MediaType.APPLICATION_JSON_VALUE)
-        public HttpStatus approve(@RequestBody List<Long> ids) throws Exception{
+        public HttpStatus approve(@RequestParam String uloga, @RequestBody List<Long> ids) throws Exception{
+        if(!uloga.equals("ADMINISTRATOR")){
+            return HttpStatus.BAD_REQUEST;
+        }
+
         for(Long id: ids) {
             Trener t = trenerService.findOne(id);
             t.setAktivan(true);
@@ -53,7 +60,11 @@ public class TrenerController {
     }
 
     @GetMapping(value = "/coaches", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<KorisnikDto>> getTrener() {
+    public ResponseEntity<List<KorisnikDto>> getTrener(@RequestParam String uloga) {
+        if(!uloga.equals("ADMINISTRATOR")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
         List<Trener> treneri = this.trenerService.getAll();
 
         List<KorisnikDto> trenerDtos = new LinkedList<>();
