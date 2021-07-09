@@ -216,13 +216,28 @@ public class TerminController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        Termin termin = this.terminService.findOne(id);
+        Termin termin = this.terminService.findOneById(id);
         Clan clan = clanService.findOneById(clanId);
 
         if(clanService.otkazivanjePrijaveZaTermin(clan, termin)){
             return new ResponseEntity<>("Otkazano" ,HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+    }
+
+    @PostMapping(value = "/oceni/{id}/{clan_id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> oceniTermin(@PathVariable Long id, @PathVariable Long clan_id, @RequestParam String uloga, @RequestBody Double ocena) {
+        if(!uloga.equals("CLAN")){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+        Termin termin = this.terminService.findOneById(id);
+        Clan clan = clanService.findOneById(clan_id);
+
+        clanService.oceniTermin(clan, termin, ocena);
+        return new ResponseEntity<>("Ocenjeno" ,HttpStatus.OK);
+
 
     }
 
@@ -245,7 +260,9 @@ public class TerminController {
             treningTerminSalaDto.setCena(trening.getTermin().getCena());
             treningTerminSalaDto.setVremePocetka(trening.getTermin().getVremePocetka());
             treningTerminSalaDto.setOznaka(trening.getTermin().getSala().getOznaka());
+            treningTerminSalaDto.setOznaka(trening.getTermin().getSala().getOznaka());
             treningTerminSalaDto.setBrojPrijavljenihClanova(trening.getTermin().getBrojPrijavljenihClanova());
+            treningTerminSalaDto.setTerminId(trening.getTermin().getId());
             terminDtos.add(treningTerminSalaDto);
 
         }
@@ -274,6 +291,7 @@ public class TerminController {
             treningTerminSalaDto.setOznaka(trening.getTermin().getSala().getOznaka());
             treningTerminSalaDto.setOcena(trening.getOcena());
             treningTerminSalaDto.setBrojPrijavljenihClanova(trening.getTermin().getBrojPrijavljenihClanova());
+            treningTerminSalaDto.setTerminId(trening.getTermin().getId());
             terminDtos.add(treningTerminSalaDto);
 
         }

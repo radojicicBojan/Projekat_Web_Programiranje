@@ -4,9 +4,11 @@ package com.example.projekatfc.service;
 import com.example.projekatfc.model.Clan;
 import com.example.projekatfc.model.DTO.KorisnikDto;
 import com.example.projekatfc.model.DTO.LoginDto;
+import com.example.projekatfc.model.OdradjenTrening;
 import com.example.projekatfc.model.RezervisanTrening;
 import com.example.projekatfc.model.Termin;
 import com.example.projekatfc.repository.ClanRepository;
+import com.example.projekatfc.repository.OdradjenTreningRepository;
 import com.example.projekatfc.repository.RezervisanTreningRepository;
 import com.example.projekatfc.repository.TerminRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,8 @@ public class ClanService {
     private RezervisanTreningRepository rezervisanTreningRepository;
     @Autowired
     private TerminRepository terminRepository;
+    @Autowired
+    private OdradjenTreningRepository odradjenTreningRepository;
 
     public Clan registrujClana(KorisnikDto noviClan){
         Clan clan = new Clan();
@@ -62,14 +66,24 @@ public class ClanService {
     }
 
     public boolean otkazivanjePrijaveZaTermin(Clan clan, Termin termin) {
-        if(rezervisanTreningRepository.existsByClan_IdAndTermin_Id(clan.getId(), termin.getId())){
+        if(!rezervisanTreningRepository.existsByClan_IdAndTermin_Id(clan.getId(), termin.getId())){
             return false;
         }
 
         termin.setBrojPrijavljenihClanova(termin.getBrojPrijavljenihClanova()-1);
         terminRepository.save(termin);
 
-        rezervisanTreningRepository.deleteByClan_IdAndTermin_Id(clan.getId(), termin.getId());
+        RezervisanTrening rz = rezervisanTreningRepository.findByClan_IdAndTermin_Id(clan.getId(), termin.getId());
+        rezervisanTreningRepository.delete(rz);
         return true;
+    }
+
+    public OdradjenTrening oceniTermin(Clan clan, Termin termin, Double ocena) {
+        OdradjenTrening odradjenTrening =  odradjenTreningRepository.findByClan_IdAndTermin_Id(clan.getId(), termin.getId());
+        odradjenTrening.setOcena(ocena);
+
+        return odradjenTreningRepository.save(odradjenTrening);
+
+
     }
 }

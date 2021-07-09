@@ -41,7 +41,7 @@ function izmeni() {
 
     $.ajax({
         type: "PUT",
-        url: "http://localhost:8080/api/termini/izmena/" + id + "?uloga=" + uloga,
+        url: "http://localhost:8080/api/treninzi/izmena/" + id + "?uloga=" + uloga,
         dataType: "json",
         contentType: "application/json",
         data: JSON.stringify(newTermin),

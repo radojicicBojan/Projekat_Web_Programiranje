@@ -47,7 +47,7 @@ $(document).ready(function () {
                     row += "<td>" + trening.oznaka + "</td>";
                     row += "<td>" + trening.cena + "</td>";
                     row += "<td>" + `<input id='oceni' style='width: 50px'></input></td>"`;
-                    row += "<td>" + `<button onclick='oceni()' class='btn btn-primary'>Oceni</button></td>"`;
+                    row += "<td>" + `<button onclick='oceni(${trening.terminId})' class='btn btn-primary'>Oceni</button></td>"`;
 
                     $('#neocenjeniTreninzi').append(row);
                 }
@@ -89,18 +89,19 @@ $(document).ready(function () {
     });
 });
 
-function oceni(){
+function oceni(terminId){
 
-    let ocena = document.getElementById('ocena').val;
+    let ocena = document.getElementById('oceni').value;
 
     $.ajax({
-        type: "PUT",
-        url: "http://localhost:8080/api/termini/oceni/" + id/ + ID + "?uloga=" + uloga,
-        dataType: "json",
+        type: "POST",
+        url: "http://localhost:8080/api/termini/oceni/" + terminId +"/"+ id + "?uloga=" + uloga,
         contentType: "application/json",
-        data: JSON.stringify(ids),
+        dataType: "text",
+        data: JSON.stringify(ocena),
         success: function (response) {
-            alert("Obrisan Fitnes centar sa ID-jem: " + ids.join(","));
+            window.location.href="ocenjeniTreninzi.html";
+            alert("Uspešno ocenjen ");
         },
         error: function (response) {
             console.log("ERROR:\n", response);

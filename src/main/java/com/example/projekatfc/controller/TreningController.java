@@ -2,10 +2,7 @@ package com.example.projekatfc.controller;
 
 import com.example.projekatfc.model.*;
 import com.example.projekatfc.model.DTO.*;
-import com.example.projekatfc.service.FitnesCentarService;
-import com.example.projekatfc.service.SalaService;
-import com.example.projekatfc.service.TerminService;
-import com.example.projekatfc.service.TreningService;
+import com.example.projekatfc.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +21,9 @@ public class TreningController {
 
     @Autowired
     private TreningService treningService;
+
+    @Autowired
+    private ClanService clanService;
 
     @Autowired
     private SalaService salaService;

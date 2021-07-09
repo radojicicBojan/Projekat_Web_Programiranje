@@ -37,10 +37,11 @@ public class TreningTerminSalaDto {
 
         private Date vremePocetka;
 
+        private Long terminId;
 
         private List<TerminSalaDto> listaTermina;
 
-        public TreningTerminSalaDto(Long id, String naziv, String opis, String tipTreninga, Integer trajanje, Integer brojPrijavljenihClanova, Integer kapacitet, Integer brojSlobodnihMesta, String oznaka, Sala sala, Double cena, Double ocena,Date vremePocetka, List<TerminSalaDto> listaTermina) {
+        public TreningTerminSalaDto(Long id, String naziv, String opis, String tipTreninga, Integer trajanje, Integer brojPrijavljenihClanova, Integer kapacitet, Integer brojSlobodnihMesta, String oznaka, Sala sala, Double cena, Double ocena,Date vremePocetka, List<TerminSalaDto> listaTermina, Long terminId) {
             this.id = id;
             this.naziv = naziv;
             this.opis = opis;
@@ -55,6 +56,7 @@ public class TreningTerminSalaDto {
             this.ocena = ocena;
             this.vremePocetka = vremePocetka;
             this.listaTermina = listaTermina;
+            this.terminId = terminId;
         }
 
         public TreningTerminSalaDto() {}
