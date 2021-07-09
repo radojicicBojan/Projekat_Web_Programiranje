@@ -15,6 +15,9 @@ import java.util.List;
 public class TrenerService {
     @Autowired
     private TrenerRepository trenerRepository;
+    @Autowired
+    private FitnesCentarService fitnesCentarService;
+
     public Trener registrujTrenera(KorisnikDto noviTrener){
         Trener trener = new Trener();
         trener.setKorisnickoIme(noviTrener.getKorisnickoIme());
@@ -25,6 +28,8 @@ public class TrenerService {
         trener.setTelefon(noviTrener.getTelefon());
         trener.setDatumRodjenja(noviTrener.getDatumRodjenja());
         trener.setAktivan(noviTrener.getAktivan());
+        FitnesCentar fitnesCentar = fitnesCentarService.findOne(noviTrener.getFitnesCentarId());
+        trener.setFitnesCentar(fitnesCentar);
 
         trenerRepository.save(trener);
         return trener;

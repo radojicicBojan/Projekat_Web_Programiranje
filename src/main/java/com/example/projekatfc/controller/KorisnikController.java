@@ -20,6 +20,8 @@ public class KorisnikController {
     @Autowired
     private TrenerService trenerService;
     @Autowired
+    private FitnesCentarService fitnesCentarService;
+    @Autowired
     private ClanService clanService;
     @Autowired
     private KorisnikService korisnikService;
@@ -59,7 +61,7 @@ public class KorisnikController {
             KorisnikDto korisnikDto = new KorisnikDto(korisnik.getId(), korisnik.getKorisnickoIme(),
                     korisnik.getLozinka(), korisnik.getIme(), korisnik.getPrezime(),
                     korisnik.getTelefon(), korisnik.getEmail(), korisnik.getDatumRodjenja(),
-                    korisnik.getAktivan());
+                    korisnik.getAktivan(), null);
             korisnikDtos.add(korisnikDto);
         }
 

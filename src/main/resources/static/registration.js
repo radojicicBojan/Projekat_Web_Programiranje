@@ -227,6 +227,24 @@ $(document).on("submit", "#registration", function (event) {
         }
     });
 });
+let uloga = localStorage.getItem("ULOGA");
+
+$(document).ready(function () {
+    $.ajax({
+        type: "GET",
+        url: "http://localhost:8080/api/fitnesCentri" + "?uloga=" + uloga,
+        dataType: "json",
+        success: function (response) {
+            console.log("SUCCESS:\n", response);
+            for (let fitnesCentar of response) {
+                $('#fitnesCentri').append("<option value='"+ fitnesCentar.id +"'>" + fitnesCentar.naziv + "</option>");
+            }
+        },
+        error: function (response) {
+            console.log("ERROR:\n", response);
+        }
+    });
+});
 
 $(document).on("submit", "#registrationCoach", function (event) {
     event.preventDefault();
@@ -241,6 +259,7 @@ $(document).on("submit", "#registrationCoach", function (event) {
     let datumRodjenja = $("#date").val();
     let uloga = "TRENER";
     let aktivan = true;
+    let fitnesCentarId = $("#fitnesCentri").val();
 
 
     let Trener = {
@@ -252,7 +271,8 @@ $(document).on("submit", "#registrationCoach", function (event) {
         email,
         datumRodjenja,
         uloga,
-        aktivan
+        aktivan,
+        fitnesCentarId
     }
 
 
@@ -273,5 +293,7 @@ $(document).on("submit", "#registrationCoach", function (event) {
         }
     });
 });
+
+
 
 
