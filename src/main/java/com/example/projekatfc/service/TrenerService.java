@@ -28,7 +28,7 @@ public class TrenerService {
         trener.setTelefon(noviTrener.getTelefon());
         trener.setDatumRodjenja(noviTrener.getDatumRodjenja());
         trener.setAktivan(noviTrener.getAktivan());
-        FitnesCentar fitnesCentar = fitnesCentarService.findOne(noviTrener.getFitnesCentarId());
+        FitnesCentar fitnesCentar = fitnesCentarService.findById(noviTrener.getFitnesCentarId());
         trener.setFitnesCentar(fitnesCentar);
 
         trenerRepository.save(trener);

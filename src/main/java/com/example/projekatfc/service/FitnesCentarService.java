@@ -30,7 +30,7 @@ public class FitnesCentarService {
     public void delete(FitnesCentar fc){
         fitnesCentarRepository.deleteById(fc.getId());
     }
-    public FitnesCentar findOne(Long id) {
+    public FitnesCentar findById(Long id) {
         FitnesCentar fitnesCentar = this.fitnesCentarRepository.getOne(id);
         return fitnesCentar;
     }

@@ -22,7 +22,7 @@ public class SalaService {
         sala.setKapacitet(novaSala.getKapacitet());
 
         sala.setOznaka(novaSala.getOznaka());
-        FitnesCentar fitnesCentar = fitnesCentarService.findOne(novaSala.getFitnesCentarID());
+        FitnesCentar fitnesCentar = fitnesCentarService.findById(novaSala.getFitnesCentarID());
 
         sala.setFitnesCentar(fitnesCentar);
         salaRepository.save(sala);

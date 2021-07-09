@@ -44,7 +44,7 @@ public class SalaController {
     }
     @GetMapping(value = "/sale/fitnesCentar/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<SalaFCDto>> getSalaFromFitnesCentar(@PathVariable Long id) {
-        FitnesCentar fitnesCentar = trenerService.findOne(id).getFitnesCentar();
+        FitnesCentar fitnesCentar = fitnesCentarService.findById(id);
 
         Set<Sala> sale = fitnesCentar.getListaSala();
 

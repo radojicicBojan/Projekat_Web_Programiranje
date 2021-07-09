@@ -1,5 +1,6 @@
 let id = new URL(window.location.href).searchParams.get("id");
 let uloga = localStorage.getItem("ULOGA");
+let ID = localStorage.getItem("ID");
 
 
 $(document).ready(function () {    // Čeka se trenutak kada je DOM(Document Object Model) učitan da bi JS mogao sa njim da manipuliše.

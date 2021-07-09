@@ -64,7 +64,7 @@ public class FitnesCentarController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        FitnesCentar fitnesCentar = this.fitnesCentarService.findOne(id);
+        FitnesCentar fitnesCentar = this.fitnesCentarService.findById(id);
             FitnesCentarDto fitnesCentarDto = new FitnesCentarDto();
             fitnesCentarDto.setId(fitnesCentar.getId());
             fitnesCentarDto.setAdresa(fitnesCentar.getAdresa());
@@ -100,7 +100,7 @@ public class FitnesCentarController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
 
-        FitnesCentar fitnesCentar = this.fitnesCentarService.findOne(id);
+        FitnesCentar fitnesCentar = this.fitnesCentarService.findById(id);
 
         fitnesCentar.setNaziv(noviFitnesCentar.getNaziv());
         fitnesCentar.setAdresa(noviFitnesCentar.getAdresa());
@@ -121,7 +121,7 @@ public class FitnesCentarController {
         }
 
         for(Long id: ids) {
-            FitnesCentar fc = fitnesCentarService.findOne(id);
+            FitnesCentar fc = fitnesCentarService.findById(id);
             fitnesCentarService.delete(fc);
         }
         return HttpStatus.OK;
